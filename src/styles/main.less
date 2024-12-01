@@ -39,6 +39,7 @@
   height: 100vh;
   background-color: @grey;
   border: @border-panel;
+  overflow-y: auto;
 }
 
 .header-left-panel {
@@ -59,10 +60,11 @@
 }
 
 .input-search {
-  padding-left: 10px;
+  height: 32px;
   padding-right: auto;
   width: 100%;
   text-align: center;
+  border-radius: 5px;
 }
 
 .link {
@@ -78,4 +80,23 @@
 .link-profile {
   color: @font-color-grey;
   align-self: end;
+}
+
+.chat{ 
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+}
+
+.chat-participant{
+  border-top: @border-panel;
+  padding: 12px 10px;
+}
+
+.avatar{
+  object-fit: cover;
+  object-position: top center;
+  border-radius:50%;
+  width: 47px;
+  height: 47px;
 }
