@@ -1,5 +1,7 @@
 
-export { LeftPanel } from './arrow-left';
+export { LeftPanel } from './left-panel';
+export { Chat } from './chat'
+export { ArrowLeft } from './arrow-left';
 export { ArrowRight } from './arrow-right';
 export { Avatar } from './avatar';
 export { ChatParticipant } from './chat-participant';
@@ -10,3 +12,6 @@ export { IconUpload } from './icon-upload';
 export { InputMessage } from './input-message';
 export { InputSearch } from './input-search';
 export { Message } from './message';
+export {HeaderLeftPanel} from './header-left-panel'
+
+ 

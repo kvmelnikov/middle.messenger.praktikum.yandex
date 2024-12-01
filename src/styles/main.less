@@ -1,3 +1,10 @@
+
+@import url(../vendors/normalize.css);
+
+
+@grey: #FBFBFB;
+@border-panel: 1px solid #EAEAEA;
+
 @font-face {
   font-family: 'Inter';
   src: url(./Inter/Inter-Regular.woff2) format('woff2'), url(../../public/fonts/Inter/Inter-Regular.woff) format('woff');
@@ -18,3 +25,19 @@
   font-style: normal;
   font-weight: 900;
 }
+
+.main-page {
+  &__container{
+    display: grid;
+    grid-template-columns: 310px 1fr;
+  }
+}
+
+.left-panel{ 
+  height: 100vh;
+  background-color: @grey;
+  border: @border-panel;
+}
+
+
+

@@ -6,6 +6,8 @@ import * as Components from './components';
 
 // Register partials
 Handlebars.registerPartial('LeftPanel', Components.LeftPanel)
+Handlebars.registerPartial('HeaderLeftPanel', Components.HeaderLeftPanel)
+Handlebars.registerPartial('Chat', Components.Chat)
 Handlebars.registerPartial('ArrowRight', Components.ArrowRight)
 Handlebars.registerPartial('Avatar', Components.Avatar)
 Handlebars.registerPartial('ChatParticipant', Components.ChatParticipant)

@@ -10,6 +10,12 @@ export default defineConfig({
     },
   },
   css: {
-    postcss: './postcss.config.js',
+    preprocessorOptions: {
+      less: {
+        math: "always",
+        relativeUrls: true,
+        javascriptEnabled: true,
+      },
+    },
   },
 });
