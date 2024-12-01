@@ -13,5 +13,6 @@ export { InputMessage } from './input-message';
 export { InputSearch } from './input-search';
 export { Message } from './message';
 export {HeaderLeftPanel} from './header-left-panel'
+export {Link} from './link'
 
  

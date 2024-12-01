@@ -18,6 +18,7 @@ Handlebars.registerPartial('IconUpload', Components.IconUpload)
 Handlebars.registerPartial('InputMessage', Components.InputMessage)
 Handlebars.registerPartial('InputSearch', Components.InputSearch)
 Handlebars.registerPartial('Message', Components.Message)
+Handlebars.registerPartial('Link', Components.Link)
 
 export default class App {
   constructor() {

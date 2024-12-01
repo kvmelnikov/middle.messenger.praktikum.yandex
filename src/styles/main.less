@@ -4,6 +4,8 @@
 
 @grey: #FBFBFB;
 @border-panel: 1px solid #EAEAEA;
+@input-background: #EFEFEF;
+@font-color-grey: #999999;
 
 @font-face {
   font-family: 'Inter';
@@ -39,5 +41,41 @@
   border: @border-panel;
 }
 
+.header-left-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 23px;
+  padding: 21px 10px 14px 10px;
+}
 
 
+.input { 
+  background-color: @input-background;
+  border: 0;
+  &:hover,
+  &:focus-visible {
+    outline: 1px solid var(--primary-color);
+  }
+}
+
+.input-search {
+  padding-left: 10px;
+  padding-right: auto;
+  width: 100%;
+  text-align: center;
+}
+
+.link {
+  color: inherit;
+  text-decoration: none;  
+
+}
+
+.link:hover {
+  opacity: 0.8;
+}
+
+.link-profile {
+  color: @font-color-grey;
+  align-self: end;
+}
