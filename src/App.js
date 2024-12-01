@@ -1,9 +1,21 @@
 import Handlebars from 'handlebars';
 import * as Pages from './pages';
+import * as Components from './components';
 // import { mockQuestions, mockAnswers } from './mockData.js';
 // import './helpers/handlebarsHelpers.js';
 
 // Register partials
+Handlebars.registerPartial('LeftPanel', Components.LeftPanel)
+Handlebars.registerPartial('ArrowRight', Components.ArrowRight)
+Handlebars.registerPartial('Avatar', Components.Avatar)
+Handlebars.registerPartial('ChatParticipant', Components.ChatParticipant)
+Handlebars.registerPartial('CounterMessage', Components.CounterMessage)
+Handlebars.registerPartial('DateMessage', Components.DateMessage)
+Handlebars.registerPartial('HeaderChat', Components.HeaderChat)
+Handlebars.registerPartial('IconUpload', Components.IconUpload)
+Handlebars.registerPartial('InputMessage', Components.InputMessage)
+Handlebars.registerPartial('InputSearch', Components.InputSearch)
+Handlebars.registerPartial('Message', Components.Message)
 
 export default class App {
   constructor() {
@@ -17,7 +29,7 @@ export default class App {
 
   render() {
     let template;
-    console.log( this.state)
+    
     if (this.state.currentPage === "mainPaige") {
         console.log('render')
       template = Handlebars.compile(Pages.MainPage);
