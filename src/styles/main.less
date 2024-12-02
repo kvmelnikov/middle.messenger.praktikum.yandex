@@ -1,4 +1,3 @@
-
 @import url(../vendors/normalize.css);
 
 
@@ -6,6 +5,10 @@
 @border-panel: 1px solid #EAEAEA;
 @input-background: #EFEFEF;
 @font-color-grey: #999999;
+@black-text: #1E1E1E;
+@apperance: #3369F3;
+@white: #FFFFFF;
+@active-item: #E4EDFD;
 
 @font-face {
   font-family: 'Inter';
@@ -29,13 +32,13 @@
 }
 
 .main-page {
-  &__container{
+  &__container {
     display: grid;
     grid-template-columns: 310px 1fr;
   }
 }
 
-.left-panel{ 
+.left-panel {
   height: 100vh;
   background-color: @grey;
   border: @border-panel;
@@ -50,9 +53,10 @@
 }
 
 
-.input { 
+.input {
   background-color: @input-background;
   border: 0;
+
   &:hover,
   &:focus-visible {
     outline: 1px solid var(--primary-color);
@@ -69,7 +73,7 @@
 
 .link {
   color: inherit;
-  text-decoration: none;  
+  text-decoration: none;
 
 }
 
@@ -82,21 +86,92 @@
   align-self: end;
 }
 
-.chat{ 
+.chat {
   display: flex;
   flex-direction: column;
   padding: 0 10px;
 }
 
-.chat-participant{
+.chat-participant {
+  cursor: pointer;
   border-top: @border-panel;
   padding: 12px 10px;
+  display: grid;
+  grid-template-columns: 47px 193px 24px;
+  gap: 10px;
+  margin: 0;
+  &:hover {
+    background-color: @active-item;
+  }
+
+  // &__time-message {
+
+
+  // }
+  &__message {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  &__name{ 
+    margin: 0;
+    width: 193px;
+    height: 13px;
+    font-family: Inter;
+    font-size: 13px;
+    line-height: 13px;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &__text-message{
+    margin: 0;
+    width: 193px;
+    height: 30px;
+    font-family: Inter;
+    font-size: 9px;
+    line-height: 13px;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: @font-color-grey;
+  }
+
+  &__time{ 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &__time-message {
+    margin: 0;
+    font-family: Inter;
+    font-size: 9px;
+    line-height: 13px;
+    font-weight: 500;
+    color: @font-color-grey;
+  }
 }
 
-.avatar{
+.counter-messsage {
+  width: 20px;
+  line-height: 20px;
+  border-radius: 50%;
+  font-family: Inter;
+  font-size: 11px;
+  font-weight: 500;
+  text-align: center;
+  background-color: @apperance;
+  color:@white;
+  align-self: flex-end;
+}
+
+.avatar {
   object-fit: cover;
   object-position: top center;
-  border-radius:50%;
+  border-radius: 50%;
   width: 47px;
   height: 47px;
 }

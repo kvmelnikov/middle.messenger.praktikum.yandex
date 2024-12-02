@@ -32,7 +32,6 @@ export default class App {
 
   render() {
     let template;
-    
     if (this.state.currentPage === "mainPaige") {
         console.log('render')
       template = Handlebars.compile(Pages.MainPage);
