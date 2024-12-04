@@ -145,14 +145,15 @@
     justify-content: space-between;
   }
 
-  &__time-message {
-    margin: 0;
-    font-family: Inter;
-    font-size: 9px;
-    line-height: 13px;
-    font-weight: 500;
-    color: @font-color-grey;
-  }
+ 
+}
+.time {
+  margin: 0;
+  font-family: Inter;
+  font-size: 9px;
+  line-height: 13px;
+  font-weight: 500;
+  color: @font-color-grey;
 }
 
 .counter-messsage {
@@ -179,6 +180,31 @@
     display: flex;
     gap: 10px;
   } 
+}
+
+.avatar {
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 50%;
+  width: 47px;
+  height: 47px;
+}
+
+.header-chat {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  margin: 0 20px;
+  border-bottom: @border-panel;
+
+  &__name-block {
+    display: flex;
+    gap: 10px;
+  } 
+}
+
+.date-message {
+  text-align: center;
 }
 
 .avatar {

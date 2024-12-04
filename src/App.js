@@ -5,6 +5,8 @@ import * as Components from './components';
 // import './helpers/handlebarsHelpers.js';
 
 // Register partials
+Handlebars.registerPartial('WorkspaceChat', Components.WorkspaceChat)
+
 Handlebars.registerPartial('LeftPanel', Components.LeftPanel)
 Handlebars.registerPartial('HeaderLeftPanel', Components.HeaderLeftPanel)
 Handlebars.registerPartial('Chat', Components.Chat)
@@ -19,6 +21,7 @@ Handlebars.registerPartial('InputMessage', Components.InputMessage)
 Handlebars.registerPartial('InputSearch', Components.InputSearch)
 Handlebars.registerPartial('Message', Components.Message)
 Handlebars.registerPartial('Link', Components.Link)
+Handlebars.registerPartial('Time', Components.Time)
 
 export default class App {
   constructor() {
