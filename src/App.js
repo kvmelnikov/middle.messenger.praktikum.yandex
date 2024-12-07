@@ -30,13 +30,14 @@ Handlebars.registerPartial('ButtonApperance', Components.ButtonApperance)
 Handlebars.registerPartial('LeftNavigate', Components.LeftNavigate)
 Handlebars.registerPartial('FormProfile', Components.FormProfile)
 Handlebars.registerPartial('FormProfilePasword', Components.FormProfilePasword)
+Handlebars.registerPartial('FormLogin', Components.FormLogin)
+Handlebars.registerPartial('InputLogin', Components.InputLogin)
+
 export default class App {
   constructor() {
     this.state = {
-      currentPage: 'mainPaige',
-      action: 'default'   
-
-    //   answers: [],
+      currentPage: 'login',
+      action: 'default'
     };
     this.appElement = document.getElementById('app');
   }
@@ -44,11 +45,17 @@ export default class App {
   render() {
         
     let template;
+    if (this.state.currentPage === "login") {
+      template = Handlebars.compile(Pages.Login);
+      this.appElement.innerHTML = template({
+      });
+    } 
     if (this.state.currentPage === "mainPaige") {
       template = Handlebars.compile(Pages.MainPage);
       this.appElement.innerHTML = template({
       });
-    } else if(this.state.currentPage === "profile") {
+    } 
+    if(this.state.currentPage === "profile") {
       template = Handlebars.compile(Pages.Profile);
       this.appElement.innerHTML = template({
         editProfile: this.state.action
@@ -62,7 +69,8 @@ export default class App {
   attachEventListeners() {
     
     const links = document.querySelectorAll('.link');
-   
+    const Buttons = document.querySelectorAll('.button');
+
     links.forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
@@ -70,6 +78,15 @@ export default class App {
         this.changeAction(e.target.dataset.action)
       }); 
     });
+
+    Buttons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.changePage(e.target.dataset.page);
+        this.changeAction(e.target.dataset.action)
+      }); 
+    });
+    
   }
 
 changeAction(action) {
