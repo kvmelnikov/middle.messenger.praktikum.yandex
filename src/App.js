@@ -6,7 +6,6 @@ import * as Components from './components';
 
 // Register partials
 Handlebars.registerPartial('WorkspaceChat', Components.WorkspaceChat)
-
 Handlebars.registerPartial('LeftPanel', Components.LeftPanel)
 Handlebars.registerPartial('HeaderLeftPanel', Components.HeaderLeftPanel)
 Handlebars.registerPartial('Chat', Components.Chat)
@@ -22,27 +21,57 @@ Handlebars.registerPartial('InputSearch', Components.InputSearch)
 Handlebars.registerPartial('Message', Components.Message)
 Handlebars.registerPartial('Link', Components.Link)
 Handlebars.registerPartial('Time', Components.Time)
-
+Handlebars.registerPartial('FooterChat', Components.FooterChat)
+Handlebars.registerPartial('ChatForm', Components.ChatForm)
+Handlebars.registerPartial('SvgIcon', Components.SvgIcon)
+Handlebars.registerPartial('InputProfile', Components.InputProfile)
+Handlebars.registerPartial('ButtonIcon', Components.ButtonIcon)
+Handlebars.registerPartial('LeftNavigate', Components.LeftNavigate)
 export default class App {
   constructor() {
     this.state = {
       currentPage: 'mainPaige',
-    //   questions: [],
+      editProfile: 'false' 
     //   answers: [],
     };
     this.appElement = document.getElementById('app');
   }
 
   render() {
+   
     let template;
     if (this.state.currentPage === "mainPaige") {
-        console.log('render')
       template = Handlebars.compile(Pages.MainPage);
       this.appElement.innerHTML = template({
       });
+    } else if(this.state.currentPage === "profile") {
+
+      template = Handlebars.compile(Pages.Profile);
+      this.appElement.innerHTML = template({
+        editProfile: this.editProfile
+      });
     } 
-  //  this.attachEventListeners();
+    this.attachEventListeners();
   }
 
+  attachEventListeners() {
+    
+    const links = document.querySelectorAll('.link');
+   
+    links.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+      
+        this.changePage(e.target.dataset.page);
+      });
+    });
+  }
+
+changePage(page) {
+  this.state.currentPage = page
+  this.render() 
+}
+
+  
   
 }

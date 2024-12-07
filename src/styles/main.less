@@ -9,27 +9,52 @@
 @apperance: #3369F3;
 @white: #FFFFFF;
 @active-item: #E4EDFD;
+@red: #FF0000;
 
 @font-face {
   font-family: 'Inter';
-  src: url(./Inter/Inter-Regular.woff2) format('woff2'), url(../../public/fonts/Inter/Inter-Regular.woff) format('woff');
+  src: url(../../public/fonts/Inter/Inter-Regular.woff2) format('woff2'), url(../../public/fonts/Inter/Inter-Regular.woff) format('woff');
   font-style: normal;
   font-weight: 400;
 }
 
 @font-face {
   font-family: 'Inter';
-  src: url(./Inter/Inter-Bold.woff2) format('woff2'), url(../../public/fonts/Inter/Inter-Bold.woff) format('woff');
+  src: url(../../public/fonts/Inter/Inter-Bold.woff2) format('woff2'), url(../../public/fonts/Inter/Inter-Bold.woff) format('woff');
   font-style: normal;
   font-weight: 700;
 }
 
 @font-face {
   font-family: 'Inter';
-  src: url(./Inter/Inter-Black.woff2) format('woff2'), url(../../public/fonts/Inter/Inter-Black.woff) format('woff');
+  src: url(../../public/fonts/Inter/Inter-Black.woff2) format('woff2'), url(../../public/fonts/Inter/Inter-Black.woff) format('woff');
   font-style: normal;
   font-weight: 900;
 }
+
+.mt-60 {
+  margin-top: 60px;
+}
+
+.mc {
+  margin: 0 auto;
+}
+
+.avatar_small {
+  width: 34px;
+  height: 34px;
+}
+
+.avatar_medium {
+  width: 47px;
+  height: 47px;
+}
+
+.avatar_big {
+  width: 130px;
+  height: 130px;
+}
+
 
 .main-page {
   &__container {
@@ -41,7 +66,7 @@
 .left-panel {
   height: 100vh;
   background-color: @grey;
-  border: @border-panel;
+  border-right: @border-panel;
   overflow-y: auto;
 }
 
@@ -71,6 +96,65 @@
   border-radius: 5px;
 }
 
+.input-profile {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  color: @font-color-grey;
+  font-family: Inter;
+  font-size: 13px;
+  line-height: 13px;
+  font-weight: 500;
+  text-align: end;
+  height: 33px;
+}
+
+.button {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  font-size: 0;
+  background-size: 28px 28px;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 28px;
+  height: 28px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.button-icon-right {
+  background-image: url(../../public/images/button-right.png);
+}
+
+.button-icon-left {
+  background-image: url(../../public/images/button-left.png);
+}
+
+
+.chat-form {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 11px;
+
+  &__input-message {
+    box-sizing: border-box;
+    height: 32px;
+    padding: 10px 20px;
+    width: 80%;
+    text-align: center;
+    border-radius: 30px;
+  }
+
+}
+
+
 .link {
   color: inherit;
   text-decoration: none;
@@ -87,9 +171,46 @@
 }
 
 .chat {
-  display: flex;
-  flex-direction: column;
+  height: 100vh;
+  display: grid;
+  grid-auto-rows: 54px auto 54px;
+  grid-template-areas:
+    "hd"
+    "ws"
+    "ft";
   padding: 0 10px;
+}
+
+.header-chat {
+  grid-area: hd;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+  margin: 0 20px;
+  border-bottom: @border-panel;
+  padding: 10px 0;
+
+
+  &__name-block {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+}
+
+.workspace-chat {
+  grid-area: ws;
+
+}
+
+
+
+.footer-chat {
+  grid-area: ft;
+  margin: 0 20px;
+  border-top: @border-panel;
+
 }
 
 .chat-participant {
@@ -100,6 +221,7 @@
   grid-template-columns: 47px 193px 24px;
   gap: 10px;
   margin: 0;
+
   &:hover {
     background-color: @active-item;
   }
@@ -114,7 +236,7 @@
     gap: 14px;
   }
 
-  &__name{ 
+  &__name {
     margin: 0;
     width: 193px;
     height: 13px;
@@ -126,7 +248,7 @@
     overflow: hidden;
   }
 
-  &__text-message{
+  &__text-message {
     margin: 0;
     width: 193px;
     height: 30px;
@@ -139,14 +261,15 @@
     color: @font-color-grey;
   }
 
-  &__time{ 
+  &__time {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
 
- 
+
 }
+
 .time {
   margin: 0;
   font-family: Inter;
@@ -165,22 +288,11 @@
   font-weight: 500;
   text-align: center;
   background-color: @apperance;
-  color:@white;
+  color: @white;
   align-self: flex-end;
 }
 
-.header-chat {
-  display: flex;
-  gap: 10px;
-  justify-content: space-between;
-  margin: 0 20px;
-  border-bottom: @border-panel;
 
-  &__name-block {
-    display: flex;
-    gap: 10px;
-  } 
-}
 
 .avatar {
   object-fit: cover;
@@ -190,22 +302,109 @@
   height: 47px;
 }
 
-.header-chat {
-  display: flex;
-  gap: 10px;
-  justify-content: space-between;
-  margin: 0 20px;
-  border-bottom: @border-panel;
 
-  &__name-block {
-    display: flex;
-    gap: 10px;
-  } 
-}
 
 .date-message {
   text-align: center;
 }
+
+
+
+.message {
+  width: 402px;
+  background-color: @grey;
+  border-radius: 12px;
+  padding: 11px;
+
+  &__text {
+    margin: 0;
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 15px;
+  }
+
+  &__time {
+    text-align: right;
+  }
+}
+
+.left-navigate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: @grey;
+  border-right: @border-panel;
+}
+
+.profile {
+  display: grid;
+  grid-template-columns: 64px auto;
+  height: 100vh;
+
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 0 auto;
+    width: 50%;
+  }
+
+  &__avatar {
+    margin: 60px auto 21px auto;
+
+  }
+
+  &__name {
+    font-family: Inter;
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 600;
+    margin-bottom: 60px;
+  }
+
+  &__label {
+    font-family: Inter;
+    font-size: 13px;
+    line-height: 13px;
+    font-weight: 500;
+    vertical-align: middle;
+  }
+
+  &__info-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin: 0 auto;
+    border-bottom: @border-panel;
+  }
+
+  &__actions {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__link {
+    text-align: left;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: @border-panel;
+    color: @apperance;
+  }
+
+  &__link-exit {
+    text-align: left;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: @red;
+  }
+}
+
+
+
 
 .avatar {
   object-fit: cover;

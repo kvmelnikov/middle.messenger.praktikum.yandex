@@ -1,0 +1,38 @@
+<div class="profile">
+{{> LeftNavigate}}
+<div class="profile__main">
+    {{> Avatar src="../../../public/images/avatar-example.png" class="avatar_big profile__avatar" }}
+    <p class="profile__name">Иван</p>
+    <form>
+        <div class="profile__info-line">
+            <label class="profile__label">Почта</label>
+            {{> InputProfile placeholder="" value="pochta@yandex.ru" disabled="editProfile" }}
+        </div>
+        <div class="profile__info-line">
+            <label class="profile__label">Логин</label>
+            {{> InputProfile placeholder="" value="ivanivanov" disabled="editProfile" }}
+        </div>
+        <div class="profile__info-line">
+            <label class="profile__label">Имя</label>
+            {{> InputProfile placeholder="" value="Иван" disabled="editProfile" }}
+        </div>
+        <div class="profile__info-line">
+            <label class="profile__label">Фамилия</label>
+            {{> InputProfile placeholder="" value="Иванов" disabled="editProfile" }}
+        </div>
+        <div class="profile__info-line">
+            <label class="profile__label">Имя в чате</label>
+            {{> InputProfile placeholder="" value="Иван" disabled="editProfile" }}
+        </div>
+        <div class="profile__info-line">
+            <label class="profile__label">Телефон</label>
+            {{> InputProfile placeholder="" value="+7 (909) 967 30 30" disabled="editProfile" }}
+        </div>
+    </form>
+    <div class="profile__actions">
+        {{>Link text="Изменить данные" class="link profile__link"}}
+        {{>Link text="Изменить пароль" class="link profile__link"}}
+        {{>Link text="Выйти" class="link profile__link-exit"}}
+    </div>
+</div>
+</div>
