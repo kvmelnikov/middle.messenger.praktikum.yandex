@@ -29,7 +29,7 @@ Handlebars.registerPartial('ButtonIcon', Components.ButtonIcon)
 Handlebars.registerPartial('ButtonApperance', Components.ButtonApperance)
 Handlebars.registerPartial('LeftNavigate', Components.LeftNavigate)
 Handlebars.registerPartial('FormProfile', Components.FormProfile)
-
+Handlebars.registerPartial('FormProfilePasword', Components.FormProfilePasword)
 export default class App {
   constructor() {
     this.state = {
