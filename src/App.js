@@ -2,7 +2,7 @@ import Handlebars from 'handlebars';
 import * as Pages from './pages';
 import * as Components from './components';
 // import { mockQuestions, mockAnswers } from './mockData.js';
-// import './helpers/handlebarsHelpers.js';
+import './helpers/handlebarsHelpers.js';
 
 // Register partials
 Handlebars.registerPartial('WorkspaceChat', Components.WorkspaceChat)
@@ -26,31 +26,36 @@ Handlebars.registerPartial('ChatForm', Components.ChatForm)
 Handlebars.registerPartial('SvgIcon', Components.SvgIcon)
 Handlebars.registerPartial('InputProfile', Components.InputProfile)
 Handlebars.registerPartial('ButtonIcon', Components.ButtonIcon)
+Handlebars.registerPartial('ButtonApperance', Components.ButtonApperance)
 Handlebars.registerPartial('LeftNavigate', Components.LeftNavigate)
+Handlebars.registerPartial('FormProfile', Components.FormProfile)
+
 export default class App {
   constructor() {
     this.state = {
       currentPage: 'mainPaige',
-      editProfile: 'false' 
+      action: 'default'   
+
     //   answers: [],
     };
     this.appElement = document.getElementById('app');
   }
 
   render() {
-   
+        
     let template;
     if (this.state.currentPage === "mainPaige") {
       template = Handlebars.compile(Pages.MainPage);
       this.appElement.innerHTML = template({
       });
     } else if(this.state.currentPage === "profile") {
-
       template = Handlebars.compile(Pages.Profile);
       this.appElement.innerHTML = template({
-        editProfile: this.editProfile
+        editProfile: this.state.action
       });
-    } 
+    }
+    
+    
     this.attachEventListeners();
   }
 
@@ -61,11 +66,16 @@ export default class App {
     links.forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
-      
         this.changePage(e.target.dataset.page);
-      });
+        this.changeAction(e.target.dataset.action)
+      }); 
     });
   }
+
+changeAction(action) {
+  this.state.action = action
+  this.render()
+}
 
 changePage(page) {
   this.state.currentPage = page

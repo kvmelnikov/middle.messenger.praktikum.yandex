@@ -1,1 +1,6 @@
-<input class="input input-profile" placeholder="{{placeholder}}" disabled="{{disabled}}" type="text" value="{{value}}" >
+  {{#if (isProfileType editProfile)}}
+<input class="input input-profile" placeholder="{{placeholder}}" disabled="true" type="text" value="{{value}}" >
+    {{else}}
+    <input class="input input-profile" placeholder="{{placeholder}}"  type="text" value="{{value}}" >
+
+   {{/if}}
