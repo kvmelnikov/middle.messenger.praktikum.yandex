@@ -11,3 +11,4 @@ Handlebars.registerHelper('isProfileType', function(value) {
   Handlebars.registerHelper('isPasswordChange', function(value) {
     return value === 'change-password'
   });  
+  
