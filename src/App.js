@@ -32,6 +32,7 @@ Handlebars.registerPartial('FormProfile', Components.FormProfile)
 Handlebars.registerPartial('FormProfilePasword', Components.FormProfilePasword)
 Handlebars.registerPartial('FormLogin', Components.FormLogin)
 Handlebars.registerPartial('InputLogin', Components.InputLogin)
+Handlebars.registerPartial('FormSignin', Components.FormSignin)
 
 export default class App {
   constructor() {
@@ -43,7 +44,7 @@ export default class App {
   }
 
   render() {
-        
+    console.log(this.state)
     let template;
     if (this.state.currentPage === "login") {
       template = Handlebars.compile(Pages.Login);
@@ -59,6 +60,11 @@ export default class App {
       template = Handlebars.compile(Pages.Profile);
       this.appElement.innerHTML = template({
         editProfile: this.state.action
+      });
+    }
+    if(this.state.currentPage === "signin") {
+      template = Handlebars.compile(Pages.Signin);
+      this.appElement.innerHTML = template({
       });
     }
     

@@ -109,6 +109,19 @@
   height: 33px;
 }
 
+.input-login {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  color: @black-text;
+  font-family: Inter;
+  font-size: 13px;
+  line-height: 13px;
+  font-weight: 500;
+  width: 100%;
+}
+
 .button {
   appearance: none;
   border: 0;
@@ -181,6 +194,10 @@
 .link-profile {
   color: @font-color-grey;
   align-self: end;
+}
+
+.link-login {
+  color: @apperance;
 }
 
 .chat {
@@ -417,11 +434,98 @@
   border-radius: 12px;
   margin: 0 auto;
   display: flex;
+  flex-direction: column;
   border: @border-panel;
   box-shadow: 0px 0px 6px 0px #00000024;
   padding-top: 50px;
   padding-bottom: 30px;
+
+  &__label {
+    font-family: Inter;
+    font-size: 9px;
+    line-height: 9px;
+    font-weight: 500;
+    color: @font-color-grey;
+  }
+
+  &__info-line {
+    width: 90%;
+    max-width: 280px;
+    margin: 0 auto;
+    border-bottom: 1px solid @apperance;
+    margin-bottom: 16px;
+  } 
+
+  &__heading {
+    text-align: center;
+    font-family: Inter;
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: 500;
+    font-family: Inter;
+  }
+
+  &__actions{
+    margin-top: 69px;
+    display: flex;
+    gap: 14px;
+    flex-direction: column;
+    align-items: center;
+  }
 }
+
+.form-signin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 340px;
+  width: 50%;
+  border-radius: 12px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  border: @border-panel;
+  box-shadow: 0px 0px 6px 0px #00000024;
+  padding-top: 50px;
+  padding-bottom: 30px;
+
+  &__label {
+    font-family: Inter;
+    font-size: 9px;
+    line-height: 9px;
+    font-weight: 500;
+    color: @font-color-grey;
+  }
+
+  &__info-line {
+    width: 90%;
+    max-width: 280px;
+    margin: 0 auto;
+    border-bottom: 1px solid @apperance;
+    margin-bottom: 16px;
+  } 
+
+  &__heading {
+    text-align: center;
+    font-family: Inter;
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: 500;
+    font-family: Inter;
+  }
+
+  &__actions{
+    margin-top: 69px;
+    display: flex;
+    gap: 14px;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+
+
 
 
 .avatar {
