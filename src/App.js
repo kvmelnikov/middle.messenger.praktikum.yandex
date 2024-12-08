@@ -35,18 +35,29 @@ Handlebars.registerPartial('InputLogin', Components.InputLogin)
 Handlebars.registerPartial('FormSignin', Components.FormSignin)
 Handlebars.registerPartial('TooltipAttach', Components.TooltipAttach)
 Handlebars.registerPartial('TooltipAttachElement', Components.TooltipAttachElement)
+Handlebars.registerPartial('TooltipUser', Components.TooltipUser)
+Handlebars.registerPartial('DialogWindow', Components.DialogWindow)
+
 export default class App {
   constructor() {
     this.state = {
       currentPage: 'login',
-      action: 'default'
+      action: 'default',
+      error: 'not-error'
     };
     this.appElement = document.getElementById('app');
   }
 
   render() {
-    console.log(this.state)
+
     let template;
+    if (this.state.currentPage === "error") {
+      template = Handlebars.compile(Pages.Login);
+      this.appElement.innerHTML = template({
+        
+      });
+    } 
+
     if (this.state.currentPage === "login") {
       template = Handlebars.compile(Pages.Login);
       this.appElement.innerHTML = template({
