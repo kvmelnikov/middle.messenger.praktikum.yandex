@@ -1,1 +1,1 @@
-export { default as TooltipAttach} from './time.hbs?raw';
+export { default as TooltipAttach} from './tooltip-attach.hbs?raw';

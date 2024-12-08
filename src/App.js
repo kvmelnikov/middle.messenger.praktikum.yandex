@@ -33,7 +33,8 @@ Handlebars.registerPartial('FormProfilePasword', Components.FormProfilePasword)
 Handlebars.registerPartial('FormLogin', Components.FormLogin)
 Handlebars.registerPartial('InputLogin', Components.InputLogin)
 Handlebars.registerPartial('FormSignin', Components.FormSignin)
-
+Handlebars.registerPartial('TooltipAttach', Components.TooltipAttach)
+Handlebars.registerPartial('TooltipAttachElement', Components.TooltipAttachElement)
 export default class App {
   constructor() {
     this.state = {
@@ -67,7 +68,12 @@ export default class App {
       this.appElement.innerHTML = template({
       });
     }
-    
+
+    if(this.state.currentPage === "auxiliaryElements") {
+      template = Handlebars.compile(Pages.AuxiliaryElements);
+      this.appElement.innerHTML = template({
+      });
+    }
     
     this.attachEventListeners();
   }

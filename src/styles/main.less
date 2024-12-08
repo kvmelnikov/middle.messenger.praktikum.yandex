@@ -160,6 +160,13 @@
   background-image: url(../../public/images/button-left.png);
 }
 
+.button-icon-add-user {
+  background-image: url(../../public/svg/more-svg.svg);
+  width: 25px;
+  height: 25px;
+  
+}
+
 
 .chat-form {
   display: flex;
@@ -218,7 +225,10 @@
   margin: 0 20px;
   border-bottom: @border-panel;
   padding: 10px 0;
-
+  &__user {
+    display: block;
+    
+  }
 
   &__name-block {
     display: flex;
@@ -235,7 +245,6 @@
   grid-area: ft;
   margin: 0 20px;
   border-top: @border-panel;
-
 }
 
 .chat-participant {
@@ -522,9 +531,29 @@
   }
 }
 
+.tooltip-attach{
+  width: 162px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 15px;
+  border-radius: 12px;
+  border: @border-panel;
+}
 
+.tooltip-attach-element {
+  display: flex;
+  gap: 15px;
 
+  &__image {
+    width: 22px;
+    height: 22px;
+  }
 
+  &__text {
+    margin: 0;
+  }
+} 
 
 .avatar {
   object-fit: cover;
