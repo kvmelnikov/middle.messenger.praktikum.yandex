@@ -2,11 +2,11 @@
     <h5 class="form-login__heading">Вход</h5>
     <div class="form-login__info-line">
         <label class="form-login__label">Почта</label>
-        {{> InputLogin type="text" value="ivanivanov"}}
+        {{> InputLogin name="login" type="text" value="ivanivanov"}}
     </div>
     <div class="form-login__info-line">
         <label class="form-login__label">Пароль</label>
-        {{> InputLogin type="password" value="ivanivanov"}}
+        {{> InputLogin name="password" type="password" value="ivanivanov"}}
     </div>
     <div class="form-login__actions">
         {{> ButtonApperance data-page="mainPaige" data-action="default" class="button__apperance" text="Авторизоваться" }}

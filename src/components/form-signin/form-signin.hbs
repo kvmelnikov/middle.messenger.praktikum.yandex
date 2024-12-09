@@ -2,31 +2,31 @@
     <h5 class="form-signin__heading">Регистрация</h5>
     <div class="form-signin__info-line">
         <label class="form-signin__label">Почта</label>
-        {{> InputLogin type="email" value="pochta@yandex.ru"}}
+        {{> InputLogin name="email" type="email" value="pochta@yandex.ru"}}
     </div>
     <div class="form-signin__info-line">
         <label class="form-signin__label">Логин</label>
-        {{> InputLogin type="text" value="ivanivanov"}}
+        {{> InputLogin name="login" type="text" value="ivanivanov"}}
     </div>
     <div class="form-signin__info-line">
         <label class="form-signin__label">Имя</label>
-        {{> InputLogin type="text" value="Иван"}}
+        {{> InputLogin name="first_name" type="text" value="Иван"}}
     </div>
     <div class="form-signin__info-line">
         <label class="form-signin__label">Фамилия</label>
-        {{> InputLogin type="text" value="Иванов"}}
+        {{> InputLogin name="second_name" type="text" value="Иванов"}}
     </div>
     <div class="form-signin__info-line">
         <label class="form-signin__label">Телефон</label>
-        {{> InputLogin type="text" value="+7 (909) 967 30 30"}}
+        {{> InputLogin name="phone" type="text" value="+7 (909) 967 30 30"}}
     </div>
     <div class="form-signin__info-line">
         <label class="form-signin__label">Пароль</label>
-        {{> InputLogin type="password" value="+7 (909) 967 30 30"}}
+        {{> InputLogin name="password" type="password" value="+7 (909) 967 30 30"}}
     </div>
     <div class="form-signin__info-line">
         <label class="form-signin__label">Пароль (ещё раз)</label>
-        {{> InputLogin type="password" value="+7 (909) 967 30 30"}}
+        {{> InputLogin name="password" type="password" value="+7 (909) 967 30 30"}}
     </div>
     <div class="form-signin__actions">
         {{> ButtonApperance data-page="mainPaige" data-action="default"  class="button__apperance" text="Зарегистрироваться" }}
