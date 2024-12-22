@@ -1,6 +1,6 @@
 import Handlebars from 'handlebars';
-import * as Pages from './pages';
-import * as Components from './components';
+import * as Pages from './pages/index.js';
+import * as Components from './components/index.js';
 // import { mockQuestions, mockAnswers } from './mockData.js';
 import './helpers/handlebarsHelpers.js';
 
@@ -53,8 +53,7 @@ export default class App {
     let template;
     if (this.state.currentPage === "error") {
       template = Handlebars.compile(Pages.Login);
-      this.appElement.innerHTML = template({
-        
+      this.appElement.innerHTML = template({  
       });
     } 
 
