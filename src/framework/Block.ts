@@ -59,10 +59,10 @@ export default class Block {
 
   private _componentDidMount(): void {
     this.componentDidMount();
-    Object.values(this.children).forEach(child => {child.dispatchComponentDidMount();});
+    Object.values(this.children).forEach(child => { child.dispatchComponentDidMount(); });
   }
 
-  protected componentDidMount(): void {}
+  protected componentDidMount(): void { }
 
   public dispatchComponentDidMount(): void {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
@@ -106,13 +106,23 @@ export default class Block {
   }
 
   protected addAttributes(): void {
-    const { attr = {} } = this.props;
+    const { attr = {}, addedClass = {} } = this.props;
 
+ 
     Object.entries(attr).forEach(([key, value]) => {
       if (this._element) {
         this._element.setAttribute(key, value as string);
       }
+
     });
+
+    Object.entries(addedClass).forEach(([key, value]) => {
+      if (this._element) {
+        let currentClass = this._element.getAttribute(key)
+        this._element.setAttribute(key, `${currentClass} ${value}`  )
+      }
+    })
+
   }
 
   protected setAttributes(attr: any): void {
@@ -146,7 +156,7 @@ export default class Block {
   private _render(): void {
     console.log('Render');
     const propsAndStubs = { ...this.props };
-    const tmpId =  Math.floor(100000 + Math.random() * 900000);
+    const tmpId = Math.floor(100000 + Math.random() * 900000);
     Object.entries(this.children).forEach(([key, child]) => {
       propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
     });
