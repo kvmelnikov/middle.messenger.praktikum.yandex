@@ -1,31 +1,28 @@
-import Block from "../../framework/Block";
-import { ChatParticipant } from "./chat-participant/chat-participant";
-import { HeaderLeftPanel } from "./header-left-panel/header-left-panel";
+import Block from '../../framework/Block';
+import { ChatParticipant } from './chat-participant/chat-participant';
+import { HeaderLeftPanel } from './header-left-panel/header-left-panel';
+import { InputSearch } from './input-search/input-search';
 
-const allChatParticipant = [...new Array(2).keys()].map(item => new ChatParticipant({ time: `23.5${item}`, name: `${item + 1}Имя` }))
+const chatParticipants = [...new Array(3).keys()].map(item => new ChatParticipant({ time: `23.5${item}`, name: 'Kirill', text: `${item + 1}Имя` }));
 
 export class LeftPanel extends Block {
-    constructor() {
-        super({
-            HeaderLeftPanel: new HeaderLeftPanel({
-                events:{
-                    keydown: (e: Event) => {
-                        e.preventDefault()
-                        this.onFilteredParticipant(e)      
-                    } 
-                }}),
-            ChatParticipants: allChatParticipant
-        })
-    }
+  constructor(props: any) {
+    super({
+      ...props,
+      HeaderLeftPanel: new HeaderLeftPanel({    
+        InputSearch: new InputSearch({
+          addedClass: {
+            class: 'input-search',
+          },
+        }) }),
+      ChatParticipants: chatParticipants,
+    });
+  } 
 
-    onFilteredParticipant(e: Event): void { 
-        console.log(e)
-    }
-
-    override render(): string {
-        return `<section class="left-panel">
+  override render(): string {
+    return `<section class="left-panel">
                   {{{ HeaderLeftPanel }}}
                   {{{ ChatParticipants }}}
-                </section>`
-    }
+                </section>`;
+  }
 }

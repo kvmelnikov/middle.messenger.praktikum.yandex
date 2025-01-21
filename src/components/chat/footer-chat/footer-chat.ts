@@ -1,12 +1,14 @@
-import Block from "../../../framework/Block";
+import Block from '../../../framework/Block';
+import { FormChat } from '../form-chat/form-chat';
 
 export class FooterChat extends Block {
-    constructor(){
-        super()
-    }
+  constructor(props: any) {
+    super({ ...props,
+      FormChat: new FormChat({}),
+    });
+  }
 
-    override render(): string {
-        //return `<div class="footer-chat">{{{ ChatForm}}}</div>`
-         return `<div class="footer-chat">форма чата</div>`
-    }
+  override render(): string {
+    return '<div class="footer-chat">{{{ FormChat }}}</div>';
+  }
 }

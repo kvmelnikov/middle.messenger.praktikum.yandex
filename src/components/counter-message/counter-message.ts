@@ -1,11 +1,11 @@
-import Block from "../../framework/Block";
+import Block from '../../framework/Block';
 
 export class CounterMessage extends Block {
-    constructor(props: any) {
-        super({...props})
-    }
+  constructor(props: any) {
+    super({ ...props });
+  }
 
-    override render(): string {
-        return `<div class="counter-messsage">{{counter}}</div>`
-    }
+  override render(): string {
+    return '<div class="counter-messsage">{{counter}}</div>';
+  }
 }

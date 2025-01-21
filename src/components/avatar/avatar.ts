@@ -1,12 +1,11 @@
-import Block from "../../framework/Block";
+import Block from '../../framework/Block';
 
 export class Avatar extends Block {
-    constructor(){
-        super()
-    }
+  constructor(props: any) {
+    super({ ...props });
+  }
 
-    override render(): string {
-        return `<img class=""  src=""  alt="Аватар">`
-       // return `<img class="{{class}}"  src="{{src}}"  alt="Аватар">`
-    }
+  override render(): string {
+    return '<img class="{{className}}"  src="{{src}}"  alt="Аватар">';
+  }
 }
