@@ -113,7 +113,7 @@ export default class Block {
   }
 
   protected addAttributes(): void {
-    const { attr = {}, addedClass = {} } = this.props;
+    const { attr = {} } = this.props;
 
  
     Object.entries(attr).forEach(([key, value]) => {
@@ -123,12 +123,6 @@ export default class Block {
 
     });
 
-    Object.entries(addedClass).forEach(([key, value]) => {
-      if (this._element) {
-        const currentClass = this._element.getAttribute(key);
-        this._element.setAttribute(key, `${currentClass} ${value}`  );
-      }
-    });
 
   }
 
