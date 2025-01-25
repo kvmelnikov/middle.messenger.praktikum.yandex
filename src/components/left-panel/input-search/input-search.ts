@@ -5,9 +5,8 @@ export class InputSearch extends Block {
     super({ ...props,
     });
   }
-
-
+  
   override render(): string {
-    return '<input class="input" placeholder="Поиск" type="text" name="" id="">';
+    return '<input class="input input-search" placeholder="Поиск" type="text" name="" id="">';
   }
 }

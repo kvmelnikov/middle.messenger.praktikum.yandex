@@ -1,10 +1,10 @@
 import './helpers/handlebarsHelpers';
 import { MainPage } from './pages/main-page/main-page';
+import { Profile } from './pages/profile/profile';
 
 interface AppState {
   currentPage: string;
-  questions: string[];
-  answers: string[];
+  action: string
 }
 
 export default class App {
@@ -12,29 +12,65 @@ export default class App {
 
   private appElement: HTMLElement | null;
 
+  private currentElementPage: HTMLElement | null;
+
   constructor() {
     this.state = {
       currentPage: 'mainPage',
-      questions: [],
-      answers: [],
+      action: 'default',
     };
     this.appElement = document.getElementById('app');
+    
   }
 
-  render(): string {
+  render() {
     if (this.state.currentPage === 'mainPage') {
-      const mainPage = new MainPage();
-      console.log(mainPage.getContent());
+      this.currentElementPage = new MainPage().getContent();
+      
       if (this.appElement) {
-        this.appElement.replaceWith(mainPage.getContent());
+        this.appElement.replaceWith(this.currentElementPage);
+       
       }
     }
+    if (this.state.currentPage === 'profile') {
+      this.currentElementPage?.replaceWith(new Profile().getContent()) 
+    }
+    
+    this.attachEventListeners();
     return '';
+  }
+
+  attachEventListeners() {
+    
+    const links = document.querySelectorAll('.link');
+    const Buttons = document.querySelectorAll('.button');
+
+    links.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const link = e.target as HTMLLinkElement
+        this.changePage(link.dataset.page || '');
+      }); 
+    });
+
+    Buttons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        const button = e.target as HTMLButtonElement
+        this.changePage( button.dataset.button || '');
+      }); 
+    });
+    
   }
 
   changePage(page: string): void {
     this.state.currentPage = page;
     this.render();
+  }
+
+  changeAction(action: string) {
+    this.state.action = action
+    this.render()
   }
 
   //   addQuestion(): void {

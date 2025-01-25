@@ -4,11 +4,6 @@ import Block from '../../framework/Block';
 export class Link extends Block {
   constructor(props: any) {
     super({ ...props, 
-      events: {
-        click: (e: Event) => {
-          props.onClick(e);
-        },
-      },
       attr: {
         class: 'link',
       },             

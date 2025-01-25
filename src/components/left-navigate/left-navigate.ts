@@ -6,11 +6,9 @@ export class LeftNavigate extends Block {
     super({
       ...props,
       ButtonIcon: new ButtonIcon({
-        addedClass: {
-          class: 'button-icon-left',
-        },
         attr: {
           dataPage: 'mainPaige',
+          class: 'button button-icon-left',
         },
       }),
     });

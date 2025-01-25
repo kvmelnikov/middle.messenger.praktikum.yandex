@@ -1,5 +1,6 @@
 import Block from '../../../framework/Block';
 import { Avatar } from '../../avatar/avatar';
+import { CounterMessage } from '../../counter-message/counter-message';
 import { Time } from '../../time/time';
 
 export class ChatParticipant extends Block {
@@ -9,6 +10,9 @@ export class ChatParticipant extends Block {
       Avatar: new Avatar({
         src: '../../../public/images/avatar-example.png',
         className: 'avatar_medium',
+      }),
+      CounterMessage: new CounterMessage({
+        counter: props.count
       }),
       name: props.name,  
     });
