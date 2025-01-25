@@ -121,6 +121,4 @@ changePage(page) {
   this.render() 
 }
 
-  
-  
 }

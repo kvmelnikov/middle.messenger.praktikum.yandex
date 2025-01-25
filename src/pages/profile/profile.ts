@@ -3,8 +3,9 @@ import { LeftNavigate } from "../../components/left-navigate/left-navigate";
 import Block from "../../framework/Block";
 
 export class Profile extends Block {
-    constructor() {
+    constructor(props: any) {
         super({
+            ...props,
             LeftNavigate: new LeftNavigate({}),
             Avatar: new Avatar({
                 src: '../../../public/images/avatar-example.png',
@@ -14,13 +15,19 @@ export class Profile extends Block {
     }
 
     protected override render(): string {
-        return `<main class="profile">
+     
+        if (this.props.action === "default") {
+            return `<main class="profile">
                     {{{LeftNavigate}}}
                        <div class="profile__main">
                             {{{Avatar}}}
                             <p class="profile__name">Иван</p>
                        </div>
                 </main>`
+        }
+        else {
+            return '<div></div>'
+        }
     }
 }
 

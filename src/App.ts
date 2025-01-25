@@ -1,3 +1,4 @@
+import { Link } from './components/link/Link';
 import './helpers/handlebarsHelpers';
 import { MainPage } from './pages/main-page/main-page';
 import { Profile } from './pages/profile/profile';
@@ -24,16 +25,18 @@ export default class App {
   }
 
   render() {
+ 
     if (this.state.currentPage === 'mainPage') {
       this.currentElementPage = new MainPage().getContent();
       
       if (this.appElement) {
-        this.appElement.replaceWith(this.currentElementPage);
-       
+        this.appElement.replaceWith(this.currentElementPage);  
       }
     }
+
     if (this.state.currentPage === 'profile') {
-      this.currentElementPage?.replaceWith(new Profile().getContent()) 
+      console.log(this.state.action)
+      this.currentElementPage?.replaceWith(new Profile({action: this.state.action}).getContent()) 
     }
     
     this.attachEventListeners();
@@ -50,16 +53,18 @@ export default class App {
         e.preventDefault();
         const link = e.target as HTMLLinkElement
         this.changePage(link.dataset.page || '');
+        this.changeAction(link.dataset.action || '')
       }); 
     });
 
-    Buttons.forEach(button => {
-      button.addEventListener('click', (e) => {
-        e.preventDefault();
-        const button = e.target as HTMLButtonElement
-        this.changePage( button.dataset.button || '');
-      }); 
-    });
+    // Buttons.forEach(button => {
+    //   button.addEventListener('click', (e) => {
+    //     e.preventDefault();
+    //     const button = e.target as HTMLButtonElement
+    //     this.changePage( button.dataset.page || '');
+    //     this.changeAction(button.dataset.dataAction || '')
+    //   }); 
+    // });
     
   }
 
