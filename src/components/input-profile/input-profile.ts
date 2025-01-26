@@ -5,11 +5,12 @@ export class InputProfile extends Block {
         super({...props})
     }
 
-    protected render(): string {
+    override render(): string {
+   
         return `
          <div class="profile__info-line">
                         <label class="profile__label">Почта</label>
-        <input class="input input-profile"  placeholder="{{placeholder}}" disabled="true" type="{{type}}" value="{{value}}" >
+                         <input class="input input-profile"  placeholder="{{placeholder}}" disabled="true" type="{{type}}" value="{{value}}" >
                 </div>
         `
     }

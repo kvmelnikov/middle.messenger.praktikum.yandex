@@ -1,7 +1,7 @@
 import Block from "../../framework/Block";
 import { InputProfile } from "../input-profile/input-profile";
 
-const dataForm = [
+const dataFormMock = [
     {
         label: 'Почта',
         placeholder: '',
@@ -46,20 +46,17 @@ const dataForm = [
     },
 ]
 
-
-
-const inputs = dataForm.map((el)=> new InputProfile(el)  )
-
 export class FormProfile extends Block {
     constructor(props: any) {
         super({
             ...props,
-            Inputs: inputs
+            Inputs: dataFormMock.map((dataForm)=> new InputProfile(dataForm))
         })
     }
 
     protected render(): string {
         return `<form>
+                    forma
                         {{{ Inputs }}}
                 </form>`
     }
