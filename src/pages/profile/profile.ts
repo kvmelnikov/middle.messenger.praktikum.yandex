@@ -1,4 +1,5 @@
 import { Avatar } from "../../components/avatar/avatar";
+import { FormProfile } from "../../components/form-profile/form-profile";
 import { LeftNavigate } from "../../components/left-navigate/left-navigate";
 import Block from "../../framework/Block";
 
@@ -11,19 +12,20 @@ export class Profile extends Block {
                 src: '../../../public/images/avatar-example.png',
                 className: 'avatar_big',
             }),
+            FormProfile: new FormProfile({  })
         })
     }
 
     protected override render(): string {
-     
         if (this.props.action === "default") {
             return `<main class="profile">
-                    {{{LeftNavigate}}}
+                        {{{LeftNavigate}}}
                        <div class="profile__main">
-                            {{{Avatar}}}
-                            <p class="profile__name">Иван</p>
+                                {{{Avatar}}}
+                                <p class="profile__name">Иван</p>
+                                {{{FormProfile}}}
                        </div>
-                </main>`
+                    </main>`
         }
         else {
             return '<div></div>'
