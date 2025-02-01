@@ -1,56 +1,179 @@
 import { Avatar } from "../../components/avatar/avatar";
+import { Button } from "../../components/button/button";
 import { FormProfile } from "../../components/form-profile/form-profile";
 import { LeftNavigate } from "../../components/left-navigate/left-navigate";
 import Block from "../../framework/Block";
+import { IInputProfile } from "../../shared/input-profile.interface";
 
+const inputsData: IInputProfile[] = [
+    {
+        label: 'Почта',
+        placeholder: '',
+        name: 'email',
+        value: 'pochta@yandex.ru',
+  
+    },
+    {
+        label: 'Логин',
+        placeholder: '',
+        name: 'login',
+        value: 'ivanivanov',
+
+    },
+    {
+        label: 'Имя',
+        placeholder: '',
+        name: 'first_name',
+        value: 'Иван',
+     
+    },
+    {
+        label: 'Фамилия',
+        placeholder: '',
+        name: 'second_name',
+        value: 'Иванов',
+
+    },
+    {
+        label: 'Имя в чате',
+        placeholder: '',
+        name: 'display_name',
+        value: 'Иван',
+  
+    },
+    {
+        label: 'Телефон',
+        placeholder: '',
+        name: 'phone',
+        value: '+7 (909) 967 30 30',
+      
+    },
+]
+const inputsData2: IInputProfile[] = [
+    {
+        label: 'Почта2',
+        placeholder: '',
+        name: 'email',
+        value: 'pochta@yandex.ru',
+  
+    },
+    {
+        label: 'Логин2',
+        placeholder: '',
+        name: 'login',
+        value: 'ivanivanov',
+
+    },
+    {
+        label: 'Имя',
+        placeholder: '',
+        name: 'first_name',
+        value: 'Иван',
+     
+    },
+    {
+        label: 'Фамилия',
+        placeholder: '',
+        name: 'second_name',
+        value: 'Иванов',
+
+    },
+    {
+        label: 'Имя в чате',
+        placeholder: '',
+        name: 'display_name',
+        value: 'Иван',
+  
+    },
+    {
+        label: 'Телефон',
+        placeholder: '',
+        name: 'phone',
+        value: '+7 (909) 967 30 30',
+      
+    },
+]
 export class Profile extends Block {
+    
+    isEditable: false
+    disabled: boolean
     constructor(props: any) {
-        super({
+        
+        super({ 
             ...props,
+            isEditable: false,
             LeftNavigate: new LeftNavigate({}),
             Avatar: new Avatar({
                 src: '../../../public/images/avatar-example.png',
                 className: 'avatar_big',
             }),
-            FormProfile: new FormProfile({  })
-        })
+            
+            FormProfile: new FormProfile({header: 'header', inputsData: inputsData }),
+            ButtonChangeProfile: new Button({
+                text: 'Изменить данные',
+                class: 'button__apperance',
+                onClick: (e: Event) => {
+                    console.log(e, 'profile buttton');
+                    this.onChangeEditable();
+                }
+            }),
+            ButtonChangePass: new Button({
+                text: 'Изменить пароль',
+                class: 'button__apperance',
+                onClick: (e: Event) => {
+                    this.onChangeEditable();
+                }
+            }),
+            ButtonExit: new Button({
+                text: 'Выйти',
+                class: 'button__apperance',
+                onClick: (e: Event) => {
+                    this.onChangeEditable();
+                }
+            }),
+            ButtonSave: new Button({
+                text: 'Сохранить',
+                class: 'button__apperance',
+                onClick: (e: Event) => {
+                    this.onChangeEditable();
+                }
+            })
+        });
+        
     }
 
+    onChangeEditable(){
+        this.setProps({
+            isEditable: true,
+            // FormProfile: new FormProfile({dataForm: dataFormMock2}),
+          });
+    }
+
+
+
     protected override render(): string {
-        if (this.props.action === "default") {
+   
             return `<main class="profile">
                         {{{LeftNavigate}}}
                        <div class="profile__main">
                                 {{{Avatar}}}
                                 <p class="profile__name">Иван</p>
                                 {{{FormProfile}}}
+                                <div class="profile__actions">  
+                                    {{#if isEditable}}                   
+                                        {{{ ButtonSave }}}
+                                    {{ else }}
+                                        {{{ ButtonChangeProfile }}}
+                                        {{{ ButtonChangePass }}}
+                                        {{{ ButtonExit }}}
+                                         adf
+                                    {{/if}}
+
+                                    {{{ LinkExit }}}
+                                </div>
                        </div>
                     </main>`
         }
-        else {
-            return '<div></div>'
-        }
+      
     }
-}
 
-// <main class="profile">
-//     {{> LeftNavigate}}
-//     <div class="profile__main">
-//         {{> Avatar src="../../../public/images/avatar-example.png" class="avatar_big profile__avatar" }}
-//         <p class="profile__name">Иван</p>
-//         {{#if (isPasswordChange editProfile)}}
-//             {{> FormProfilePasword}}
-//         {{else}}
-//             {{> FormProfile}}
-//         {{/if}}
-//         <div class="profile__actions">
-//             {{#if (isProfileType editProfile)}}
-//             {{>Link text="Изменить данные" data-action="change-profile" data-page="profile" class="link profile__link"}}
-//             {{>Link text="Изменить пароль" data-action="change-password" data-page="profile" class="link profile__link"}}
-//             {{>Link text="Выйти" data-action="change-profile" data-page="profile" class="link profile__link-exit"}}
-//             {{else}}
-//              {{> ButtonApperance class="button__apperance" text="Сохранить" }}
-//             {{/if}}
-//         </div>
-//     </div>
-// </main>

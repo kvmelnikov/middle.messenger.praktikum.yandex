@@ -32,7 +32,7 @@ export default class Block {
     const eventBus = new EventBus();
     const { props, children, lists } = this._getChildrenPropsAndProps(propsWithChildren);
     this.props = this._makePropsProxy({ ...props });
-    this.children = children;
+    this.children = this._makePropsProxy({ ...children });
     this.lists = this._makePropsProxy({ ...lists });
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
@@ -82,9 +82,8 @@ export default class Block {
  
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
-    console.log(oldProps, newProps);
+   // console.log(oldProps, newProps);
     return true;
   }
 
@@ -100,9 +99,12 @@ export default class Block {
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       if (value instanceof Block) {
+
         children[key] = value;
       } else if (Array.isArray(value)) {
+        
         lists[key] = value;
+        
       } else {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         props[key] = value;
@@ -142,6 +144,11 @@ export default class Block {
     Object.assign(this.props, nextProps);
   };
 
+  public getProps = (prop: string): any => {
+    return this.props[prop]
+  }
+
+
   public setLists = (nextList: Record<string, any[]>): void => {
     if (!nextList) {
       return;
@@ -156,7 +163,7 @@ export default class Block {
 
 
   private _render(): void {
-    
+
     const propsAndStubs = { ...this.props };
     const tmpId = Math.floor(100000 + Math.random() * 900000);
     Object.entries(this.children).forEach(([key, child]) => {
@@ -179,7 +186,6 @@ export default class Block {
 
     Object.entries(this.lists).forEach(([, child]) => {
       const listCont = this._createDocumentElement('template');
-      console.log();
       child.forEach(item => {
        
         if (item instanceof Block) {
@@ -190,9 +196,11 @@ export default class Block {
         }
       });
       const stub = fragment.content.querySelector(`[data-id="__l_${tmpId}"]`);
+    
       if (stub) {
         
         stub.replaceWith(listCont.content);
+       
       }
     });
 
@@ -200,12 +208,14 @@ export default class Block {
     if (this._element && newElement) {
       this._element.replaceWith(newElement);
     }
+  
     this._element = newElement;
     this._addEvents();
     this.addAttributes();
   }
 
   protected render(): string {
+
     return '';
   }
 
@@ -219,6 +229,8 @@ export default class Block {
   private _makePropsProxy(props: any): any {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
+  
+    console.log(props)
 
     return new Proxy(props, {
       get(target: any, prop: string) {
@@ -226,7 +238,9 @@ export default class Block {
         return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target: any, prop: string, value: any) {
+
         const oldTarget = { ...target };
+        
         target[prop] = value;
         self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
         return true;

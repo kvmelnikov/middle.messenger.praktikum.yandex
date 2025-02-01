@@ -1,9 +1,22 @@
 import Block from '../../../framework/Block';
+interface InputSearchProps {
+  onKyeup: (e: Event) => void
+}
 
 export class InputSearch extends Block {
-  constructor(props: any) {
+  constructor(props: InputSearchProps) {
     super({ ...props,
+      events: { 
+        keyup: (e: Event) => {
+          props.onKyeup(e)
+          this.onSearch()
+        } 
+      }
     });
+  }
+
+  onSearch(){
+    console.log('ввод')
   }
   
   override render(): string {

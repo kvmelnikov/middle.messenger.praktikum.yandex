@@ -1,5 +1,3 @@
-import { Link } from './components/link/Link';
-import './helpers/handlebarsHelpers';
 import { MainPage } from './pages/main-page/main-page';
 import { Profile } from './pages/profile/profile';
 
@@ -35,8 +33,7 @@ export default class App {
     }
 
     if (this.state.currentPage === 'profile') {
-      console.log(this.state.action)
-      this.currentElementPage?.replaceWith(new Profile({action: this.state.action}).getContent()) 
+      this.currentElementPage?.replaceWith(new Profile({action: this.state.action, }).getContent()) 
     }
     
     this.attachEventListeners();
