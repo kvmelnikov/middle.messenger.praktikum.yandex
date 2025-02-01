@@ -20,6 +20,6 @@ export class InputSearch extends Block {
   }
   
   override render(): string {
-    return '<input class="input input-search" placeholder="Поиск" type="text" name="" id="">';
+    return '<input  class="input input-search" placeholder="Поиск" type="text" name="" id="">';
   }
 }
