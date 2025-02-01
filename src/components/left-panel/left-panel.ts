@@ -14,15 +14,15 @@ export class LeftPanel extends Block {
         InputSearch: new InputSearch({
             onKyeup: (e: Event) => {
               this.onSeach(e)
-            } 
-          
-        }) }),
+            }
+        }) 
+      }),
       ChatParticipants: chatParticipants,
     });
   } 
 
   onSeach(e: Event) {
-    this.setProps({
+    this.setLists({
       ChatParticipant: chatParticipants2
     }
     )

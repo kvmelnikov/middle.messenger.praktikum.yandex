@@ -5,8 +5,10 @@ interface InputProps {
   }
 export class InputProfile extends Block {
     constructor(props: InputProps) {
-        super({...props})
-        
+        super({...props,
+            value : props.dataForm.value,
+            placeholder: props.dataForm.placeholder
+        })
     }
 
     override render(): string {

@@ -1,6 +1,7 @@
 import { Avatar } from "../../components/avatar/avatar";
 import { Button } from "../../components/button/button";
-import { FormProfile } from "../../components/form-profile/form-profile";
+
+import { InputProfile } from "../../components/input-profile/input-profile";
 import { LeftNavigate } from "../../components/left-navigate/left-navigate";
 import Block from "../../framework/Block";
 import { IInputProfile } from "../../shared/input-profile.interface";
@@ -54,7 +55,7 @@ const inputsData2: IInputProfile[] = [
         label: 'Почта2',
         placeholder: '',
         name: 'email',
-        value: 'pochta@yandex.ru',
+        value: 'pochta2@yandex.ru',
   
     },
     {
@@ -108,7 +109,8 @@ export class Profile extends Block {
                 className: 'avatar_big',
             }),
             
-            FormProfile: new FormProfile({header: 'header', inputsData: inputsData }),
+            Inputs: inputsData.map((dataForm)=> new InputProfile({dataForm: dataForm})),
+
             ButtonChangeProfile: new Button({
                 text: 'Изменить данные',
                 class: 'button__apperance',
@@ -145,8 +147,11 @@ export class Profile extends Block {
     onChangeEditable(){
         this.setProps({
             isEditable: true,
-            // FormProfile: new FormProfile({dataForm: dataFormMock2}),
           });
+
+        this.setLists(({
+            Inputs: inputsData2.map((dataForm)=> new InputProfile({dataForm: dataForm}))
+        }))
     }
 
 
@@ -158,7 +163,9 @@ export class Profile extends Block {
                        <div class="profile__main">
                                 {{{Avatar}}}
                                 <p class="profile__name">Иван</p>
-                                {{{FormProfile}}}
+                           <form>
+                                {{{ Inputs }}}
+                           </form>
                                 <div class="profile__actions">  
                                     {{#if isEditable}}                   
                                         {{{ ButtonSave }}}
