@@ -1,14 +1,12 @@
 import { ButtonIcon } from '../../components/button-icon/button-icon';
-import { Chat } from '../../components/chat/chat';
-import { HeaderChat } from '../../components/chat/header-chat/header-chat';
-import { InputMessage } from '../../components/chat/input-message/input-message';
 import { DateMessage } from '../../components/date-message/date-message';
 import { ChatParticipant } from '../../components/left-panel/chat-participant/chat-participant';
 import { HeaderLeftPanel } from '../../components/left-panel/header-left-panel/header-left-panel';
-import { InputSearch } from '../../components/left-panel/input-search/input-search';
 import { Message } from '../../components/message/message';
 import { SvgIcon } from '../../components/svg-icon/svg-icon';
 import Block from '../../framework/Block';
+import { HeaderChat } from '../../components/header-chat/header-chat';
+import { Input } from '../../components/input/input';
 
 const chatParticipants = [...new Array(3).keys()].map(item => new ChatParticipant({ time: `23.5${item}`, name: 'Kirill', text: `${item + 1}Имя`, count: item }));
 const chatParticipants2 = [...new Array(4).keys()].map(item => new ChatParticipant({ time: `23.5${item}`, name: 'Kirill', text: `${item + 1}Имя`, count: item }));
@@ -16,21 +14,31 @@ const chatParticipants2 = [...new Array(4).keys()].map(item => new ChatParticipa
 export class MainPage extends Block {
   constructor() {
     super({
-      Chat: new Chat(),
       HeaderLeftPanel: new HeaderLeftPanel({
-        InputSearch: new InputSearch({
-          onKyeup: (e: Event) => {
+        InputSearch: new Input({
+          class: 'input-search',
+          dataForm: {
+            label: '',
+            placeholder: '',
+            name: '',
+            value: ''
+          },
+          onKeyup: (e: Event) => {
             if (e.key === 'Enter') {
               this.onSearch(e)
             }
           }
         })
       }),
-      InputMessage: new InputMessage({
-        class: 'chat-form__input-message',
-        placeholder: 'Введите сообщение',
-        type: 'text',
-        onKyeup: (e: Event) => {
+      InputMessage: new Input({
+        class:'input-message',
+        dataForm: {
+          label: '',
+          placeholder: 'Введите сообщение',
+          name: '',
+          value: ''
+        },
+        onKeyup: (e: Event) => {
           if(e.key === 'Enter'){
             this.onMessage(e)
           }

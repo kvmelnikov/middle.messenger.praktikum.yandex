@@ -53,8 +53,7 @@
 
 
 .input {
-  background-color: var(--input-background) ;
-  border: 0;
+
 
   &:hover,
   &:focus-visible {
@@ -62,15 +61,19 @@
   }
 }
 
+
+
 .input-search {
   border-radius: 5px;
   height: 32px;
   padding-right: auto;
   text-align: center;
   width: 100%;
+  background-color: var(--input-background) ;
+  border: 0;
 }
 
-.input-profile {
+.input{
   align-items: center;
   background: transparent;
   box-sizing: border-box;
@@ -81,21 +84,12 @@
   font-weight: 500;
   height: 33px;
   line-height: 13px;
-  text-align: end;
+
+  &_profile {
+    text-align: end;
+  }
 }
 
-.input-login {
-  align-items: center;
-  background: transparent;
-  box-sizing: border-box;
-  color: var(--black-text) ;
-  display: flex;
-  font-family:  Inter, Arial, Helvetica, sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 13px;
-  width: 100%;
-}
 
 .button {
   appearance: none;

@@ -1,13 +1,24 @@
 import Block from "../../framework/Block";
-import { IInputProfile } from "../../shared/input-profile.interface";
+import { IInput } from "../../shared/input.interface";
 interface InputProps {
-    dataForm: IInputProfile
+    class: string
+    dataForm: IInput
+    onKeyup?: (e: Event) => void
+
   }
-export class InputProfile extends Block {
+export class Input extends Block {
     constructor(props: InputProps) {
         super({...props,
-            value : props.dataForm.value,
-            placeholder: props.dataForm.placeholder
+            class: props.class,
+            value: props.dataForm.value,
+            placeholder: props.dataForm.placeholder,
+            events: { 
+                keyup: (e: Event) => {
+                  if(props.onKeyup) {
+                    props.onKeyup(e)
+                  }
+                }        
+              }
         })
     }
 

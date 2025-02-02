@@ -1,18 +1,17 @@
 import { Avatar } from "../../components/avatar/avatar";
 import { Button } from "../../components/button/button";
-
-import { InputProfile } from "../../components/input-profile/input-profile";
+import { Input } from "../../components/input/input";
 import { LeftNavigate } from "../../components/left-navigate/left-navigate";
 import Block from "../../framework/Block";
-import { IInputProfile } from "../../shared/input-profile.interface";
+import { IInput } from "../../shared/input.interface";
 
-const inputsData: IInputProfile[] = [
+const inputsData: IInput[] = [
     {
         label: 'Почта',
         placeholder: '',
         name: 'email',
         value: 'pochta@yandex.ru',
-  
+
     },
     {
         label: 'Логин',
@@ -26,7 +25,7 @@ const inputsData: IInputProfile[] = [
         placeholder: '',
         name: 'first_name',
         value: 'Иван',
-     
+
     },
     {
         label: 'Фамилия',
@@ -40,23 +39,23 @@ const inputsData: IInputProfile[] = [
         placeholder: '',
         name: 'display_name',
         value: 'Иван',
-  
+
     },
     {
         label: 'Телефон',
         placeholder: '',
         name: 'phone',
         value: '+7 (909) 967 30 30',
-      
+
     },
 ]
-const inputsData2: IInputProfile[] = [
+const inputsData2: IInput[] = [
     {
         label: 'Почта2',
         placeholder: '',
         name: 'email',
         value: 'pochta2@yandex.ru',
-  
+
     },
     {
         label: 'Логин2',
@@ -70,7 +69,7 @@ const inputsData2: IInputProfile[] = [
         placeholder: '',
         name: 'first_name',
         value: 'Иван',
-     
+
     },
     {
         label: 'Фамилия',
@@ -84,23 +83,23 @@ const inputsData2: IInputProfile[] = [
         placeholder: '',
         name: 'display_name',
         value: 'Иван',
-  
+
     },
     {
         label: 'Телефон',
         placeholder: '',
         name: 'phone',
         value: '+7 (909) 967 30 30',
-      
+
     },
 ]
 export class Profile extends Block {
-    
+
     isEditable: false
     disabled: boolean
     constructor(props: any) {
-        
-        super({ 
+
+        super({
             ...props,
             isEditable: false,
             LeftNavigate: new LeftNavigate({}),
@@ -108,17 +107,17 @@ export class Profile extends Block {
                 src: '../../../public/images/avatar-example.png',
                 className: 'avatar_big',
             }),
-            
-            Inputs: inputsData.map((dataForm)=> new InputProfile({dataForm: dataForm})),
 
-            ButtonChangeProfile: new Button({
-                text: 'Изменить данные',
-                class: 'button__apperance',
-                onClick: (e: Event) => {
-                    console.log(e, 'profile buttton');
-                    this.onChangeEditable();
-                }
-            }),
+            Inputs: inputsData.map((dataForm) => new Input({class: 'input-profile',  dataForm: dataForm  })),
+
+        ButtonChangeProfile: new Button({
+            text: 'Изменить данные',
+            class: 'button__apperance',
+            onClick: (e: Event) => {
+                console.log(e, 'profile buttton');
+                this.onChangeEditable();
+            }
+        }),
             ButtonChangePass: new Button({
                 text: 'Изменить пароль',
                 class: 'button__apperance',
@@ -126,39 +125,37 @@ export class Profile extends Block {
                     this.onChangeEditable();
                 }
             }),
-            ButtonExit: new Button({
-                text: 'Выйти',
-                class: 'button__apperance',
-                onClick: (e: Event) => {
-                    this.onChangeEditable();
-                }
-            }),
-            ButtonSave: new Button({
-                text: 'Сохранить',
-                class: 'button__apperance',
-                onClick: (e: Event) => {
-                    this.onChangeEditable();
-                }
-            })
-        });
-        
-    }
+                ButtonExit: new Button({
+                    text: 'Выйти',
+                    class: 'button__apperance',
+                    onClick: (e: Event) => {
+                        this.onChangeEditable();
+                    }
+                }),
+                    ButtonSave: new Button({
+                        text: 'Сохранить',
+                        class: 'button__apperance',
+                        onClick: (e: Event) => {
+                            this.onChangeEditable();
+                        }
+                    })
+    });
 
-    onChangeEditable(){
-        this.setProps({
-            isEditable: true,
-          });
+}
 
-        this.setLists(({
-            Inputs: inputsData2.map((dataForm)=> new InputProfile({dataForm: dataForm}))
-        }))
-    }
+onChangeEditable(){
+    this.setProps({
+        isEditable: true,
+    });
 
-
+    this.setLists(({
+        Inputs: inputsData2.map((dataForm) => new Input({ dataForm: dataForm }))
+    }))
+}
 
     protected override render(): string {
-   
-            return `<main class="profile">
+
+    return `<main class="profile">
                         {{{LeftNavigate}}}
                        <div class="profile__main">
                                 {{{Avatar}}}
@@ -180,7 +177,7 @@ export class Profile extends Block {
                                 </div>
                        </div>
                     </main>`
-        }
+}
       
     }
 

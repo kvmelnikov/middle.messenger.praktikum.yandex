@@ -1,6 +1,6 @@
 import Block from "../../framework/Block";
-import { IInputProfile } from "../../shared/input-profile.interface";
-import { InputProfile } from "../input-profile/input-profile";
+import { IInputProfile } from "../../shared/input.interface";
+import { InputProfile } from "../input/input";
 const inputsData: IInputProfile[] = [
     {
         label: 'Почта',

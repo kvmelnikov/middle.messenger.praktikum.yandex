@@ -1,6 +1,7 @@
-import Block from '../../../framework/Block';
-import { Avatar } from '../../avatar/avatar';
-import { SvgIcon } from '../../svg-icon/svg-icon';
+import Block from "../../framework/Block";
+import { Avatar } from "../avatar/avatar";
+import { SvgIcon } from "../svg-icon/svg-icon";
+
 
 export class HeaderChat extends Block {
   constructor(props: any) {
