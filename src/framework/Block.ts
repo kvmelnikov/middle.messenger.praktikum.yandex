@@ -277,6 +277,7 @@ export default class Block {
   // }
 
   public onBlur(e: Event): void  {
-       console.log(e.target.value)
+        const input = e.target as HTMLInputElement
+       console.log(input.validity)
   }
 }

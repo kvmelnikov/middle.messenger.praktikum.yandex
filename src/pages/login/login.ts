@@ -1,3 +1,4 @@
+import { Fieldset } from "../../components/input/fieldset";
 import { Input } from "../../components/input/input";
 import Block from "../../framework/Block";
 import { IInput } from "../../shared/input.interface";
@@ -8,8 +9,6 @@ const dataInputs: IInput[] = [
         placeholder: '',
         name: 'email',
         value: 'pochta@yandex.ru',
-        
-
     },
     {
         label: 'Логин',
@@ -22,7 +21,7 @@ const dataInputs: IInput[] = [
 export class Login extends Block {
     constructor(){
         super({
-            Inputs: dataInputs.map((dataInput) => new Input({ class: 'input-profile', dataInput: dataInput, onBlur: this.onBlur})),
+            Inputs: dataInputs.map((dataInput) => new Fieldset({   class: 'form-login__info-line' , input: new Input({ class: 'input-profile', dataInput: dataInput, onBlur: this.onBlur})},
         })
     }
     

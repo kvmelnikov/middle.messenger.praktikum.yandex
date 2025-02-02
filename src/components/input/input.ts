@@ -12,6 +12,8 @@ export class Input extends Block {
             class: props.class,
             value: props.dataInput.value,
             placeholder: props.dataInput.placeholder,
+            minlength: props.dataInput.validators?.minlength || '0',
+            required: props.dataInput.validators?.required || '',
             events: { 
                 keyup: (e: Event) => {
                   if(props.onKeyup) {
@@ -30,14 +32,17 @@ export class Input extends Block {
     }
 
     override render(): string {
-        return '<input class="input input-profile"  placeholder="{{placeholder}}" {{disabled}} type="{{type}}" value="{{value}}" >'
-        // return `<div class="profile__info-line">
-        //             <label class="profile__label">Почта</label>
-        //            
-        //         </div>`
+        return '<input class="input input-profile" pattern=".{1,}" minlength="{{minlength}}" {{required}}   placeholder="{{placeholder}}" {{disabled}} type="{{type}}" value="{{value}}" >'
     }
 
 }
+
+
+// minlength="2"
+// maxlength="40"
+// pattern="^[a-zA-Zа-яёА-ЯЁ\-/\s]+$"
+// data-error-message="Оба поля могут содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы"
+// required
 
 // {{#if (isProfileType editProfile)}}
 // <input class="input input-profile"  placeholder="{{placeholder}}" disabled="true" type="{{type}}" value="{{value}}" >

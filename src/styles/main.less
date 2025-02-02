@@ -52,17 +52,6 @@
 }
 
 
-.input {
-
-
-  &:hover,
-  &:focus-visible {
-    outline: 1px solid var(--primary-color);
-  }
-}
-
-
-
 .input-search {
   border-radius: 5px;
   height: 32px;
@@ -71,7 +60,14 @@
   width: 100%;
   background-color: var(--input-background) ;
   border: 0;
+
+  &:hover,
+  &:focus-visible {
+    outline: 1px solid var(--primary-color);
+  }
 }
+
+
 
 .input{
   align-items: center;
@@ -84,7 +80,8 @@
   font-weight: 500;
   height: 33px;
   line-height: 13px;
-
+  outline: none;
+  border: none;
   &_profile {
     text-align: end;
   }
