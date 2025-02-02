@@ -10,9 +10,13 @@ export class InputSearch extends Block {
         keyup: (e: Event) => {
           props.onKyeup(e)
           this.onSearch()
-        } 
+        }        
       }
     });
+   
+  }
+  onFocus() {
+    this.focus()
   }
 
   onSearch(){

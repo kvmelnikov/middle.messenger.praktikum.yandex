@@ -268,4 +268,12 @@ export default class Block {
       content.style.display = 'none';
     }
   }
+
+  public focus(): void {
+    const content = this.getContent();
+    if(content) {
+      content.focus()
+    }
+
+  }
 }
