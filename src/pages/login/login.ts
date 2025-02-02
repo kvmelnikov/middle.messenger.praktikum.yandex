@@ -8,7 +8,7 @@ const dataInputs: IInput[] = [
         placeholder: '',
         name: 'email',
         value: 'pochta@yandex.ru',
-
+        
 
     },
     {

@@ -42,12 +42,10 @@ export default class Block {
   private _addEvents(): void {
     const { events = {} } = this.props;
     Object.keys(events).forEach(eventName => {
-      if (this._element) {
-     
+      if (this._element) {     
         this._element.addEventListener(eventName, events[eventName]);
       }
     });
-    console.log(events)
   }
 
   private _registerEvents(eventBus: EventBus): void {
@@ -278,7 +276,7 @@ export default class Block {
 
   // }
 
-  // public onBlur(e: Event): void  {
-  //      console.log(e.target.value)
-  // }
+  public onBlur(e: Event): void  {
+       console.log(e.target.value)
+  }
 }

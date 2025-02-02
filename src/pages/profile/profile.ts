@@ -1,5 +1,6 @@
 import { Avatar } from "../../components/avatar/avatar";
 import { Button } from "../../components/button/button";
+import { Fieldset } from "../../components/input/fieldset";
 import { Input } from "../../components/input/input";
 import { LeftNavigate } from "../../components/left-navigate/left-navigate";
 import Block from "../../framework/Block";
@@ -107,9 +108,7 @@ export class Profile extends Block {
                 src: '../../../public/images/avatar-example.png',
                 className: 'avatar_big',
             }),
-
-            Inputs: inputsData.map((dataForm) => new Input({ class: 'input-profile', dataInput: dataForm, onBlur: (e:Event) => this.onBlur(e) })),
-
+            Inputs: inputsData.map((dataForm) => new Fieldset({input: new Input({ class: 'input-profile', dataInput: dataForm, onBlur: (e:Event) => this.onBlur(e) }) }) ),
             ButtonChangeProfile: new Button({
                 text: 'Изменить данные',
                 class: 'button__apperance',
@@ -142,10 +141,7 @@ export class Profile extends Block {
         });
 
     }
-    
-  public onBlur(e: Event): void  {
-       console.log(e.target.value)
-  }
+
     onChangeEditable() {
         this.setProps({
             isEditable: true,

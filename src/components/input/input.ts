@@ -16,20 +16,13 @@ export class Input extends Block {
                 keyup: (e: Event) => {
                   if(props.onKeyup) {
                     props.onKeyup(e)
-                    console.log('keyup')
                   }
                 },
-                focus: (e: Event) => {
+                blur: (e: Event) => {
                   e.stopPropagation()
-                  console.log('focus')
-                },
-                blur: (e) => {
-                  e.stopPropagation()
-                    console.log('blur')
                     if(props.onBlur) {
                       props.onBlur(e)
                     }
-                 
                 }
 
               }
