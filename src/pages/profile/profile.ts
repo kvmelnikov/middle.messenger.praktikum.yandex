@@ -108,16 +108,16 @@ export class Profile extends Block {
                 className: 'avatar_big',
             }),
 
-            Inputs: inputsData.map((dataForm) => new Input({class: 'input-profile',  dataForm: dataForm  })),
+            Inputs: inputsData.map((dataForm) => new Input({ class: 'input-profile', dataInput: dataForm, onBlur: (e:Event) => this.onBlur(e) })),
 
-        ButtonChangeProfile: new Button({
-            text: 'Изменить данные',
-            class: 'button__apperance',
-            onClick: (e: Event) => {
-                console.log(e, 'profile buttton');
-                this.onChangeEditable();
-            }
-        }),
+            ButtonChangeProfile: new Button({
+                text: 'Изменить данные',
+                class: 'button__apperance',
+                onClick: (e: Event) => {
+                    console.log(e, 'profile buttton');
+                    this.onChangeEditable();
+                }
+            }),
             ButtonChangePass: new Button({
                 text: 'Изменить пароль',
                 class: 'button__apperance',
@@ -125,37 +125,40 @@ export class Profile extends Block {
                     this.onChangeEditable();
                 }
             }),
-                ButtonExit: new Button({
-                    text: 'Выйти',
-                    class: 'button__apperance',
-                    onClick: (e: Event) => {
-                        this.onChangeEditable();
-                    }
-                }),
-                    ButtonSave: new Button({
-                        text: 'Сохранить',
-                        class: 'button__apperance',
-                        onClick: (e: Event) => {
-                            this.onChangeEditable();
-                        }
-                    })
-    });
+            ButtonExit: new Button({
+                text: 'Выйти',
+                class: 'button__apperance',
+                onClick: (e: Event) => {
+                    this.onChangeEditable();
+                }
+            }),
+            ButtonSave: new Button({
+                text: 'Сохранить',
+                class: 'button__apperance',
+                onClick: (e: Event) => {
+                    this.onChangeEditable();
+                }
+            })
+        });
 
-}
+    }
+    
+  public onBlur(e: Event): void  {
+       console.log(e.target.value)
+  }
+    onChangeEditable() {
+        this.setProps({
+            isEditable: true,
+        });
 
-onChangeEditable(){
-    this.setProps({
-        isEditable: true,
-    });
-
-    this.setLists(({
-        Inputs: inputsData2.map((dataForm) => new Input({ dataForm: dataForm }))
-    }))
-}
+        this.setLists(({
+            Inputs: inputsData2.map((dataForm) => new Input({ dataForm: dataForm }))
+        }))
+    }
 
     protected override render(): string {
 
-    return `<main class="profile">
+        return `<main class="profile">
                         {{{LeftNavigate}}}
                        <div class="profile__main">
                                 {{{Avatar}}}
@@ -177,7 +180,7 @@ onChangeEditable(){
                                 </div>
                        </div>
                     </main>`
-}
-      
     }
+
+}
 

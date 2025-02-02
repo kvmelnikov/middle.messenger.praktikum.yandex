@@ -43,9 +43,11 @@ export default class Block {
     const { events = {} } = this.props;
     Object.keys(events).forEach(eventName => {
       if (this._element) {
+     
         this._element.addEventListener(eventName, events[eventName]);
       }
     });
+    console.log(events)
   }
 
   private _registerEvents(eventBus: EventBus): void {
@@ -268,11 +270,15 @@ export default class Block {
     }
   }
 
-  public focus(): void {
-    const content = this.getContent();
-    if(content) {
-      content.focus()
-    }
+  // public focus(): void {
+  //   const content = this.getContent();
+  //   if(content) {
+  //     content.focus()
+  //   }
 
-  }
+  // }
+
+  // public onBlur(e: Event): void  {
+  //      console.log(e.target.value)
+  // }
 }

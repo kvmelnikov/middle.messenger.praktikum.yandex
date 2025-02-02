@@ -1,7 +1,8 @@
-import Block from '../../../framework/Block';
-import { Avatar } from '../../avatar/avatar';
-import { CounterMessage } from '../../counter-message/counter-message';
-import { Time } from '../../time/time';
+import Block from "../../framework/Block";
+import { Avatar } from "../avatar/avatar";
+import { CounterMessage } from "../counter-message/counter-message";
+import { Time } from "../time/time";
+
 
 export class ChatParticipant extends Block {
   constructor(props: any) {

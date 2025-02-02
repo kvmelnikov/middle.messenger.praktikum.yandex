@@ -1,12 +1,12 @@
 import { ButtonIcon } from '../../components/button-icon/button-icon';
 import { DateMessage } from '../../components/date-message/date-message';
-import { ChatParticipant } from '../../components/left-panel/chat-participant/chat-participant';
-import { HeaderLeftPanel } from '../../components/left-panel/header-left-panel/header-left-panel';
+import { HeaderLeftPanel } from '../../components/header-left-panel';
 import { Message } from '../../components/message/message';
 import { SvgIcon } from '../../components/svg-icon/svg-icon';
 import Block from '../../framework/Block';
 import { HeaderChat } from '../../components/header-chat/header-chat';
 import { Input } from '../../components/input/input';
+import { ChatParticipant } from '../../components/chat-participant/chat-participant';
 
 const chatParticipants = [...new Array(3).keys()].map(item => new ChatParticipant({ time: `23.5${item}`, name: 'Kirill', text: `${item + 1}Имя`, count: item }));
 const chatParticipants2 = [...new Array(4).keys()].map(item => new ChatParticipant({ time: `23.5${item}`, name: 'Kirill', text: `${item + 1}Имя`, count: item }));
@@ -17,7 +17,7 @@ export class MainPage extends Block {
       HeaderLeftPanel: new HeaderLeftPanel({
         InputSearch: new Input({
           class: 'input-search',
-          dataForm: {
+          dataInput: {
             label: '',
             placeholder: '',
             name: '',
@@ -32,7 +32,7 @@ export class MainPage extends Block {
       }),
       InputMessage: new Input({
         class:'input-message',
-        dataForm: {
+        dataInput: {
           label: '',
           placeholder: 'Введите сообщение',
           name: '',

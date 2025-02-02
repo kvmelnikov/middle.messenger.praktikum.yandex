@@ -1,5 +1,5 @@
-import Block from '../../../framework/Block';
-import { Link } from '../../link/Link';
+import Block from '../framework/Block';
+import { Link } from './link/Link';
 import { InputSearch } from '../input-search/input-search';
 
 export class HeaderLeftPanel extends Block {

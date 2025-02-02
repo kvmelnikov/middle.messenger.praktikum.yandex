@@ -1,20 +1,40 @@
+import { Input } from "../../components/input/input";
 import Block from "../../framework/Block";
+import { IInput } from "../../shared/input.interface";
 
+const dataInputs: IInput[] = [
+    {
+        label: 'Почта',
+        placeholder: '',
+        name: 'email',
+        value: 'pochta@yandex.ru',
+
+
+    },
+    {
+        label: 'Логин',
+        placeholder: '',
+        name: 'login',
+        value: 'ivanivanov',
+
+    },
+]
 export class Login extends Block {
     constructor(){
-        super({})
+        super({
+            Inputs: dataInputs.map((dataInput) => new Input({ class: 'input-profile', dataInput: dataInput, onBlur: this.onBlur})),
+        })
+    }
+    
+    onBlur(e: Event) {
+        super.onBlur(e)
     }
 
     protected render(): string {
          return `<form class="form-login">
     <h5 class="form-login__heading">Вход</h5>
     <div class="form-login__info-line">
-        <label class="form-login__label">Почта</label>
-        {{> InputLogin name="login" type="text" value="ivanivanov"}}
-    </div>
-    <div class="form-login__info-line">
-        <label class="form-login__label">Пароль</label>
-        {{> InputLogin name="password" type="password" value="ivanivanov"}}
+        {{{ Inputs }}}
     </div>
     <div class="form-login__actions">
         {{> ButtonApperance data-page="mainPaige" data-action="default" class="button__apperance" text="Авторизоваться" }}
