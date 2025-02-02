@@ -9,18 +9,11 @@ export class InputSearch extends Block {
       events: { 
         keyup: (e: Event) => {
           props.onKyeup(e)
-          this.onSearch()
+    
         }        
       }
     });
    
-  }
-  onFocus() {
-    this.focus()
-  }
-
-  onSearch(){
-    console.log('ввод')
   }
   
   override render(): string {

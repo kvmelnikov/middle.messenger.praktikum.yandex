@@ -30,7 +30,17 @@ export class MainPage extends Block {
         class: 'chat-form__input-message',
         placeholder: 'Введите сообщение',
         type: 'text',
+        onKyeup: (e: Event) => {
+          if(e.key === 'Enter'){
+            this.onMessage(e)
+          }
+        }
       }),
+      ButtonIcon: new ButtonIcon({
+        dataPage: 'mainPaige',
+        class: 'button-icon-right',
+      }),
+
       ChatParticipants: chatParticipants,
       HeaderChat: new HeaderChat({
         avatarSrc: '../../../public/images/avatar-example.png',
@@ -38,23 +48,28 @@ export class MainPage extends Block {
         name: 'Вадим',
       }),
       DateMessage: new DateMessage({}),
-      Messages: [...new Array(3).keys()].map(item => new Message({ time: `23.5${item}`, text: `${item + 1}Имя` })), 
+      Messages: [],
       SvgIcon: new SvgIcon({
         path: '../../../public/svg/clip.svg',
         height: '32px',
         alt: 'скребка',
       }),
 
-      ButtonIcon: new ButtonIcon({
-        dataPage: 'mainPaige',
-        class: 'button-icon-right',
-      }),
     });
   }
 
   onSearch(e: Event) {
     this.setLists({
+      ...this.props,
       ChatParticipants: chatParticipants2
+    })
+  }
+
+  onMessage(e: Event) {
+    const input = e.target as HTMLInputElement
+    this.setLists({
+      ...this.props,
+      Messages: [new Message({time: Date.now().toString(), text: input.value })]
     })
   }
 
@@ -73,11 +88,9 @@ export class MainPage extends Block {
                     {{{ Link data-page="auxiliaryElements" data-action="default" text="Вспомогательные компоненты" class="link link-login" }}}
                 </div>
                    <div class="footer-chat">
-                      <form class="chat-form" >
                           {{{ SvgIcon  }}}
                           {{{InputMessage}}}
                           {{{ ButtonIcon }}} 
-                      </form> 
                    </div>
                 </section>
                 </main>`;

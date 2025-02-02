@@ -230,7 +230,6 @@ export default class Block {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
   
-    console.log(props)
 
     return new Proxy(props, {
       get(target: any, prop: string) {
