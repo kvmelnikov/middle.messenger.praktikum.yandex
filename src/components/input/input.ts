@@ -13,7 +13,10 @@ export class Input extends Block {
             value: props.dataInput.value,
             placeholder: props.dataInput.placeholder,
             minlength: props.dataInput.validators?.minlength || '0',
+            maxlength: props.dataInput.validators?.maxlength || '99999999',
+            name: props.dataInput.name,
             required: props.dataInput.validators?.required || '',
+
             events: { 
                 keyup: (e: Event) => {
                   if(props.onKeyup) {
@@ -32,7 +35,7 @@ export class Input extends Block {
     }
 
     override render(): string {
-        return '<input class="input input-profile" pattern=".{1,}" minlength="{{minlength}}" {{required}}   placeholder="{{placeholder}}" {{disabled}} type="{{type}}" value="{{value}}" >'
+        return '<input class="input input-profile" name="{{name}}" maxlength="{{maxlength}}" minlength="{{minlength}}" {{required}} placeholder="{{placeholder}}" {{disabled}} type="{{type}}" value="{{value}}" >'
     }
 
 }

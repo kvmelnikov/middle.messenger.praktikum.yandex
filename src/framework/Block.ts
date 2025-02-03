@@ -1,5 +1,5 @@
 import EventBus, { EventCallback } from './EventBus';
-import Handlebars from 'handlebars';
+import Handlebars, { K } from 'handlebars';
 
 interface BlockProps {
   [key: string]: any;
@@ -42,7 +42,7 @@ export default class Block {
   private _addEvents(): void {
     const { events = {} } = this.props;
     Object.keys(events).forEach(eventName => {
-      if (this._element) {     
+      if (this._element) {
         this._element.addEventListener(eventName, events[eventName]);
       }
     });
@@ -64,7 +64,7 @@ export default class Block {
     Object.values(this.children).forEach(child => { child.dispatchComponentDidMount(); });
   }
 
-  protected componentDidMount(): void { 
+  protected componentDidMount(): void {
 
   }
 
@@ -78,12 +78,12 @@ export default class Block {
     if (response) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
-   
- 
+
+
   }
 
   protected componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
-   // console.log(oldProps, newProps);
+    // console.log(oldProps, newProps);
     return true;
   }
 
@@ -102,9 +102,9 @@ export default class Block {
 
         children[key] = value;
       } else if (Array.isArray(value)) {
-        
+
         lists[key] = value;
-        
+
       } else {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         props[key] = value;
@@ -117,7 +117,7 @@ export default class Block {
   protected addAttributes(): void {
     const { attr = {} } = this.props;
 
- 
+
     Object.entries(attr).forEach(([key, value]) => {
       if (this._element) {
         this._element.setAttribute(key, value as string);
@@ -146,6 +146,10 @@ export default class Block {
 
   public getProps = (prop: string): any => {
     return this.props[prop]
+  }
+
+  public getChildren = (child: string): any => {
+    return this.children[child]
   }
 
 
@@ -187,20 +191,20 @@ export default class Block {
     Object.entries(this.lists).forEach(([, child]) => {
       const listCont = this._createDocumentElement('template');
       child.forEach(item => {
-       
+
         if (item instanceof Block) {
-       
+
           listCont.content.append(item.getContent());
         } else {
           listCont.content.append(`${item}`);
         }
       });
       const stub = fragment.content.querySelector(`[data-id="__l_${tmpId}"]`);
-    
+
       if (stub) {
-        
+
         stub.replaceWith(listCont.content);
-       
+
       }
     });
 
@@ -208,7 +212,7 @@ export default class Block {
     if (this._element && newElement) {
       this._element.replaceWith(newElement);
     }
-  
+
     this._element = newElement;
     this._addEvents();
     this.addAttributes();
@@ -229,7 +233,7 @@ export default class Block {
   private _makePropsProxy(props: any): any {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
-  
+
 
     return new Proxy(props, {
       get(target: any, prop: string) {
@@ -239,7 +243,7 @@ export default class Block {
       set(target: any, prop: string, value: any) {
 
         const oldTarget = { ...target };
-        
+
         target[prop] = value;
         self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
         return true;
@@ -255,6 +259,7 @@ export default class Block {
   }
 
   public show(): void {
+    console.log('show')
     const content = this.getContent();
     if (content) {
       content.style.display = 'block';
@@ -262,6 +267,7 @@ export default class Block {
   }
 
   public hide(): void {
+    console.log('hide')
     const content = this.getContent();
     if (content) {
       content.style.display = 'none';
@@ -276,8 +282,18 @@ export default class Block {
 
   // }
 
-  public onBlur(e: Event): void  {
-        const input = e.target as HTMLInputElement
-       console.log(input.validity)
+  public onBlur(e: Event): void {
+    const input = e.target as HTMLInputElement
+    console.log(input.validity.valid, this)
+
+
+    this.lists.Inputs.forEach((el) => {
+      if (el.getProps('name') === input.name) {
+        input.validity.valid ? el.getChildren('Error').hide() : el.getChildren('Error').show()
+      }
+    })
+
+
+
   }
 }
