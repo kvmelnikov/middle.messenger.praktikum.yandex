@@ -1,67 +1,85 @@
-import { Button } from "../../components/button/button";
-import { Fieldset } from "../../components/input/fieldset";
-import { Input } from "../../components/input/input";
-import { InputError } from "../../components/input/input-error";
-import { Link } from "../../components/link/Link";
-import Block from "../../framework/Block";
-import { IInput } from "../../shared/input.interface";
+import { Button } from '../../components/button/button';
+import { Fieldset } from '../../components/input/fieldset';
+import { Input } from '../../components/input/input';
+import { InputError } from '../../components/input/input-error';
+import { Link } from '../../components/link/Link';
+import Block from '../../framework/Block';
+import { IInput } from '../../shared/input.interface';
 
 const dataInputs: IInput[] = [
-    {
-        label: 'Почта',
-        placeholder: '',
-        name: 'email',
-        type: 'email',
-        value: 'pochta@yandex.ru',
-        errorText: 'введите текст',
-        validators: { minlength: '2', maxlength: '40', pattern: '', required: 'required' }
+  {
+    label: 'Почта',
+    placeholder: '',
+    name: 'email',
+    type: 'email',
+    value: 'pochta@yandex.ru',
+    errorText: 'введите текст',
+    validators: {
+      minlength: '2',
+      maxlength: '40',
+      pattern: '',
+      required: 'required',
     },
-    {
-        label: 'Логин',
-        placeholder: '',
-        name: 'login',
-        type: 'text`',
-        value: 'ivanivanov',
-        errorText: 'введите текст',
-        validators: { minlength: '2', maxlength: '40', pattern: '', required: 'required' }
+  },
+  {
+    label: 'Логин',
+    placeholder: '',
+    name: 'login',
+    type: 'text`',
+    value: 'ivanivanov',
+    errorText: 'введите текст',
+    validators: {
+      minlength: '2',
+      maxlength: '40',
+      pattern: '',
+      required: 'required',
     },
-]
+  },
+];
 export class Login extends Block {
-    constructor() {
-        super({
-            Inputs: dataInputs.map((dataInput) =>
-                new Fieldset({
-                    class: 'form-login__info-line',
-                    name: dataInput.name,
-                    label: dataInput.label,
-                    error: new InputError({ name: dataInput.name, text: dataInput.errorText }),
-                    input: new Input({ class: 'input-profile', dataInput: dataInput, onBlur: (e: Event) => this.onBlur(e) })
-                })
-            ),
-            Link: new Link({
-                class: 'link-login',
-                dataAction: 'default',
-                dataPage: 'signin',
-                text: 'Нет аккаунта?'
+  constructor() {
+    super({
+      Inputs: dataInputs.map(
+        dataInput =>
+          new Fieldset({
+            class: 'form-login__info-line',
+            name: dataInput.name,
+            label: dataInput.label,
+            error: new InputError({
+              name: dataInput.name,
+              text: dataInput.errorText,
             }),
-            ButtonEnter: new Button({
-                text: 'Войти',
-                class: 'button__apperance',
-                onClick: (e: Event) => {},
-                dataPage: 'mainPage',
-                dataAction: 'default'
-            })
-        })
-    }
-    onChangeEditable() {
-        throw new Error("Method not implemented.");
-    }
-    onBlur(e: Event) {
-        super.onBlur(e)
-    }
+            input: new Input({
+              class: 'input-profile',
+              dataInput: dataInput,
+              onBlur: (e: Event) => this.onBlur(e),
+            }),
+          })
+      ),
+      Link: new Link({
+        class: 'link-login',
+        dataAction: 'default',
+        dataPage: 'signin',
+        text: 'Нет аккаунта?',
+      }),
+      ButtonEnter: new Button({
+        text: 'Войти',
+        class: 'button__apperance',
+        onClick: (e: Event) => {},
+        dataPage: 'mainPage',
+        dataAction: 'default',
+      }),
+    });
+  }
+  onChangeEditable() {
+    throw new Error('Method not implemented.');
+  }
+  onBlur(e: Event) {
+    super.onBlur(e);
+  }
 
-    protected render(): string {
-        return `<form class="form-login">
+  protected render(): string {
+    return `<form class="form-login">
     <h5 class="form-login__heading">Вход</h5>
     <div class="form-login__info-line">
         {{{ Inputs }}}
@@ -70,8 +88,8 @@ export class Login extends Block {
         {{{ ButtonEnter }}}
         {{{ Link }}}
     </div>
-        </form>`
-    }
+        </form>`;
+  }
 }
 
 // {{> ButtonApperance data-page="mainPaige" data-action="default" class="button__apperance" text="Авторизоваться" }}

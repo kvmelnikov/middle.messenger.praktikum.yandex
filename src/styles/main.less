@@ -1,41 +1,42 @@
 :root {
-  --grey: #FBFBFB;
-  --border-panel: 1px solid #EAEAEA;
-  --input-background: #EFEFEF;
+  --grey: #fbfbfb;
+  --border-panel: 1px solid #eaeaea;
+  --input-background: #efefef;
   --font-color-grey: #999;
-  --black-text: #1E1E1E;
-  --apperance: #3369F3;
-  --white: #FFF;
-  --active-item: #E4EDFD;
-  --red: #F00;
+  --black-text: #1e1e1e;
+  --apperance: #3369f3;
+  --white: #fff;
+  --active-item: #e4edfd;
+  --red: #f00;
 }
-
 
 @font-face {
   font-family: Inter, Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 400;
-  src: url("../../public/fonts/Inter/Inter-Regular.woff2") format('woff2'), url("../../public/fonts/Inter/Inter-Regular.woff") format('woff');
+  src: url('../../public/fonts/Inter/Inter-Regular.woff2') format('woff2'),
+    url('../../public/fonts/Inter/Inter-Regular.woff') format('woff');
 }
 
 @font-face {
-  font-family:  Inter, Arial, Helvetica, sans-serif;
+  font-family: Inter, Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 700;
-  src: url("../../public/fonts/Inter/Inter-Bold.woff2") format('woff2'), url("../../public/fonts/Inter/Inter-Bold.woff") format('woff');
+  src: url('../../public/fonts/Inter/Inter-Bold.woff2') format('woff2'),
+    url('../../public/fonts/Inter/Inter-Bold.woff') format('woff');
 }
 
 @font-face {
   font-family: Inter, Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 900;
-  src: url("../../public/fonts/Inter/Inter-Black.woff2") format('woff2'), url("../../public/fonts/Inter/Inter-Black.woff") format('woff');
+  src: url('../../public/fonts/Inter/Inter-Black.woff2') format('woff2'),
+    url('../../public/fonts/Inter/Inter-Black.woff') format('woff');
 }
 
 .link {
   color: inherit;
   text-decoration: none;
-
 }
 
 .link:hover {
@@ -51,14 +52,13 @@
   color: var(--apperance);
 }
 
-
 .input-search {
   border-radius: 5px;
   height: 32px;
   padding-right: auto;
   text-align: center;
   width: 100%;
-  background-color: var(--input-background) ;
+  background-color: var(--input-background);
   border: 0;
 
   &:hover,
@@ -67,15 +67,13 @@
   }
 }
 
-
-
-.input{
+.input {
   align-items: center;
   background: transparent;
   box-sizing: border-box;
-  color: var(--font-color-grey) ;
+  color: var(--font-color-grey);
   display: flex;
-  font-family:  Inter, Arial, Helvetica, sans-serif;
+  font-family: Inter, Arial, Helvetica, sans-serif;
   font-size: 13px;
   font-weight: 500;
   height: 33px;
@@ -90,7 +88,6 @@
 .error-string {
   display: none;
 }
-
 
 .button {
   appearance: none;
@@ -113,7 +110,7 @@
     background-color: var(--apperance);
     border-radius: 8px;
     color: var(--white);
-    font-family:  Inter, Arial, Helvetica, sans-serif;
+    font-family: Inter, Arial, Helvetica, sans-serif;
     font-size: 13px;
     font-weight: 500;
     height: 37px;
@@ -125,18 +122,17 @@
 }
 
 .button-icon-right {
-  background-image: url("../../public/images/button-right.png");
+  background-image: url('../../public/images/button-right.png');
 }
 
 .button-icon-left {
-  background-image: url("../../public/images/button-left.png");
+  background-image: url('../../public/images/button-left.png');
 }
 
 .button-icon-add-user {
-  background-image: url("../../public/svg/more-svg.svg");
+  background-image: url('../../public/svg/more-svg.svg');
   height: 25px;
   width: 25px;
-  
 }
 
 .avatar {
@@ -164,7 +160,7 @@
 
 .time {
   color: var(--font-color-grey);
-  font-family:  Inter, Arial, Helvetica, sans-serif;
+  font-family: Inter, Arial, Helvetica, sans-serif;
   font-size: 9px;
   font-weight: 500;
   line-height: 13px;
@@ -176,17 +172,13 @@
   background-color: var(--apperance);
   border-radius: 50%;
   color: var(--white);
-  font-family:  Inter, Arial, Helvetica, sans-serif;
+  font-family: Inter, Arial, Helvetica, sans-serif;
   font-size: 11px;
   font-weight: 500;
   line-height: 20px;
   text-align: center;
   width: 20px;
 }
-
-
-
-
 
 .date-message {
   text-align: center;
@@ -227,16 +219,15 @@
     text-align: center;
     width: 80%;
   }
-
 }
 
 .chat {
   display: grid;
   grid-auto-rows: 54px auto 54px;
   grid-template-areas:
-    "hd"
-    "ws"
-    "ft";
+    'hd'
+    'ws'
+    'ft';
   height: 100vh;
   padding: 0 10px;
 }
@@ -253,7 +244,6 @@
 
   &__user {
     display: block;
-    
   }
 
   &__name-block {
@@ -293,7 +283,7 @@
   }
 
   &__name {
-    font-family:  Inter, Arial, Helvetica, sans-serif;
+    font-family: Inter, Arial, Helvetica, sans-serif;
     font-size: 13px;
     font-weight: 600;
     height: 13px;
@@ -306,7 +296,7 @@
 
   &__text-message {
     color: var(--font-color-grey);
-    font-family:  Inter, Arial, Helvetica, sans-serif;
+    font-family: Inter, Arial, Helvetica, sans-serif;
     font-size: 9px;
     font-weight: 500;
     height: 30px;
@@ -323,7 +313,7 @@
     justify-content: space-between;
   }
 }
-  
+
 .message {
   background-color: var(--grey);
   border-radius: 12px;
@@ -331,7 +321,7 @@
   width: 402px;
 
   &__text {
-    font-family:  Inter, Arial, Helvetica, sans-serif;
+    font-family: Inter, Arial, Helvetica, sans-serif;
     font-size: 12px;
     font-weight: 500;
     line-height: 15px;
@@ -356,7 +346,6 @@
   grid-template-columns: 64px auto;
   height: 100vh;
 
-
   &__main {
     display: flex;
     flex-direction: column;
@@ -367,11 +356,10 @@
 
   &__avatar {
     margin: 60px auto 21px;
-
   }
 
   &__name {
-    font-family:  Inter, Arial, Helvetica, sans-serif;
+    font-family: Inter, Arial, Helvetica, sans-serif;
     font-size: 16px;
     font-weight: 600;
     line-height: 16px;
@@ -379,7 +367,7 @@
   }
 
   &__label {
-    font-family:  Inter, Arial, Helvetica, sans-serif;
+    font-family: Inter, Arial, Helvetica, sans-serif;
     font-size: 13px;
     font-weight: 500;
     line-height: 13px;
@@ -435,7 +423,7 @@
 
   &__label {
     color: var(--font-color-grey);
-    font-family:  Inter, Arial, Helvetica, sans-serif;
+    font-family: Inter, Arial, Helvetica, sans-serif;
     font-size: 9px;
     font-weight: 500;
     line-height: 9px;
@@ -447,17 +435,17 @@
     margin-bottom: 16px;
     max-width: 280px;
     width: 90%;
-  } 
+  }
 
   &__heading {
-    font-family:  Inter, Arial, Helvetica, sans-serif;
+    font-family: Inter, Arial, Helvetica, sans-serif;
     font-size: 20px;
     font-weight: 500;
     line-height: 20px;
     text-align: center;
   }
 
-  &__actions{
+  &__actions {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -484,7 +472,7 @@
 
   &__label {
     color: var(--font-color-grey);
-    font-family:  Inter, Arial, Helvetica, sans-serif;
+    font-family: Inter, Arial, Helvetica, sans-serif;
     font-size: 9px;
     font-weight: 500;
     line-height: 9px;
@@ -496,17 +484,17 @@
     margin-bottom: 16px;
     max-width: 280px;
     width: 90%;
-  } 
+  }
 
   &__heading {
-    font-family:  Inter, Arial, Helvetica, sans-serif;
+    font-family: Inter, Arial, Helvetica, sans-serif;
     font-size: 20px;
     font-weight: 500;
     line-height: 20px;
     text-align: center;
   }
 
-  &__actions{
+  &__actions {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -515,7 +503,7 @@
   }
 }
 
-.tooltip-attach{
+.tooltip-attach {
   border: var(--border-panel);
   border-radius: 12px;
   display: flex;
@@ -539,7 +527,7 @@
   }
 }
 
-.dialog-window{
+.dialog-window {
   align-items: center;
   border: var(--border-panel);
   border-radius: 12px;
@@ -550,7 +538,7 @@
 
   &__heading {
     color: var(--black-text);
-    font-family:  Inter, Arial, Helvetica, sans-serif;
+    font-family: Inter, Arial, Helvetica, sans-serif;
     font-size: 15px;
     font-weight: 500;
     line-height: 20px;
@@ -564,4 +552,3 @@
     width: 90%;
   }
 }
-

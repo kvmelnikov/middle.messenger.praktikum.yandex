@@ -5,7 +5,6 @@ interface BlockProps {
   [key: string]: any;
 }
 
-
 export default class Block {
   static EVENTS = {
     INIT: 'init',
@@ -30,7 +29,8 @@ export default class Block {
 
   constructor(propsWithChildren: BlockProps = {}) {
     const eventBus = new EventBus();
-    const { props, children, lists } = this._getChildrenPropsAndProps(propsWithChildren);
+    const { props, children, lists } =
+      this._getChildrenPropsAndProps(propsWithChildren);
     this.props = this._makePropsProxy({ ...props });
     this.children = this._makePropsProxy({ ...children });
     this.lists = this._makePropsProxy({ ...lists });
@@ -50,9 +50,18 @@ export default class Block {
 
   private _registerEvents(eventBus: EventBus): void {
     eventBus.on(Block.EVENTS.INIT, this.init.bind(this) as EventCallback);
-    eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this) as EventCallback);
-    eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this) as EventCallback);
-    eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this) as EventCallback);
+    eventBus.on(
+      Block.EVENTS.FLOW_CDM,
+      this._componentDidMount.bind(this) as EventCallback
+    );
+    eventBus.on(
+      Block.EVENTS.FLOW_CDU,
+      this._componentDidUpdate.bind(this) as EventCallback
+    );
+    eventBus.on(
+      Block.EVENTS.FLOW_RENDER,
+      this._render.bind(this) as EventCallback
+    );
   }
 
   protected init(): void {
@@ -61,37 +70,39 @@ export default class Block {
 
   private _componentDidMount(): void {
     this.componentDidMount();
-    Object.values(this.children).forEach(child => { child.dispatchComponentDidMount(); });
+    Object.values(this.children).forEach(child => {
+      child.dispatchComponentDidMount();
+    });
   }
 
-  protected componentDidMount(): void {
-
-  }
+  protected componentDidMount(): void {}
 
   public dispatchComponentDidMount(): void {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
-  private _componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): void {
-
+  private _componentDidUpdate(
+    oldProps: BlockProps,
+    newProps: BlockProps
+  ): void {
     const response = this.componentDidUpdate(oldProps, newProps);
     if (response) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
-
-
   }
 
-  protected componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
+  protected componentDidUpdate(
+    oldProps: BlockProps,
+    newProps: BlockProps
+  ): boolean {
     // console.log(oldProps, newProps);
     return true;
   }
 
-
   private _getChildrenPropsAndProps(propsAndChildren: BlockProps): {
-    children: Record<string, Block>,
-    props: BlockProps,
-    lists: Record<string, any[]>
+    children: Record<string, Block>;
+    props: BlockProps;
+    lists: Record<string, any[]>;
   } {
     const children: Record<string, Block> = {};
     const props: BlockProps = {};
@@ -99,12 +110,9 @@ export default class Block {
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       if (value instanceof Block) {
-
         children[key] = value;
       } else if (Array.isArray(value)) {
-
         lists[key] = value;
-
       } else {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         props[key] = value;
@@ -117,15 +125,11 @@ export default class Block {
   protected addAttributes(): void {
     const { attr = {} } = this.props;
 
-
     Object.entries(attr).forEach(([key, value]) => {
       if (this._element) {
         this._element.setAttribute(key, value as string);
       }
-
     });
-
-
   }
 
   protected setAttributes(attr: any): void {
@@ -145,13 +149,12 @@ export default class Block {
   };
 
   public getProps = (prop: string): any => {
-    return this.props[prop]
-  }
+    return this.props[prop];
+  };
 
   public getChildren = (child: string): any => {
-    return this.children[child]
-  }
-
+    return this.children[child];
+  };
 
   public setLists = (nextList: Record<string, any[]>): void => {
     if (!nextList) {
@@ -165,9 +168,7 @@ export default class Block {
     return this._element;
   }
 
-
   private _render(): void {
-
     const propsAndStubs = { ...this.props };
     const tmpId = Math.floor(100000 + Math.random() * 900000);
     Object.entries(this.children).forEach(([key, child]) => {
@@ -191,9 +192,7 @@ export default class Block {
     Object.entries(this.lists).forEach(([, child]) => {
       const listCont = this._createDocumentElement('template');
       child.forEach(item => {
-
         if (item instanceof Block) {
-
           listCont.content.append(item.getContent());
         } else {
           listCont.content.append(`${item}`);
@@ -202,9 +201,7 @@ export default class Block {
       const stub = fragment.content.querySelector(`[data-id="__l_${tmpId}"]`);
 
       if (stub) {
-
         stub.replaceWith(listCont.content);
-
       }
     });
 
@@ -219,7 +216,6 @@ export default class Block {
   }
 
   protected render(): string {
-
     return '';
   }
 
@@ -234,14 +230,12 @@ export default class Block {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
 
-
     return new Proxy(props, {
       get(target: any, prop: string) {
         const value = target[prop];
         return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target: any, prop: string, value: any) {
-
         const oldTarget = { ...target };
 
         target[prop] = value;
@@ -263,7 +257,7 @@ export default class Block {
     if (content) {
       content.style.display = 'block';
     }
-  } 
+  }
 
   public hide(): void {
     const content = this.getContent();
@@ -272,14 +266,15 @@ export default class Block {
     }
   }
 
-
   public onBlur(e: Event): void {
-    const input = e.target as HTMLInputElement
+    const input = e.target as HTMLInputElement;
 
-    this.lists.Inputs.forEach((el) => {
+    this.lists.Inputs.forEach(el => {
       if (el.getProps('name') === input.name) {
-        input.validity.valid ? el.getChildren('Error').hide() : el.getChildren('Error').show()
+        input.validity.valid
+          ? el.getChildren('Error').hide()
+          : el.getChildren('Error').show();
       }
-    })
+    });
   }
 }

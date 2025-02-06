@@ -3,13 +3,12 @@ import { Time } from '../time/time';
 
 export class DateMessage extends Block {
   constructor(props: any) {
-    super({ ...props, 
+    super({
+      ...props,
       Time: new Time({
         time: props.time,
       }),
-
     });
-
   }
 
   render() {

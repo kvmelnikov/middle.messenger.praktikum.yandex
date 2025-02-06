@@ -1,7 +1,6 @@
-import Block from "../../framework/Block";
-import { Avatar } from "../avatar/avatar";
-import { SvgIcon } from "../svg-icon/svg-icon";
-
+import Block from '../../framework/Block';
+import { Avatar } from '../avatar/avatar';
+import { SvgIcon } from '../svg-icon/svg-icon';
 
 export class HeaderChat extends Block {
   constructor(props: any) {
@@ -17,11 +16,9 @@ export class HeaderChat extends Block {
       }),
       name: props.name,
     });
-
   }
 
   override render(): string {
-
     return `<header class="header-chat">
                 {{{Avatar}}}
                 <div class="header-chat__name-block">
