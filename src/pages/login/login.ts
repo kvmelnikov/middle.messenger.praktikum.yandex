@@ -71,9 +71,11 @@ export class Login extends Block {
       }),
     });
   }
+
   onChangeEditable() {
     throw new Error('Method not implemented.');
   }
+
   onBlur(e: Event) {
     super.onBlur(e);
   }

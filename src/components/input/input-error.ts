@@ -11,6 +11,7 @@ export class InputError extends Block {
       ...props,
     });
   }
+
   protected render(): string {
     return `<div class="">{{text}}</div>`;
   }
