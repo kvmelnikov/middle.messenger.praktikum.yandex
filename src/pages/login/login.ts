@@ -1,6 +1,8 @@
+import { Button } from "../../components/button/button";
 import { Fieldset } from "../../components/input/fieldset";
 import { Input } from "../../components/input/input";
 import { InputError } from "../../components/input/input-error";
+import { Link } from "../../components/link/Link";
 import Block from "../../framework/Block";
 import { IInput } from "../../shared/input.interface";
 
@@ -27,16 +29,33 @@ const dataInputs: IInput[] = [
 export class Login extends Block {
     constructor() {
         super({
-            Inputs: dataInputs.map((dataInput) => 
+            Inputs: dataInputs.map((dataInput) =>
                 new Fieldset({
-                class: 'form-login__info-line',
-                name: dataInput.name,
-                label: dataInput.label,
-                error: new InputError({name: dataInput.name, text: dataInput.errorText}),
-                input: new Input({ class: 'input-profile', dataInput: dataInput, onBlur: this.onBlur }) },
+                    class: 'form-login__info-line',
+                    name: dataInput.name,
+                    label: dataInput.label,
+                    error: new InputError({ name: dataInput.name, text: dataInput.errorText }),
+                    input: new Input({ class: 'input-profile', dataInput: dataInput, onBlur: (e: Event) => this.onBlur(e) })
+                })
+            ),
+            Link: new Link({
+                class: 'link-login',
+                dataAction: 'default',
+                dataPage: 'signin',
+                text: 'Нет аккаунта?'
+            }),
+            ButtonEnter: new Button({
+                text: 'Войти',
+                class: 'button__apperance',
+                onClick: (e: Event) => {},
+                dataPage: 'mainPage',
+                dataAction: 'default'
+            })
         })
     }
-
+    onChangeEditable() {
+        throw new Error("Method not implemented.");
+    }
     onBlur(e: Event) {
         super.onBlur(e)
     }
@@ -48,9 +67,12 @@ export class Login extends Block {
         {{{ Inputs }}}
     </div>
     <div class="form-login__actions">
-        {{> ButtonApperance data-page="mainPaige" data-action="default" class="button__apperance" text="Авторизоваться" }}
-        {{> Link data-page="signin" data-action="default" text="Нет аккаунта?" class="link link-login" }}
+        {{{ ButtonEnter }}}
+        {{{ Link }}}
     </div>
         </form>`
     }
 }
+
+// {{> ButtonApperance data-page="mainPaige" data-action="default" class="button__apperance" text="Авторизоваться" }}
+// {{> Link data-page="signin" data-action="default" text="Нет аккаунта?" class="link link-login" }}

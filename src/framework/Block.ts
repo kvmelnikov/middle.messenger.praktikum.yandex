@@ -259,41 +259,27 @@ export default class Block {
   }
 
   public show(): void {
-    console.log('show')
     const content = this.getContent();
     if (content) {
       content.style.display = 'block';
     }
-  }
+  } 
 
   public hide(): void {
-    console.log('hide')
     const content = this.getContent();
     if (content) {
       content.style.display = 'none';
     }
   }
 
-  // public focus(): void {
-  //   const content = this.getContent();
-  //   if(content) {
-  //     content.focus()
-  //   }
-
-  // }
 
   public onBlur(e: Event): void {
     const input = e.target as HTMLInputElement
-    console.log(input.validity.valid, this)
-
 
     this.lists.Inputs.forEach((el) => {
       if (el.getProps('name') === input.name) {
         input.validity.valid ? el.getChildren('Error').hide() : el.getChildren('Error').show()
       }
     })
-
-
-
   }
 }

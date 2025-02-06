@@ -26,7 +26,7 @@ export class Button extends Block {
     }
 
     protected render(): string {
-        return `<button data-action={{dataAction}} data-page="{{dataPage}}" type="button" class="button {{class}}">{{text}}</button>`
+        return `<button data-action="{{dataAction}}" data-page="{{dataPage}}" type="button" class="button {{class}}">{{text}}</button>`
     }
 
 }
