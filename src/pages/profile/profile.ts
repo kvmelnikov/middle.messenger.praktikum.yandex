@@ -267,22 +267,20 @@ export class Profile extends Block {
         text: "Изменить пароль",
         class: "button__apperance",
         onClick: (e: Event) => {
-          this.onChangeEditable();
+          this.onChangePassword();
         },
       }),
       ButtonExit: new Button({
         text: "Выйти",
         class: "button__apperance",
-        onClick: (e: Event) => {
-          this.onChangeEditable();
-        },
+        dataPage: "login",
+        onClick: (e: Event) => {},
       }),
       ButtonSave: new Button({
         text: "Сохранить",
         class: "button__apperance",
-        onClick: (e: Event) => {
-          this.onChangeEditable();
-        },
+        dataPage: "login",
+        onClick: (e: Event) => {},
       }),
     });
   }
@@ -293,7 +291,7 @@ export class Profile extends Block {
     });
 
     this.setLists({
-      inputs: inputsPassword.map(
+      Inputs: inputsData2.map(
         (dataForm) =>
           new Fieldset({
             class: "profile__info-line",
@@ -315,7 +313,7 @@ export class Profile extends Block {
 
   onChangePassword() {
     this.setLists({
-      inputs: inputsData2.map(
+      Inputs: inputsPassword.map(
         (dataForm) =>
           new Fieldset({
             class: "profile__info-line",

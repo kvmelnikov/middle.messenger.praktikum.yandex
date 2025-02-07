@@ -26,30 +26,28 @@ export default class App {
   render() {
     if (this.state.currentPage === "login") {
       this.currentElementPage = new Login().getContent();
-
       if (this.appElement) {
+        this.appElement.innerHTML = "";
         this.appElement.append(this.currentElementPage);
       }
     }
     if (this.state.currentPage === "signin") {
       this.currentElementPage = new Signin().getContent();
-
       if (this.appElement) {
-        this.appElement.replaceWith(this.currentElementPage);
+        this.appElement.innerHTML = "";
+        this.appElement.append(this.currentElementPage);
       }
     }
 
     if (this.state.currentPage === "mainPage") {
-      this.currentElementPage?.replaceWith(new MainPage().getContent());
-      this.currentElementPage = null;
       this.currentElementPage = new MainPage().getContent();
       if (this.appElement) {
+        this.appElement.innerHTML = "";
         this.appElement.append(this.currentElementPage);
       }
     }
 
     if (this.state.currentPage === "profile") {
-      this.currentElementPage = null;
       this.currentElementPage = new Profile().getContent();
       if (this.appElement) {
         this.appElement.innerHTML = "";
