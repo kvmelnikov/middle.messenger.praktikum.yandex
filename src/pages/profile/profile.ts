@@ -179,14 +179,59 @@ const inputsData2: IInput[] = [
     },
   },
 ];
+
+const inputsPassword: IInput[] = [
+  {
+    label: "Старый пароль",
+    placeholder: "",
+    name: "oldPassword",
+    type: "password",
+    value: "pochta2@yandex.ru",
+    errorText: "введите текст",
+    validators: {
+      minlength: "2",
+      maxlength: "40",
+      pattern: "",
+      required: "required",
+    },
+  },
+  {
+    label: "Новый пароль",
+    placeholder: "",
+    name: "newPassword",
+    type: "password",
+    value: "pochta2@yandex.ru",
+    errorText: "введите текст",
+    validators: {
+      minlength: "2",
+      maxlength: "40",
+      pattern: "",
+      required: "required",
+    },
+  },
+  {
+    label: "Повторите новый пароль",
+    placeholder: "",
+    name: "newPassword",
+    type: "password",
+    value: "pochta2@yandex.ru",
+    errorText: "введите текст",
+    validators: {
+      minlength: "2",
+      maxlength: "40",
+      pattern: "",
+      required: "required",
+    },
+  },
+];
+
 export class Profile extends Block {
   isEditable: false;
 
   disabled: boolean;
 
-  constructor(props: any) {
+  constructor() {
     super({
-      ...props,
       isEditable: false,
       LeftNavigate: new LeftNavigate({}),
       Avatar: new Avatar({
@@ -248,7 +293,45 @@ export class Profile extends Block {
     });
 
     this.setLists({
-      Inputs: inputsData2.map((dataForm) => new Input({ dataForm: dataForm })),
+      inputs: inputsPassword.map(
+        (dataForm) =>
+          new Fieldset({
+            class: "profile__info-line",
+            name: dataForm.name,
+            label: dataForm.label,
+            error: new InputError({
+              name: dataForm.name,
+              text: dataForm.errorText,
+            }),
+            input: new Input({
+              class: "input-profile",
+              dataInput: dataForm,
+              onBlur: (e: Event) => this.onBlur(e),
+            }),
+          })
+      ),
+    });
+  }
+
+  onChangePassword() {
+    this.setLists({
+      inputs: inputsData2.map(
+        (dataForm) =>
+          new Fieldset({
+            class: "profile__info-line",
+            name: dataForm.name,
+            label: dataForm.label,
+            error: new InputError({
+              name: dataForm.name,
+              text: dataForm.errorText,
+            }),
+            input: new Input({
+              class: "input-profile",
+              dataInput: dataForm,
+              onBlur: (e: Event) => this.onBlur(e),
+            }),
+          })
+      ),
     });
   }
 
@@ -277,18 +360,3 @@ export class Profile extends Block {
                     </main>`;
   }
 }
-
-//    <form >
-//         <div class="profile__info-line">
-//             <label class="profile__label">Старый пароль</label>
-//             {{> InputProfile name="oldPassword" placeholder="" type="password" value="secret" disabled="false" }}
-//         </div>
-//         <div class="profile__info-line">
-//             <label class="profile__label">Новый пароль</label>
-//             {{> InputProfile name="newPassword" placeholder="" type="password" value="secret" disabled="false" }}
-//         </div>
-//              <div class="profile__info-line">
-//             <label class="profile__label">Повторите новый пароль</label>
-//             {{> InputProfile placeholder="" type="password" value="secret" disabled="false" }}
-//         </div>
-//     </form>

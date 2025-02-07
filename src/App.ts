@@ -28,7 +28,7 @@ export default class App {
       this.currentElementPage = new Login().getContent();
 
       if (this.appElement) {
-        this.appElement.replaceWith(this.currentElementPage);
+        this.appElement.append(this.currentElementPage);
       }
     }
     if (this.state.currentPage === "signin") {
@@ -41,12 +41,20 @@ export default class App {
 
     if (this.state.currentPage === "mainPage") {
       this.currentElementPage?.replaceWith(new MainPage().getContent());
+      this.currentElementPage = null;
+      this.currentElementPage = new MainPage().getContent();
+      if (this.appElement) {
+        this.appElement.append(this.currentElementPage);
+      }
     }
 
     if (this.state.currentPage === "profile") {
-      this.currentElementPage?.replaceWith(
-        new Profile({ action: this.state.action }).getContent()
-      );
+      this.currentElementPage = null;
+      this.currentElementPage = new Profile().getContent();
+      if (this.appElement) {
+        this.appElement.innerHTML = "";
+        this.appElement.append(this.currentElementPage);
+      }
     }
 
     this.attachEventListeners();
@@ -62,7 +70,6 @@ export default class App {
         e.preventDefault();
         const link = e.target as HTMLLinkElement;
         this.changePage(link.dataset.page || "");
-        this.changeAction(link.dataset.action || "");
       });
     });
 
@@ -71,14 +78,12 @@ export default class App {
         e.preventDefault();
         const button = e.target as HTMLButtonElement;
         this.changePage(button.dataset.page || "");
-        this.changeAction(button.dataset.dataAction || "");
       });
     });
   }
 
   changePage(page: string): void {
     this.state.currentPage = page;
-
     this.render();
   }
 
@@ -86,24 +91,4 @@ export default class App {
     this.state.action = action;
     this.render();
   }
-
-  //   addQuestion(): void {
-  //     const questionInput = document.getElementById('question-input') as HTMLInputElement;
-  //     if (questionInput.value.trim()) {
-  //       this.state.questions.push(questionInput.value);
-  //       questionInput.value = '';
-  //       this.render();
-  //     }
-  //   }
-
-  //   createQuestionnaire(): void {
-  //     if (this.state.questions.length > 0) {
-  //       this.state.currentPage = 'answerQuestionnaire';
-  //       this.render();
-  //     }
-  //   }
-
-  //   submitAnswers(): void {
-  //     alert('Answers submitted!');
-  //   }
 }

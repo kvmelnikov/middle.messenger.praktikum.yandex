@@ -1,5 +1,5 @@
 import EventBus, { EventCallback } from "./EventBus";
-import Handlebars, { K } from "handlebars";
+import Handlebars from "handlebars";
 
 interface BlockProps {
   [key: string]: any;
@@ -95,7 +95,8 @@ export default class Block {
     oldProps: BlockProps,
     newProps: BlockProps
   ): boolean {
-    // console.log(oldProps, newProps);
+    console.log(oldProps, newProps);
+
     return true;
   }
 
