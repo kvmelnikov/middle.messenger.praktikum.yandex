@@ -39,6 +39,9 @@ const dataInputs: IInput[] = [
 export class Login extends Block {
   constructor() {
     super({
+      events: {
+        submit: (e: Event) => this.onSubmit(e),
+      },
       Inputs: dataInputs.map(
         (dataInput) =>
           new Fieldset({
@@ -67,8 +70,8 @@ export class Login extends Block {
         text: "Войти",
         class: "button__apperance",
         onClick: () => {},
-        dataPage: "mainPage",
         dataAction: "default",
+        type: "submit",
       }),
     });
   }
@@ -79,6 +82,10 @@ export class Login extends Block {
 
   onBlur(e: Event) {
     super.onBlur(e);
+  }
+  onSubmit(e: Event) {
+    e.preventDefault();
+    super.onSubmit(e);
   }
 
   protected render(): string {
@@ -94,6 +101,3 @@ export class Login extends Block {
         </form>`;
   }
 }
-
-// {{> ButtonApperance data-page="mainPaige" data-action="default" class="button__apperance" text="Авторизоваться" }}
-// {{> Link data-page="signin" data-action="default" text="Нет аккаунта?" class="link link-login" }}

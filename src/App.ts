@@ -73,7 +73,6 @@ export default class App {
 
     buttons.forEach((button) => {
       button.addEventListener("click", (e) => {
-        e.preventDefault();
         const currentButton = e.target as HTMLButtonElement;
         this.changePage(currentButton.dataset.page || "");
       });

@@ -278,4 +278,16 @@ export default class Block {
       }
     });
   }
+  onSubmit(e: Event): void {
+    e.preventDefault();
+
+    this.lists.Inputs.forEach((el) => {
+      if (!el.getChildren("Input").getContent().validity.valid) {
+        el.getChildren("Error").show();
+      }
+      if (el.getChildren("Input").getContent().validity.valid) {
+        el.getChildren("Error").hide();
+      }
+    });
+  }
 }
