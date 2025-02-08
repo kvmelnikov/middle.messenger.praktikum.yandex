@@ -61,7 +61,7 @@ export class HTTPTransport {
       if (method === Methods.GET || !data) {
         xhr.send();
       } else {
-        xhr.send(data as XMLHttpRequestBodyInit);
+        xhr.send(data);
       }
     });
   };
