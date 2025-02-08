@@ -1,4 +1,4 @@
-import Block from '../../framework/Block';
+import Block from "../../framework/Block";
 
 export class ButtonIcon extends Block {
   constructor(props: any) {
@@ -6,6 +6,6 @@ export class ButtonIcon extends Block {
   }
 
   override render() {
-    return '<button type="button" dataPage="{{dataPage}}" class="button {{class}}"></button>';
+    return '<button type="button" data-page="{{dataPage}}" class="button {{class}}"></button>';
   }
 }

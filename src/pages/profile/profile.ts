@@ -349,10 +349,8 @@ export class Profile extends Block {
                                         {{{ ButtonChangeProfile }}}
                                         {{{ ButtonChangePass }}}
                                         {{{ ButtonExit }}}
-                                         adf
+                                        
                                     {{/if}}
-
-                                    {{{ LinkExit }}}
                                 </div>
                        </div>
                     </main>`;

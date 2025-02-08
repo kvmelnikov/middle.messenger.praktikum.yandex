@@ -1,8 +1,8 @@
-import Block from '../../framework/Block';
+import Block from "../../framework/Block";
 
 interface LinkProps {
   class: string;
-  dataAction: string;
+  dataAction?: string;
   dataPage: string;
   text: string;
 }

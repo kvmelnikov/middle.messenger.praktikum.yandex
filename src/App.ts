@@ -61,7 +61,7 @@ export default class App {
 
   attachEventListeners() {
     const links = document.querySelectorAll(".link");
-    const Buttons = document.querySelectorAll(".button");
+    const buttons = document.querySelectorAll(".button");
 
     links.forEach((link) => {
       link.addEventListener("click", (e) => {
@@ -71,10 +71,11 @@ export default class App {
       });
     });
 
-    Buttons.forEach((button) => {
+    buttons.forEach((button) => {
       button.addEventListener("click", (e) => {
         e.preventDefault();
         const button = e.target as HTMLButtonElement;
+
         this.changePage(button.dataset.page || "");
       });
     });
