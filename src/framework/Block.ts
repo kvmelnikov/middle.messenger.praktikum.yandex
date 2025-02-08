@@ -272,9 +272,9 @@ export default class Block {
 
     this.lists.Inputs.forEach((el) => {
       if (el.getProps("name") === input.name) {
-        input.validity.valid
+        void (input.validity.valid
           ? el.getChildren("Error").hide()
-          : el.getChildren("Error").show();
+          : el.getChildren("Error").show());
       }
     });
   }

@@ -66,7 +66,7 @@ export class Login extends Block {
       ButtonEnter: new Button({
         text: "Войти",
         class: "button__apperance",
-        onClick: (e: Event) => {},
+        onClick: () => {},
         dataPage: "mainPage",
         dataAction: "default",
       }),

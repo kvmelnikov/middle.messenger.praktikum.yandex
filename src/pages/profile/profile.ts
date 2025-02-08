@@ -266,7 +266,7 @@ export class Profile extends Block {
       ButtonChangePass: new Button({
         text: "Изменить пароль",
         class: "button__apperance",
-        onClick: (e: Event) => {
+        onClick: () => {
           this.onChangePassword();
         },
       }),
@@ -274,13 +274,13 @@ export class Profile extends Block {
         text: "Выйти",
         class: "button__apperance",
         dataPage: "login",
-        onClick: (e: Event) => {},
+        onClick: () => {},
       }),
       ButtonSave: new Button({
         text: "Сохранить",
         class: "button__apperance",
         dataPage: "login",
-        onClick: (e: Event) => {},
+        onClick: () => {},
       }),
     });
   }

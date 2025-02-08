@@ -66,17 +66,16 @@ export default class App {
     links.forEach((link) => {
       link.addEventListener("click", (e) => {
         e.preventDefault();
-        const link = e.target as HTMLLinkElement;
-        this.changePage(link.dataset.page || "");
+        const currentLink = e.target as HTMLLinkElement;
+        this.changePage(currentLink.dataset.page || "");
       });
     });
 
     buttons.forEach((button) => {
       button.addEventListener("click", (e) => {
         e.preventDefault();
-        const button = e.target as HTMLButtonElement;
-
-        this.changePage(button.dataset.page || "");
+        const currentButton = e.target as HTMLButtonElement;
+        this.changePage(currentButton.dataset.page || "");
       });
     });
   }

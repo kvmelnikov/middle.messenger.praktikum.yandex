@@ -53,13 +53,13 @@
 }
 
 .input-search {
+  background-color: var(--input-background);
+  border: 0;
   border-radius: 5px;
   height: 32px;
   padding-right: auto;
   text-align: center;
   width: 100%;
-  background-color: var(--input-background);
-  border: 0;
 
   &:hover,
   &:focus-visible {
@@ -70,6 +70,7 @@
 .input {
   align-items: center;
   background: transparent;
+  border: none;
   box-sizing: border-box;
   color: var(--font-color-grey);
   display: flex;
@@ -79,7 +80,7 @@
   height: 33px;
   line-height: 13px;
   outline: none;
-  border: none;
+
   &_profile {
     text-align: end;
   }
@@ -385,8 +386,8 @@
   &__actions {
     display: flex;
     flex-direction: column;
-    margin-top: 60px;
     gap: 10px;
+    margin-top: 60px;
   }
 
   &__link {

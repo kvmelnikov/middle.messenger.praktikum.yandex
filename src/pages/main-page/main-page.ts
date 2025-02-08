@@ -1,44 +1,44 @@
-import { ButtonIcon } from '../../components/button-icon/button-icon';
-import { DateMessage } from '../../components/date-message/date-message';
-import { HeaderLeftPanel } from '../../components/header-left-panel/header-left-panel';
-import { Message } from '../../components/message/message';
-import { SvgIcon } from '../../components/svg-icon/svg-icon';
-import Block from '../../framework/Block';
-import { HeaderChat } from '../../components/header-chat/header-chat';
-import { Input } from '../../components/input/input';
-import { ChatParticipant } from '../../components/chat-participant/chat-participant';
-import { IInput } from '../../shared/input.interface';
+import { ButtonIcon } from "../../components/button-icon/button-icon";
+import { DateMessage } from "../../components/date-message/date-message";
+import { HeaderLeftPanel } from "../../components/header-left-panel/header-left-panel";
+import { Message } from "../../components/message/message";
+import { SvgIcon } from "../../components/svg-icon/svg-icon";
+import Block from "../../framework/Block";
+import { HeaderChat } from "../../components/header-chat/header-chat";
+import { Input } from "../../components/input/input";
+import { ChatParticipant } from "../../components/chat-participant/chat-participant";
+import { IInput } from "../../shared/input.interface";
 
 const chatParticipants = [...new Array(3).keys()].map(
-  item =>
+  (item) =>
     new ChatParticipant({
       time: `23.5${item}`,
-      name: 'Kirill',
+      name: "Kirill",
       text: `${item + 1}Имя`,
       count: item,
     })
 );
 const chatParticipants2 = [...new Array(4).keys()].map(
-  item =>
+  (item) =>
     new ChatParticipant({
       time: `23.5${item}`,
-      name: 'Kirill',
+      name: "Kirill",
       text: `${item + 1}Имя`,
       count: item,
     })
 );
 const dataInput: IInput = {
-  label: 'Почта',
-  placeholder: '',
-  name: 'email',
-  type: 'email',
-  value: 'pochta@yandex.ru',
-  errorText: 'введите текст',
+  label: "Почта",
+  placeholder: "",
+  name: "email",
+  type: "email",
+  value: "pochta@yandex.ru",
+  errorText: "введите текст",
   validators: {
-    minlength: '2',
-    maxlength: '40',
-    pattern: '',
-    required: 'required',
+    minlength: "2",
+    maxlength: "40",
+    pattern: "",
+    required: "required",
   },
 };
 export class MainPage extends Block {
@@ -46,49 +46,48 @@ export class MainPage extends Block {
     super({
       HeaderLeftPanel: new HeaderLeftPanel({
         InputSearch: new Input({
-          class: 'input-search',
+          class: "input-search",
           dataInput: dataInput,
           onBlur: (e: Event) => this.onBlur(e),
           onKeyup: (e: KeyboardEvent) => {
-            if (e.key === 'Enter') {
-              this.onSearch(e);
+            if (e.key === "Enter") {
+              this.onSearch();
             }
           },
         }),
       }),
       InputMessage: new Input({
-        class: 'input-search',
+        class: "input-search",
         dataInput: dataInput,
         onBlur: (e: Event) => this.onBlur(e),
         onKeyup: (e: KeyboardEvent) => {
-          e.key;
-          if (e.key === 'Enter') {
+          if (e.key === "Enter") {
             this.onMessage(e);
           }
         },
       }),
       ButtonIcon: new ButtonIcon({
-        dataPage: 'mainPaige',
-        class: 'button-icon-right',
+        dataPage: "mainPaige",
+        class: "button-icon-right",
       }),
 
       ChatParticipants: chatParticipants,
       HeaderChat: new HeaderChat({
-        avatarSrc: '../../../public/images/avatar-example.png',
-        avatarClass: 'avatar_small',
-        name: 'Вадим',
+        avatarSrc: "../../../public/images/avatar-example.png",
+        avatarClass: "avatar_small",
+        name: "Вадим",
       }),
       DateMessage: new DateMessage({}),
       Messages: [],
       SvgIcon: new SvgIcon({
-        path: '../../../public/svg/clip.svg',
-        height: '32px',
-        alt: 'скребка',
+        path: "../../../public/svg/clip.svg",
+        height: "32px",
+        alt: "скребка",
       }),
     });
   }
 
-  onSearch(e: Event) {
+  onSearch() {
     this.setLists({
       ...this.props,
       ChatParticipants: chatParticipants2,
