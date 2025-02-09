@@ -49,6 +49,7 @@ export default class App {
 
     if (this.state.currentPage === "profile") {
       this.currentElementPage = new Profile().getContent();
+      console.log(this.currentElementPage);
       if (this.appElement) {
         this.appElement.innerHTML = "";
         this.appElement.append(this.currentElementPage);

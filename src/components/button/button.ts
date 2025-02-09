@@ -16,6 +16,9 @@ export class Button extends Block {
       type: props.type || "button",
       events: {
         click: (e: Event) => {
+          if (props.onClick) {
+            props.onClick(e);
+          }
           this.onClickButton(e);
         },
       },
