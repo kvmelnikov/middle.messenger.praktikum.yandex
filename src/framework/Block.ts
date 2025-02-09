@@ -269,25 +269,28 @@ export default class Block {
 
   public onBlur(e: Event): void {
     const input = e.target as HTMLInputElement;
-
     this.lists.Inputs.forEach((el) => {
       if (el.getProps("name") === input.name) {
-        void (input.validity.valid
-          ? el.getChildren("Error").hide()
-          : el.getChildren("Error").show());
+        if (input.validity.valid) {
+          el.getChildren("Error").hide();
+        } else {
+          el.getChildren("Error").show();
+          console.log("Error:", input.validationMessage);
+        }
       }
     });
   }
+
   onSubmit(e: Event): void {
     e.preventDefault();
-
+    const dataForm: Record<string, string> = {};
     this.lists.Inputs.forEach((el) => {
-      if (!el.getChildren("Input").getContent().validity.valid) {
-        el.getChildren("Error").show();
-      }
       if (el.getChildren("Input").getContent().validity.valid) {
-        el.getChildren("Error").hide();
+        dataForm[el.getProps("name")] = el
+          .getChildren("Input")
+          .getContent().value;
       }
     });
+    console.log(dataForm);
   }
 }
