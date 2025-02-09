@@ -25,7 +25,7 @@ export class Button extends Block {
     });
   }
 
-  onClickButton(e: any) {
+  onClickButton(e: Event) {
     console.log(e, "button click");
   }
 

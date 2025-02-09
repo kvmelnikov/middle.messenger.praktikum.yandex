@@ -1,10 +1,6 @@
-import Block from '../../framework/Block';
+import Block from "../../framework/Block";
 
 export class DialogWindow extends Block {
-  constructor() {
-    super({});
-  }
-
   protected render(): string {
     return `
         <div class="dialog-window">

@@ -1,7 +1,11 @@
-import Block from '../../framework/Block';
+import Block from "../../framework/Block";
+interface AvatarProps {
+  className: string;
+  src: string;
+}
 
 export class Avatar extends Block {
-  constructor(props: any) {
+  constructor(props: AvatarProps) {
     super({ ...props });
   }
 

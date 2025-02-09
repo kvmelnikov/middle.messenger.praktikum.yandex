@@ -1,7 +1,11 @@
-import Block from '../../framework/Block';
-
+import Block from "../../framework/Block";
+interface MessageProps {
+  time: string;
+  text: string;
+  owner: string;
+}
 export class Message extends Block {
-  constructor(props: any) {
+  constructor(props: MessageProps) {
     super({ ...props, time: props.time, text: props.text, owner: props.owner });
   }
 

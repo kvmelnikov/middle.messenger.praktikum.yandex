@@ -1,7 +1,11 @@
-import Block from '../../framework/Block';
-
+import Block from "../../framework/Block";
+interface SvgIconProps {
+  path: string;
+  alt: string;
+  height: string;
+}
 export class SvgIcon extends Block {
-  constructor(props: any) {
+  constructor(props: SvgIconProps) {
     super({ ...props, path: props.path, alt: props.alt, height: props.height });
   }
 

@@ -1,7 +1,10 @@
 import Block from "../../framework/Block";
-
+interface ButtonIconProps {
+  dataPage: string;
+  class: string;
+}
 export class ButtonIcon extends Block {
-  constructor(props: any) {
+  constructor(props: ButtonIconProps) {
     super({ ...props, dataPage: props.dataPage, class: props.class });
   }
 

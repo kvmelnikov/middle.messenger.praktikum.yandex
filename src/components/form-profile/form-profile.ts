@@ -4,7 +4,6 @@ import { Avatar } from "../avatar/avatar";
 import { Button } from "../button/button";
 import { Fieldset } from "../input/fieldset";
 import { Input } from "../input/input";
-import { InputError } from "../input/input-error";
 
 const inputsData: IInput[] = [
   {

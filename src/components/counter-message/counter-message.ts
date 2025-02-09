@@ -1,7 +1,9 @@
-import Block from '../../framework/Block';
-
+import Block from "../../framework/Block";
+interface CounterMessageProps {
+  counter: number;
+}
 export class CounterMessage extends Block {
-  constructor(props: any) {
+  constructor(props: CounterMessageProps) {
     super({ ...props });
   }
 

@@ -1,8 +1,10 @@
-import Block from '../../framework/Block';
-import { Time } from '../time/time';
-
+import Block from "../../framework/Block";
+import { Time } from "../time/time";
+interface DateMessageProps {
+  time: string;
+}
 export class DateMessage extends Block {
-  constructor(props: any) {
+  constructor(props: DateMessageProps) {
     super({
       ...props,
       Time: new Time({
