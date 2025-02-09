@@ -271,11 +271,8 @@ export default class Block {
     const input = e.target as HTMLInputElement;
     this.lists.Inputs.forEach((el) => {
       if (el.getProps("name") === input.name) {
-        if (input.validity.valid) {
-          el.getChildren("Error").hide();
-        } else {
-          el.getChildren("Error").show();
-          console.log("Error:", input.validationMessage);
+        if (!input.validity.valid) {
+          console.log(`Error ${input.name}:`, input.validationMessage);
         }
       }
     });

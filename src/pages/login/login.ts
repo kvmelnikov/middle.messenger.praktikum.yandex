@@ -48,10 +48,6 @@ export class Login extends Block {
             class: "form-login__info-line",
             name: dataInput.name,
             label: dataInput.label,
-            error: new InputError({
-              name: dataInput.name,
-              text: dataInput.errorText,
-            }),
 
             input: new Input({
               class: "input-profile",
@@ -60,12 +56,20 @@ export class Login extends Block {
             }),
           })
       ),
-      Link: new Link({
+      LinkSignin: new Link({
         class: "link-login",
         dataAction: "default",
         dataPage: "signin",
         text: "Нет аккаунта?",
       }),
+
+      LinkMainPage: new Link({
+        class: "link-login",
+        dataAction: "default",
+        dataPage: "mainPage",
+        text: "Перейти на главную страницу",
+      }),
+
       ButtonEnter: new Button({
         text: "Войти",
         class: "button__apperance",
@@ -80,6 +84,7 @@ export class Login extends Block {
     e.preventDefault();
     super.onBlur(e);
   }
+
   onSubmit(e: Event) {
     e.preventDefault();
     super.onSubmit(e);
@@ -93,7 +98,8 @@ export class Login extends Block {
     </div>
     <div class="form-login__actions">
         {{{ ButtonEnter }}}
-        {{{ Link }}}
+        {{{ LinkSignin }}}
+        {{{ LinkMainPage }}}
     </div>
         </form>`;
   }
