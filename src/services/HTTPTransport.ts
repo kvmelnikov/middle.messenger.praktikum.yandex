@@ -3,66 +3,88 @@ enum Methods {
   POST = "POST",
   PUT = "PUT",
   DELETE = "DELETE",
+  PATCH = "PATCH",
 }
 
-function queryStringify(data: XMLHttpRequestBodyInit) {
-  return `?${Object.entries(data)
-    .map((obj) => `${obj[0]}=${obj[1]}`)
-    .join("&")}`;
-}
+type QueryParams = Record<string, string | number | boolean>;
 
-interface IOptions {
+interface RequestOptions<Q = QueryParams, D = XMLHttpRequestBodyInit> {
   method?: Methods;
   timeout?: number;
   headers?: Record<string, string>;
-  data?: XMLHttpRequestBodyInit;
+  data?: D;
+  query?: Q;
+  signal?: AbortSignal;
 }
 
+type HTTPMethod = <R = unknown>(
+  url: string,
+  options?: Partial<RequestOptions<QueryParams>>
+) => Promise<R>;
+
 export class HTTPTransport {
-  get = (url: string, options: IOptions = {}) =>
-    this.request(url, { ...options, method: Methods.GET }, options.timeout);
+  private createMethod(method: Methods): HTTPMethod {
+    return (url, options = {}) => this.request(url, { ...options, method });
+  }
 
-  post = (url: string, options: IOptions = {}) =>
-    this.request(url, { ...options, method: Methods.POST }, options.timeout);
+  get = this.createMethod(Methods.GET);
+  post = this.createMethod(Methods.POST);
+  put = this.createMethod(Methods.PUT);
+  delete = this.createMethod(Methods.DELETE);
+  patch = this.createMethod(Methods.PATCH);
 
-  put = (url: string, options: IOptions = {}) =>
-    this.request(url, { ...options, method: Methods.PUT }, options.timeout);
-
-  delete = (url: string, options: IOptions = {}) =>
-    this.request(url, { ...options, method: Methods.DELETE }, options.timeout);
-
-  request = (
+  private request<R>(
     url: string,
-    options: IOptions = { method: Methods.GET },
-    timeout = 5000
-  ) => {
-    const { headers = {}, method, data } = options;
-
+    options: RequestOptions<QueryParams>
+  ): Promise<R> {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open(
-        method as string,
-        method === Methods.GET && !!data ? url + queryStringify(data) : url
-      );
 
-      Object.keys(headers).forEach((key) => {
-        xhr.setRequestHeader(key, headers[key]);
-      });
+      const fullUrl = options.query
+        ? `${url}?${new URLSearchParams(
+            options.query as Record<string, string>
+          ).toString()}`
+        : url;
+
+      xhr.open(options.method as string, fullUrl);
+
+      if (options.headers) {
+        Object.entries(options.headers).forEach(([key, value]) => {
+          xhr.setRequestHeader(key, value);
+        });
+      }
 
       xhr.onload = () => {
-        resolve(xhr);
+        if (xhr.status >= 200 && xhr.status < 300) {
+          try {
+            const response = JSON.parse(xhr.responseText);
+            resolve(response);
+          } catch (e) {
+            reject(new Error("Failed to parse JSON response"));
+          }
+        } else {
+          reject(new Error(`HTTP error! status: ${xhr.status}`));
+        }
       };
 
-      xhr.onabort = reject;
-      xhr.onerror = reject;
-      xhr.ontimeout = reject;
-      xhr.timeout = timeout;
+      xhr.onerror = () => {
+        reject(new Error("Network error"));
+      };
 
-      if (method === Methods.GET || !data) {
-        xhr.send();
-      } else {
-        xhr.send(data);
+      xhr.ontimeout = () => {
+        reject(new Error("Request timeout"));
+      };
+
+      if (options.timeout) {
+        xhr.timeout = options.timeout;
       }
+
+      const dataToSend =
+        options.data && typeof options.data === "object"
+          ? JSON.stringify(options.data)
+          : options.data;
+
+      xhr.send(dataToSend);
     });
-  };
+  }
 }
