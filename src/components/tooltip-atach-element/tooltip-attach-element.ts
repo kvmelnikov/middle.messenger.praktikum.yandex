@@ -1,4 +1,4 @@
-import Block from '../../framework/Block';
+import Block from "../../framework/Block";
 
 interface TooltipAttachElementProps {
   src: string;
@@ -8,7 +8,7 @@ interface TooltipAttachElementProps {
 
 export class TooltipAttachElement extends Block {
   constructor(props: TooltipAttachElementProps) {
-    super({ props });
+    super({ ...props });
   }
 
   protected render(): string {

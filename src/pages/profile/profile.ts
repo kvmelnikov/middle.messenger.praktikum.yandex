@@ -7,8 +7,7 @@ export class Profile extends Block {
   constructor() {
     super({
       isEditable: false,
-      LeftNavigate: new LeftNavigate({}),
-
+      LeftNavigate: new LeftNavigate(),
       FormProfile: new FormProfile(),
       ButtonExit: new Button({
         text: "Выйти",
