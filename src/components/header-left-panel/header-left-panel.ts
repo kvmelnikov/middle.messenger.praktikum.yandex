@@ -2,7 +2,6 @@ import Block from "../../framework/Block";
 import { Input } from "../input/input";
 import { Link } from "../link/Link";
 interface HeaderLeftPanelProps {
-  LinkProfile: Link;
   InputSearch: Input;
 }
 export class HeaderLeftPanel extends Block {

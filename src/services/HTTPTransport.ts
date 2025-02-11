@@ -28,9 +28,13 @@ export class HTTPTransport {
   }
 
   get = this.createMethod(Methods.GET);
+
   post = this.createMethod(Methods.POST);
+
   put = this.createMethod(Methods.PUT);
+
   delete = this.createMethod(Methods.DELETE);
+
   patch = this.createMethod(Methods.PATCH);
 
   private request<R>(

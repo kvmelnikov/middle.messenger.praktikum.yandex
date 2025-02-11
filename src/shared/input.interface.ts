@@ -1,11 +1,11 @@
-import { IValidator } from './validator.interface';
+import { IValidator } from "./validator.interface";
 
 export interface IInput {
-  label: string;
+  label?: string;
   placeholder: string;
   name: string;
   type: string;
   value: string;
   errorText: string;
-  validators: IValidator;
+  validators?: IValidator;
 }

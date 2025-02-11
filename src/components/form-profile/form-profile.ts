@@ -138,7 +138,9 @@ const inputsPassword: IInput[] = [
 ];
 export class FormProfile extends Block {
   isEditableProfile: false;
+
   isEditablePassword: false;
+
   constructor() {
     super({
       events: {
@@ -170,14 +172,14 @@ export class FormProfile extends Block {
       ButtonChangeProfile: new Button({
         text: "Изменить данные",
         class: "button__apperance",
-        onClick: (e: Event) => {
+        onClick: () => {
           this.onChangeEditable();
         },
       }),
       ButtonChangePass: new Button({
         text: "Изменить пароль",
         class: "button__apperance",
-        onClick: (e: Event) => {
+        onClick: () => {
           this.onChangePassword();
         },
       }),
@@ -215,6 +217,7 @@ export class FormProfile extends Block {
       ),
     });
   }
+
   protected render(): string {
     return `                <form class="profile__main">
                                 {{{Avatar}}}

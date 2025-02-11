@@ -129,6 +129,7 @@ export class FormSignin extends Block {
       }),
     });
   }
+
   onSubmit(e: Event): void {
     e.preventDefault();
     super.onSubmit(e);
