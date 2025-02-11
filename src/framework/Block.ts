@@ -1,14 +1,23 @@
+import { IInput } from "../shared/input.interface";
 import EventBus, { EventCallback } from "./EventBus";
 import Handlebars from "handlebars";
 
-type TBlockProps = EventCallback | Block | string;
+type TBlockProps =
+  | EventCallback
+  | Block
+  | Block[]
+  | IInput
+  | string
+  | number
+  | BlokEvents
+  | boolean;
 
 interface BlockProps {
-  [key: string]: EventCallback | Block | string;
+  [key: string]: TBlockProps;
 }
 
 interface BlockLists {
-  [key: string]: unknown[];
+  [key: string]: Block[];
 }
 
 interface BlockChildren {
@@ -46,6 +55,7 @@ export default class Block {
     const { props, children, lists } =
       this._getChildrenPropsAndProps(propsWithChildren);
     this.props = this._makePropsProxy({ ...props });
+
     this.children = this._makePropsProxy({ ...children });
     this.lists = this._makePropsProxy({ ...lists });
     this.eventBus = () => eventBus;
@@ -141,7 +151,6 @@ export default class Block {
       } else if (Array.isArray(value)) {
         lists[key] = value;
       } else {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         props[key] = value;
       }
     });
@@ -162,7 +171,7 @@ export default class Block {
   protected setAttributes(attr: string): void {
     Object.entries(attr).forEach(([key, value]) => {
       if (this._element) {
-        this._element.setAttribute(key, value as string);
+        this._element.setAttribute(key, value);
       }
     });
   }
@@ -227,8 +236,6 @@ export default class Block {
       child.forEach((item) => {
         if (item instanceof Block) {
           listCont.content.append(item.getContent());
-        } else {
-          listCont.content.append(`${item}`);
         }
       });
       const stub = fragment.content.querySelector(`[data-id="__l_${tmpId}"]`);
@@ -260,22 +267,17 @@ export default class Block {
   }
 
   private _makePropsProxy<T extends object>(props: T): T {
-    const self = this;
-
     return new Proxy(props, {
-      get(target: T, prop: string) {
+      get: (target: T, prop: string) => {
         const value = target[prop as keyof T];
         return typeof value === "function" ? value.bind(target) : value;
       },
-      set(target: T, prop: string, value: T[keyof T]) {
+      set: (target: T, prop: string, value: T[keyof T]) => {
         const oldTarget = { ...target };
 
         target[prop as keyof T] = value;
-        self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
+        this.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
         return true;
-      },
-      deleteProperty() {
-        throw new Error("No access");
       },
     });
   }
@@ -301,7 +303,7 @@ export default class Block {
   public onBlur(e: Event): void {
     const input = e.target as HTMLInputElement;
     this.lists.Inputs.forEach((el) => {
-      const childInput = el as Block;
+      const childInput = el;
       if (childInput.getProps("name") === input.name) {
         if (!input.validity.valid) {
           console.log(`Error ${input.name}:`, input.validationMessage);
@@ -314,7 +316,7 @@ export default class Block {
     e.preventDefault();
     const dataForm: Record<string, string> = {};
     this.lists.Inputs.forEach((el) => {
-      const childInput = el as Block;
+      const childInput = el;
       if (
         (childInput.getChildren("Input").getContent() as HTMLInputElement)
           .validity.valid

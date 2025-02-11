@@ -3,7 +3,7 @@ interface FieldsetProps {
   input: Block;
   error?: Block;
   class: string;
-  label: string;
+  label?: string;
   name: string;
 }
 
@@ -11,9 +11,9 @@ export class Fieldset extends Block {
   constructor(props: FieldsetProps) {
     super({
       Input: props.input,
-      Error: props.error,
+      Error: props.error || "",
       class: props.class,
-      label: props.label,
+      label: props.label || "",
       name: props.name,
     });
   }

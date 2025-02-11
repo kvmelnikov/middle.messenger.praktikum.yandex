@@ -14,7 +14,6 @@ const chatParticipants = [...new Array(3).keys()].map(
     new ChatParticipant({
       time: `23.5${item}`,
       name: "Kirill",
-      text: `${item + 1}Имя`,
       count: item,
     })
 );
@@ -23,23 +22,16 @@ const chatParticipants2 = [...new Array(4).keys()].map(
     new ChatParticipant({
       time: `23.5${item}`,
       name: "Kirill",
-      text: `${item + 1}Имя`,
       count: item,
     })
 );
 const dataInput: IInput = {
-  label: "Почта",
-  placeholder: "",
-  name: "email",
-  type: "email",
-  value: "pochta@yandex.ru",
-  errorText: "введите текст",
-  validators: {
-    minlength: "2",
-    maxlength: "40",
-    pattern: "",
-    required: "required",
-  },
+  label: "",
+  placeholder: "Поиск",
+  name: "Поиск",
+  type: "text",
+  value: "",
+  errorText: "",
 };
 export class MainPage extends Block {
   constructor() {
@@ -48,7 +40,6 @@ export class MainPage extends Block {
         InputSearch: new Input({
           class: "input-search",
           dataInput: dataInput,
-          onBlur: (e: Event) => this.onBlur(e),
           onKeyup: (e: KeyboardEvent) => {
             if (e.key === "Enter") {
               this.onSearch();
@@ -57,7 +48,7 @@ export class MainPage extends Block {
         }),
       }),
       InputMessage: new Input({
-        class: "input-search",
+        class: "chat-form__input-message",
         dataInput: dataInput,
         onBlur: (e: Event) => this.onBlur(e),
         onKeyup: (e: KeyboardEvent) => {
@@ -77,7 +68,7 @@ export class MainPage extends Block {
         avatarClass: "avatar_small",
         name: "Вадим",
       }),
-      DateMessage: new DateMessage({}),
+      DateMessage: new DateMessage({ time: "12.21" }),
       Messages: [],
       SvgIcon: new SvgIcon({
         path: "../../../public/svg/clip.svg",
@@ -99,7 +90,11 @@ export class MainPage extends Block {
     this.setLists({
       ...this.props,
       Messages: [
-        new Message({ time: Date.now().toString(), text: input.value }),
+        new Message({
+          time: Date.now().toString(),
+          text: input.value,
+          owner: "1",
+        }),
       ],
     });
   }
@@ -118,9 +113,13 @@ export class MainPage extends Block {
                     {{{ Link data-page="auxiliaryElements" data-action="default" text="Вспомогательные компоненты" class="link link-login" }}}
                 </div>
                    <div class="footer-chat">
-                          {{{ SvgIcon  }}}
+                    
+                           <div class="chat-form">
+                                 {{{ SvgIcon  }}}
                           {{{InputMessage}}}
-                          {{{ ButtonIcon }}} 
+                              {{{ ButtonIcon }}} 
+                           </div>
+                      
                    </div>
                 </section>
                 </main>`;

@@ -12,7 +12,7 @@ export class Link extends Block {
     super({
       ...props,
       class: props.class,
-      dataAction: props.dataAction,
+      dataAction: props.dataAction || "default",
       dataPage: props.dataPage,
       text: props.text,
     });

@@ -1,12 +1,9 @@
 import Block from "../../framework/Block";
 import { ButtonIcon } from "../button-icon/button-icon";
-interface LeftNavigateProps {
-  ButtonIcon: ButtonIcon;
-}
+
 export class LeftNavigate extends Block {
-  constructor(props: LeftNavigateProps) {
+  constructor() {
     super({
-      ...props,
       ButtonIcon: new ButtonIcon({
         dataPage: "mainPage",
         class: "button button-icon-left",

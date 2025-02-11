@@ -1,7 +1,6 @@
 import { Button } from "../../components/button/button";
 import { Fieldset } from "../../components/input/fieldset";
 import { Input } from "../../components/input/input";
-import { InputError } from "../../components/input/input-error";
 import { Link } from "../../components/link/Link";
 import Block from "../../framework/Block";
 import { IInput } from "../../shared/input.interface";
