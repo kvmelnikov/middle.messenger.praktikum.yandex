@@ -1,4 +1,8 @@
 import { IInput } from "../shared/input.interface";
+import {
+  VALIDATION_ERRORS,
+  VALIDATION_RULES,
+} from "../shared/validation-rules";
 import EventBus, { EventCallback } from "./EventBus";
 import Handlebars from "handlebars";
 
@@ -305,8 +309,15 @@ export default class Block {
     this.lists.Inputs.forEach((el) => {
       const childInput = el;
       if (childInput.getProps("name") === input.name) {
+        console.log(`Blur ${input.name}:`, input.pattern, input.validity);
         if (!input.validity.valid) {
           console.log(`Error ${input.name}:`, input.validationMessage);
+        }
+        if (!VALIDATION_RULES[input.name].test(input.value)) {
+          console.log(
+            `Error ${input.name}: поле должно быть`,
+            VALIDATION_ERRORS[input.name]
+          );
         }
       }
     });

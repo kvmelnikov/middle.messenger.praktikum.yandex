@@ -28,8 +28,8 @@ const dataInputs: IInput[] = [
     value: "ivanivanov",
     errorText: "введите текст",
     validators: {
-      minlength: "2",
-      maxlength: "40",
+      minlength: "3",
+      maxlength: "20",
       pattern: "",
       required: "required",
     },
@@ -47,7 +47,6 @@ export class Login extends Block {
             class: "form-login__info-line",
             name: dataInput.name,
             label: dataInput.label,
-
             input: new Input({
               class: "input-profile",
               dataInput: dataInput,
