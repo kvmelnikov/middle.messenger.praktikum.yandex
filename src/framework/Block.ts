@@ -305,8 +305,12 @@ export default class Block {
     this.lists.Inputs.forEach((el) => {
       const childInput = el;
       if (childInput.getProps("name") === input.name) {
+        console.log(`Blur ${input.name}:`, input.pattern, input.validity);
         if (!input.validity.valid) {
           console.log(`Error ${input.name}:`, input.validationMessage);
+        }
+        if (!new RegExp(input.pattern).test(input.value)) {
+          console.log(`Error ${input.name}: поле должно быть`, input.title);
         }
       }
     });

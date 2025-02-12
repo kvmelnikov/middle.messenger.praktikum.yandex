@@ -11,12 +11,14 @@ const dataInputs: IInput[] = [
     placeholder: "",
     name: "email",
     type: "email",
+    title:
+      "латиница, может включать цифры и спецсимволы вроде дефиса и подчёркивания, обязательно должна быть «собака» (@) и точка после неё, но перед точкой обязательно должны быть буквы.",
     value: "pochta@yandex.ru",
     errorText: "введите текст",
     validators: {
       minlength: "2",
       maxlength: "40",
-      pattern: "",
+      pattern: "^[w.-]+@[a-zA-Z]+.[a-zA-Z]{2,}$",
       required: "required",
     },
   },
@@ -25,12 +27,14 @@ const dataInputs: IInput[] = [
     placeholder: "",
     name: "login",
     type: "text`",
+    title:
+      "от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов",
     value: "ivanivanov",
     errorText: "введите текст",
     validators: {
-      minlength: "2",
-      maxlength: "40",
-      pattern: "",
+      minlength: "3",
+      maxlength: "20",
+      pattern: "^(?![0-9]+$)[a-zA-Z0-9_-]{3,20}$",
       required: "required",
     },
   },
@@ -47,7 +51,6 @@ export class Login extends Block {
             class: "form-login__info-line",
             name: dataInput.name,
             label: dataInput.label,
-
             input: new Input({
               class: "input-profile",
               dataInput: dataInput,
