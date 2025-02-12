@@ -1,4 +1,8 @@
 import { IInput } from "../shared/input.interface";
+import {
+  VALIDATION_ERRORS,
+  VALIDATION_RULES,
+} from "../shared/validation-rules";
 import EventBus, { EventCallback } from "./EventBus";
 import Handlebars from "handlebars";
 
@@ -309,8 +313,11 @@ export default class Block {
         if (!input.validity.valid) {
           console.log(`Error ${input.name}:`, input.validationMessage);
         }
-        if (!new RegExp(input.pattern).test(input.value)) {
-          console.log(`Error ${input.name}: поле должно быть`, input.title);
+        if (!VALIDATION_RULES[input.name].test(input.value)) {
+          console.log(
+            `Error ${input.name}: поле должно быть`,
+            VALIDATION_ERRORS[input.name]
+          );
         }
       }
     });
