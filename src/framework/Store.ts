@@ -1,4 +1,5 @@
 import EventBus from "./EventBus";
+import { Indexed } from "./HOC";
 
 export enum StoreEvents {
   Updated = "updated",
@@ -11,6 +12,9 @@ class Store extends EventBus {
 
     // метод EventBus
     this.emit(StoreEvents.Updated);
+  }
+  public getState(): Indexed {
+    return { test: "test" };
   }
 }
 

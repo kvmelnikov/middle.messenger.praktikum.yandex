@@ -1,11 +1,15 @@
 import Block from "./Block";
-import { StoreEvents } from "./Store";
-export type Indexed = Record<string, any>;
 
+import store from "./Store";
+
+export type Indexed = Record<string, any>;
+enum StoreEvents {
+  Updated = "updated",
+}
 function connect(mapStateToProps: (state: Indexed) => Indexed) {
   return function (Component: typeof Block) {
     return class extends Component {
-      constructor(props) {
+      constructor(props: any) {
         // сохраняем начальное состояние
         let state = mapStateToProps(store.getState());
 
@@ -27,4 +31,8 @@ function connect(mapStateToProps: (state: Indexed) => Indexed) {
       }
     };
   };
+}
+
+function isEqual(oldState: Indexed, newState: Indexed) {
+  return true;
 }

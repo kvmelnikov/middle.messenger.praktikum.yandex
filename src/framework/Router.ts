@@ -5,6 +5,7 @@ function isEqual(lhs, rhs) {
 
 function render(query, block) {
   const root = document.getElementById(query);
+  console.log(root, query);
   root.append(block.getContent());
   return root;
 }
@@ -61,7 +62,7 @@ export default class Router {
 
   use(pathname, block) {
     const route = new Route(pathname, block, { rootQuery: this._rootQuery });
-
+    console.log("event");
     this.routes.push(route);
 
     return this;
