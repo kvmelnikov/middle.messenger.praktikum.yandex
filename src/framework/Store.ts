@@ -5,16 +5,36 @@ export enum StoreEvents {
   Updated = "updated",
 }
 
-// наследуем Store от EventBus, чтобы его методы были сразу доступны у экземпляра Store
+// function set(state: Indexed, path: string, value: unknown){
+//   return { user: { name: 'John' }
+// }
 class Store extends EventBus {
+  private _state: Indexed = {};
+  static _instance: Store;
+
+  constructor() {
+    if (Store._instance) {
+      return Store._instance;
+    }
+    super();
+
+    Store._instance = this;
+  }
+
   public set(path: string, value: unknown) {
-    // set(this.state, path, value);
+    // this.state = set(this.state, path, value);
 
     // метод EventBus
     this.emit(StoreEvents.Updated);
   }
+
   public getState(): Indexed {
     return { test: "test" };
+  }
+
+  public delState() {
+    this.emit(StoreEvents.Updated);
+    this._state = {};
   }
 }
 

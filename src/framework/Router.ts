@@ -62,7 +62,7 @@ export default class Router {
 
   use(pathname, block) {
     const route = new Route(pathname, block, { rootQuery: this._rootQuery });
-    console.log("event");
+
     this.routes.push(route);
 
     return this;

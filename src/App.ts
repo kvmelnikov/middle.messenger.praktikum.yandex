@@ -1,3 +1,4 @@
+import { connect } from "./framework/HOC";
 import Router from "./framework/Router";
 import { Login } from "./pages/login/login";
 import { MainPage } from "./pages/main-page/main-page";
@@ -9,12 +10,28 @@ interface AppState {
   action: string;
 }
 
-const router = new Router("app");
-router.use("/login", Login);
-router.use("/chat", MainPage);
-router.start();
+const mapStateToProps = (state: any) => {
+  console.log(state, "login");
+  return {
+    // Здесь вы можете маппить нужные части состояния в пропсы компонента
+    // Например:
+    // email: state.user.email,
+    // login: state.user.login,
+  };
+};
+
+// Применяем connect к компоненту Login
+connect(mapStateToProps)(Login);
+
 export default class App {
-  render() {}
+  initial() {
+    const router = new Router("app");
+    router.use("/login", connect(mapStateToProps)(Login));
+    router.use("/chat", MainPage);
+    router.use("/signin", Signin);
+    router.use("/profile", Profile);
+    router.start();
+  }
 }
 // export default class App {
 //   private state: AppState;

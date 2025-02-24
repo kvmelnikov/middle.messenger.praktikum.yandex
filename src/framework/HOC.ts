@@ -1,12 +1,10 @@
 import Block from "./Block";
 
-import store from "./Store";
+import store, { StoreEvents } from "./Store";
 
-export type Indexed = Record<string, any>;
-enum StoreEvents {
-  Updated = "updated",
-}
-function connect(mapStateToProps: (state: Indexed) => Indexed) {
+export type Indexed<T = unknown> = Record<string, T>;
+
+export function connect(mapStateToProps: (state: Indexed) => Indexed) {
   return function (Component: typeof Block) {
     return class extends Component {
       constructor(props: any) {
@@ -22,7 +20,7 @@ function connect(mapStateToProps: (state: Indexed) => Indexed) {
 
           // если что-то из используемых данных поменялось, обновляем компонент
           if (!isEqual(state, newState)) {
-            this.setProps({ ...newState });
+            // this.setProps({ ...newState });
           }
 
           // не забываем сохранить новое состояние
