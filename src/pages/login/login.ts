@@ -3,7 +3,6 @@ import { Fieldset } from "../../components/input/fieldset";
 import { Input } from "../../components/input/input";
 import { Link } from "../../components/link/Link";
 import Block from "../../framework/Block";
-import { connect } from "../../framework/HOC";
 import { IInput } from "../../shared/input.interface";
 
 const dataInputs: IInput[] = [

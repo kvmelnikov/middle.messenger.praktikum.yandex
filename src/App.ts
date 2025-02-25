@@ -11,12 +11,11 @@ interface AppState {
 }
 
 const mapStateToProps = (state: any) => {
-  console.log(state, "login");
   return {
     // Здесь вы можете маппить нужные части состояния в пропсы компонента
     // Например:
-    // email: state.user.email,
-    // login: state.user.login,
+    email: state.user?.email ?? "",
+    login: state.user?.login ?? "",
   };
 };
 

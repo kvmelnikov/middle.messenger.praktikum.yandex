@@ -1,5 +1,5 @@
-import EventBus from "./EventBus";
-import { Indexed } from "./HOC";
+import EventBus from "../framework/EventBus";
+import { Indexed } from "../framework/HOC";
 
 export enum StoreEvents {
   Updated = "updated",
@@ -25,6 +25,7 @@ class Store extends EventBus {
     // this.state = set(this.state, path, value);
 
     // метод EventBus
+
     this.emit(StoreEvents.Updated);
   }
 

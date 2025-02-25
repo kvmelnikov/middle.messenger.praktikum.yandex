@@ -1,6 +1,6 @@
 import Block from "./Block";
 
-import store, { StoreEvents } from "./Store";
+import store, { StoreEvents } from "../store/Store";
 
 export type Indexed<T = unknown> = Record<string, T>;
 
