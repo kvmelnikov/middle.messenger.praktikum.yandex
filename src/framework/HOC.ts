@@ -1,10 +1,8 @@
-import Block from "./Block";
+import Block, { BlockProps } from "./Block";
 
 import store, { StoreEvents } from "../store/Store";
 
-export type Indexed<T = unknown> = Record<string, T>;
-
-export function connect(mapStateToProps: (state: Indexed) => Indexed) {
+export function connect(mapStateToProps: (state: BlockProps) => BlockProps) {
   return function (Component: typeof Block) {
     return class extends Component {
       constructor(props: any) {
@@ -20,7 +18,7 @@ export function connect(mapStateToProps: (state: Indexed) => Indexed) {
 
           // если что-то из используемых данных поменялось, обновляем компонент
           if (!isEqual(state, newState)) {
-            // this.setProps({ ...newState });
+            this.setProps({ ...newState });
           }
 
           // не забываем сохранить новое состояние
@@ -31,6 +29,6 @@ export function connect(mapStateToProps: (state: Indexed) => Indexed) {
   };
 }
 
-function isEqual(oldState: Indexed, newState: Indexed) {
+function isEqual(oldState: BlockProps, newState: BlockProps) {
   return true;
 }

@@ -16,7 +16,7 @@ type TBlockProps =
   | BlokEvents
   | boolean;
 
-interface BlockProps {
+export interface BlockProps {
   [key: string]: TBlockProps;
 }
 

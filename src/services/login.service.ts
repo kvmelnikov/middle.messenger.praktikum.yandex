@@ -1,24 +1,26 @@
+import { setLogin } from "../store/Actions";
 import { HTTPTransport } from "./HTTPTransport";
 
-class LoginService {
+export class LoginService {
+  baseUrl = "https://ya-praktikum.tech/api/v2/";
   http: HTTPTransport;
   constructor() {
     this.http = new HTTPTransport();
   }
 
-  async login(username: string, password: string) {
+  public async login(username: string, password: string) {
     const data = new FormData();
     data.append("username", username);
     data.append("password", password);
     try {
-      const response = this.http.post("http://api/login", {
+      const response = this.http.post(this.baseUrl, {
         data,
         headers: { "Content-Type": "application/json" },
       });
 
       return response;
     } catch (error) {
-      throw error;
+      setLogin("test");
     }
   }
 }

@@ -1,31 +1,19 @@
-import { connect } from "./framework/HOC";
 import Router from "./framework/Router";
-import { Login } from "./pages/login/login";
+import Login from "./pages/login/login";
 import { MainPage } from "./pages/main-page/main-page";
 import { Profile } from "./pages/profile/profile";
-import { Signin } from "./pages/signin/siginin";
-
+import Signin from "./pages/signin/siginin";
+export const baseUrl = "https://ya-praktikum.tech/api/v2/";
 interface AppState {
   currentPage: string;
   action: string;
 }
 
-const mapStateToProps = (state: any) => {
-  return {
-    // Здесь вы можете маппить нужные части состояния в пропсы компонента
-    // Например:
-    email: state.user?.email ?? "",
-    login: state.user?.login ?? "",
-  };
-};
-
 // Применяем connect к компоненту Login
-connect(mapStateToProps)(Login);
-
+export const router = new Router("app");
 export default class App {
   initial() {
-    const router = new Router("app");
-    router.use("/login", connect(mapStateToProps)(Login));
+    router.use("/login", Login);
     router.use("/chat", MainPage);
     router.use("/signin", Signin);
     router.use("/profile", Profile);

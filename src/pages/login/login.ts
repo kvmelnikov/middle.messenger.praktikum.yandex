@@ -3,6 +3,8 @@ import { Fieldset } from "../../components/input/fieldset";
 import { Input } from "../../components/input/input";
 import { Link } from "../../components/link/Link";
 import Block from "../../framework/Block";
+import { connect } from "../../framework/HOC";
+import { LoginService } from "../../services/login.service";
 import { IInput } from "../../shared/input.interface";
 
 const dataInputs: IInput[] = [
@@ -35,7 +37,8 @@ const dataInputs: IInput[] = [
     },
   },
 ];
-export class Login extends Block {
+class Login extends Block {
+  service: LoginService;
   constructor() {
     super({
       events: {
@@ -59,6 +62,7 @@ export class Login extends Block {
         dataAction: "default",
         dataPage: "signin",
         text: "Нет аккаунта?",
+        href: "/signin",
       }),
 
       LinkMainPage: new Link({
@@ -71,16 +75,23 @@ export class Login extends Block {
       ButtonEnter: new Button({
         text: "Войти",
         class: "button__apperance",
-        onClick: () => {},
+        onClick: () => {
+          this.onTestButton();
+        },
         dataAction: "default",
         type: "submit",
       }),
     });
+    this.service = new LoginService();
   }
 
   onBlur(e: Event) {
     e.preventDefault();
     super.onBlur(e);
+  }
+
+  onTestButton() {
+    this.service.login("test", "test");
   }
 
   onSubmit(e: Event) {
@@ -102,3 +113,14 @@ export class Login extends Block {
         </form>`;
   }
 }
+
+const mapStateToProps = (state: any) => {
+  return {
+    // Здесь вы можете маппить нужные части состояния в пропсы компонента
+    // Например:
+    email: state.user?.email ?? "",
+    login: state.user?.login ?? "",
+  };
+};
+
+export default connect(mapStateToProps)(Login);

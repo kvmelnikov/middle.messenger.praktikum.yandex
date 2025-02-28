@@ -1,5 +1,5 @@
+import { BlockProps } from "../framework/Block";
 import EventBus from "../framework/EventBus";
-import { Indexed } from "../framework/HOC";
 
 export enum StoreEvents {
   Updated = "updated",
@@ -9,7 +9,7 @@ export enum StoreEvents {
 //   return { user: { name: 'John' }
 // }
 class Store extends EventBus {
-  private _state: Indexed = {};
+  private _state: BlockProps = {};
   static _instance: Store;
 
   constructor() {
@@ -29,7 +29,7 @@ class Store extends EventBus {
     this.emit(StoreEvents.Updated);
   }
 
-  public getState(): Indexed {
+  public getState(): BlockProps {
     return { test: "test" };
   }
 
