@@ -4,10 +4,6 @@ import { MainPage } from "./pages/main-page/main-page";
 import { Profile } from "./pages/profile/profile";
 import Signin from "./pages/signin/siginin";
 export const baseUrl = "https://ya-praktikum.tech/api/v2/";
-interface AppState {
-  currentPage: string;
-  action: string;
-}
 
 // Применяем connect к компоненту Login
 export const router = new Router("app");

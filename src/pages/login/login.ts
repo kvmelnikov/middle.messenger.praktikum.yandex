@@ -4,7 +4,8 @@ import { Input } from "../../components/input/input";
 import { Link } from "../../components/link/Link";
 import Block from "../../framework/Block";
 import { connect } from "../../framework/HOC";
-import { LoginService } from "../../services/login.service";
+import { AuthService } from "../../services/auth.service";
+
 import { IInput } from "../../shared/input.interface";
 
 const dataInputs: IInput[] = [
@@ -38,7 +39,7 @@ const dataInputs: IInput[] = [
   },
 ];
 class Login extends Block {
-  service: LoginService;
+  service: AuthService;
   constructor() {
     super({
       events: {
@@ -82,7 +83,7 @@ class Login extends Block {
         type: "submit",
       }),
     });
-    this.service = new LoginService();
+    this.service = new AuthService();
   }
 
   onBlur(e: Event) {
@@ -91,7 +92,7 @@ class Login extends Block {
   }
 
   onTestButton() {
-    this.service.login("test", "test");
+    this.service.signin("test", "test");
   }
 
   onSubmit(e: Event) {
