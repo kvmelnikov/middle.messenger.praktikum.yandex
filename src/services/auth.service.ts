@@ -2,6 +2,7 @@ import { baseUrl } from "../App";
 import { setLogin } from "../store/Actions";
 import { HTTPTransport } from "./HTTPTransport";
 import { router } from "../App";
+import { log } from "handlebars";
 
 export type SignupData = {
   email: string;
@@ -20,34 +21,31 @@ export class AuthService {
   }
 
   public async signup(signupData: SignupData) {
-    const data = JSON.stringify(signupData);
-
     this.http
       .post(`${baseUrl}auth/signup`, {
-        data,
+        data: JSON.stringify(signupData),
         headers: { "Content-Type": "application/json" },
       })
       .then((res) => {
         router.go("/login");
       }) // вывод результата положительного {id: 3586}
       .catch((err: { reason: string }) => {
-        console.log(err);
         alert(err.reason);
       });
   }
 
-  public async signin(username: string, password: string) {
-    const data = JSON.stringify({ login: "Kirill", password: "2080" });
-    try {
-      const response = this.http.post(`${baseUrl}auth/signin`, {
-        data,
+  public async signin(login: string, password: string) {
+    this.http
+      .post(`${baseUrl}auth/signin`, {
+        data: JSON.stringify({ login: login, password: password }),
         headers: { "Content-Type": "application/json" },
+      })
+      .then(() => {
+        router.go("/chat");
+      })
+      .catch((err) => {
+        alert(err);
       });
-
-      return response;
-    } catch (error) {
-      setLogin("test");
-    }
   }
 
   public async getUser(username: string, password: string) {

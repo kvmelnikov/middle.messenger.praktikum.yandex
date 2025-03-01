@@ -10,12 +10,12 @@ import { IInput } from "../../shared/input.interface";
 
 const dataInputs: IInput[] = [
   {
-    label: "Почта",
-    placeholder: "",
-    name: "email",
-    type: "email",
-    value: "pochta@yandex.ru",
-    errorText: "введите текст",
+    label: "Логин",
+    placeholder: "Введите логин",
+    name: "login",
+    type: "text",
+    value: "",
+    errorText: "Введите логин",
     validators: {
       minlength: "2",
       maxlength: "40",
@@ -24,11 +24,11 @@ const dataInputs: IInput[] = [
     },
   },
   {
-    label: "Логин",
-    placeholder: "",
-    name: "login",
-    type: "text`",
-    value: "ivanivanov",
+    label: "Пароль",
+    placeholder: "Введите пароль",
+    name: "password",
+    type: "password",
+    value: "",
     errorText: "введите текст",
     validators: {
       minlength: "3",
@@ -38,7 +38,7 @@ const dataInputs: IInput[] = [
     },
   },
 ];
-class Login extends Block {
+class Signin extends Block {
   service: AuthService;
   constructor() {
     super({
@@ -76,9 +76,7 @@ class Login extends Block {
       ButtonEnter: new Button({
         text: "Войти",
         class: "button__apperance",
-        onClick: () => {
-          this.onTestButton();
-        },
+        onClick: () => {},
         dataAction: "default",
         type: "submit",
       }),
@@ -91,13 +89,23 @@ class Login extends Block {
     super.onBlur(e);
   }
 
-  onTestButton() {
-    this.service.signin("test", "test");
-  }
-
   onSubmit(e: Event) {
     e.preventDefault();
     super.onSubmit(e);
+    const dataForm: Record<string, string> = {};
+    this.lists.Inputs.forEach((el) => {
+      const childInput = el;
+      if (
+        (childInput.getChildren("Input").getContent() as HTMLInputElement)
+          .validity.valid
+      ) {
+        dataForm[childInput.getProps("name") as string] = (
+          childInput.getChildren("Input").getContent() as HTMLInputElement
+        ).value;
+      }
+    });
+
+    this.service.signin(dataForm.login, dataForm.password);
   }
 
   protected render(): string {
@@ -124,4 +132,4 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps)(Signin);

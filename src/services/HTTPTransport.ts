@@ -40,7 +40,7 @@ export class HTTPTransport {
   private request<R>(
     url: string,
     options: RequestOptions<QueryParams>
-  ): Promise<R> {
+  ): Promise<R | void> {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
 
@@ -61,13 +61,17 @@ export class HTTPTransport {
       xhr.onload = () => {
         if (xhr.status >= 200 && xhr.status < 300) {
           try {
+            if (xhr.responseText === "OK") {
+              resolve();
+            }
             const response = JSON.parse(xhr.responseText);
+
             resolve(response);
           } catch (e) {
             reject(new Error("Failed to parse JSON response"));
           }
         } else {
-          reject(new Error(`${JSON.parse(xhr.responseText)}`));
+          reject(new Error(`${xhr.status} ${xhr.statusText}`));
         }
       };
 
