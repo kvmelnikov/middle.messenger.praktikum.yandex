@@ -1,4 +1,5 @@
 import Block from "../../framework/Block";
+import { AuthService, SignupData } from "../../services/auth.service";
 import { IInput } from "../../shared/input.interface";
 import { Button } from "../button/button";
 import { Fieldset } from "../input/fieldset";
@@ -103,7 +104,8 @@ const inputsData: IInput[] = [
     },
   },
 ];
-export class FormSignin extends Block {
+export class FormSignup extends Block {
+  service: AuthService;
   constructor() {
     super({
       events: {
@@ -128,20 +130,36 @@ export class FormSignin extends Block {
         type: "submit",
       }),
     });
+
+    this.service = new AuthService();
   }
 
   onSubmit(e: Event): void {
     e.preventDefault();
-    super.onSubmit(e);
+
+    const dataForm: Record<string, string> = {};
+    this.lists.Inputs.forEach((el) => {
+      const childInput = el;
+      if (
+        (childInput.getChildren("Input").getContent() as HTMLInputElement)
+          .validity.valid
+      ) {
+        dataForm[childInput.getProps("name") as string] = (
+          childInput.getChildren("Input").getContent() as HTMLInputElement
+        ).value;
+      }
+    });
+
+    this.service.signup(dataForm as SignupData);
   }
 
   protected render(): string {
     return `<form class="form-signin">
-                <h5 class="form-signin__heading">Регистрация</h5>
-                    {{{ Inputs }}}
-                <div class="form-signin__actions">
-                    {{{Button}}}
-                </div>
-            </form>`;
+                  <h5 class="form-signin__heading">Регистрация</h5>
+                      {{{ Inputs }}}
+                  <div class="form-signin__actions">
+                      {{{Button}}}
+                  </div>
+              </form>`;
   }
 }

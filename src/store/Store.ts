@@ -8,6 +8,7 @@ export enum StoreEvents {
 // function set(state: Indexed, path: string, value: unknown){
 //   return { user: { name: 'John' }
 // }
+
 class Store extends EventBus {
   private _state: BlockProps = {};
   static _instance: Store;

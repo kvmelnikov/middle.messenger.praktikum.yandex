@@ -63,7 +63,7 @@ class Login extends Block {
         dataAction: "default",
         dataPage: "signin",
         text: "Нет аккаунта?",
-        href: "/signin",
+        href: "/signup",
       }),
 
       LinkMainPage: new Link({

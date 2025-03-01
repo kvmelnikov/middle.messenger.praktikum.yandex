@@ -67,7 +67,7 @@ export class HTTPTransport {
             reject(new Error("Failed to parse JSON response"));
           }
         } else {
-          reject(new Error(`HTTP error! status: ${xhr.status}`));
+          reject(new Error(`${JSON.parse(xhr.responseText)}`));
         }
       };
 

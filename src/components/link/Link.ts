@@ -5,6 +5,7 @@ interface LinkProps {
   dataAction?: string;
   dataPage: string;
   text: string;
+  href?: string;
 }
 
 export class Link extends Block {
