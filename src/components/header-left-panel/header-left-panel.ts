@@ -13,6 +13,7 @@ export class HeaderLeftPanel extends Block {
         dataPage: "profile",
         dataAction: "default",
         text: "Профиль >",
+        href: "/profile",
       }),
     });
   }

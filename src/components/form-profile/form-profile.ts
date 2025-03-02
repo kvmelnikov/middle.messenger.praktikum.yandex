@@ -1,4 +1,5 @@
 import Block from "../../framework/Block";
+import { connect } from "../../framework/HOC";
 import { IInput } from "../../shared/input.interface";
 import { Avatar } from "../avatar/avatar";
 import { Button } from "../button/button";
@@ -236,3 +237,14 @@ export class FormProfile extends Block {
                        </form>`;
   }
 }
+
+const mapStateToProps = (state: any) => {
+  return {
+    // Здесь вы можете маппить нужные части состояния в пропсы компонента
+    // Например:
+    email: state.user?.email ?? "",
+    login: state.user?.login ?? "",
+  };
+};
+
+export default connect(mapStateToProps)(FormProfile);

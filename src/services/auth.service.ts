@@ -2,7 +2,6 @@ import { baseUrl } from "../App";
 import { setLogin } from "../store/Actions";
 import { HTTPTransport } from "./HTTPTransport";
 import { router } from "../App";
-import { log } from "handlebars";
 
 export type SignupData = {
   email: string;
@@ -16,7 +15,6 @@ export type SignupData = {
 export class AuthService {
   http: HTTPTransport;
   constructor() {
-    console.dir(router);
     this.http = new HTTPTransport();
   }
 
@@ -48,16 +46,15 @@ export class AuthService {
       });
   }
 
-  public async getUser(username: string, password: string) {
-    const data = new FormData();
-    data.append("username", username);
-    data.append("password", password);
-    try {
-      const response = this.http.get(`${baseUrl}auth/user`);
-      return response;
-    } catch (error) {
-      setLogin("test");
-    }
+  public async getUser() {
+    this.http
+      .get(`${baseUrl}auth/user`)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   public async logout() {

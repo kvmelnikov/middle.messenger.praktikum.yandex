@@ -2,8 +2,11 @@ import { Button } from "../../components/button/button";
 import { FormProfile } from "../../components/form-profile/form-profile";
 import { LeftNavigate } from "../../components/left-navigate/left-navigate";
 import Block from "../../framework/Block";
+import { connect } from "../../framework/HOC";
+import { AuthService } from "../../services/auth.service";
 
-export class Profile extends Block {
+class Profile extends Block {
+  service: AuthService;
   constructor() {
     super({
       isEditable: false,
@@ -16,6 +19,11 @@ export class Profile extends Block {
         onClick: () => {},
       }),
     });
+    this.service = new AuthService();
+  }
+  protected init(): void {
+    super.init();
+    this.service.getUser();
   }
 
   protected override render(): string {
@@ -25,3 +33,14 @@ export class Profile extends Block {
                     </main>`;
   }
 }
+
+const mapStateToProps = (state: any) => {
+  return {
+    // Здесь вы можете маппить нужные части состояния в пропсы компонента
+    // Например:
+    email: state.user?.email ?? "",
+    login: state.user?.login ?? "",
+  };
+};
+
+export default connect(mapStateToProps)(Profile);

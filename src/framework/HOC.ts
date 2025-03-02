@@ -17,9 +17,9 @@ export function connect(mapStateToProps: (state: BlockProps) => BlockProps) {
           const newState = mapStateToProps(store.getState());
 
           // если что-то из используемых данных поменялось, обновляем компонент
-          if (!isEqual(state, newState)) {
-            this.setProps({ ...newState });
-          }
+          // if (!isEqual(state, newState)) {
+          this.setProps({ ...newState });
+          //}
 
           // не забываем сохранить новое состояние
           state = newState;

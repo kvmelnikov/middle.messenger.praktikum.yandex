@@ -8,6 +8,7 @@ import { HeaderChat } from "../../components/header-chat/header-chat";
 import { Input } from "../../components/input/input";
 import { ChatParticipant } from "../../components/chat-participant/chat-participant";
 import { IInput } from "../../shared/input.interface";
+import { connect } from "../../framework/HOC";
 
 const chatParticipants = [...new Array(3).keys()].map(
   (item) =>
@@ -33,6 +34,7 @@ const dataInput: IInput = {
   value: "",
   errorText: "",
 };
+
 export class MainPage extends Block {
   constructor() {
     super({
@@ -68,6 +70,7 @@ export class MainPage extends Block {
         avatarClass: "avatar_small",
         name: "Вадим",
       }),
+
       DateMessage: new DateMessage({ time: "12.21" }),
       Messages: [],
       SvgIcon: new SvgIcon({
@@ -113,15 +116,24 @@ export class MainPage extends Block {
                     {{{ Link data-page="auxiliaryElements" data-action="default" text="Вспомогательные компоненты" class="link link-login" }}}
                 </div>
                    <div class="footer-chat">
-                    
                            <div class="chat-form">
                                  {{{ SvgIcon  }}}
                           {{{InputMessage}}}
                               {{{ ButtonIcon }}} 
-                           </div>
-                      
+                           </div>  
                    </div>
                 </section>
                 </main>`;
   }
 }
+
+const mapStateToProps = (state: any) => {
+  return {
+    // Здесь вы можете маппить нужные части состояния в пропсы компонента
+    // Например:
+    email: state.user?.email ?? "",
+    login: state.user?.login ?? "",
+  };
+};
+
+export default connect(mapStateToProps)(MainPage);
