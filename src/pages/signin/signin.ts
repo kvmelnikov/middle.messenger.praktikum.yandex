@@ -4,7 +4,7 @@ import { Input } from "../../components/input/input";
 import { Link } from "../../components/link/Link";
 import Block from "../../framework/Block";
 import { connect } from "../../framework/HOC";
-import { AuthService } from "../../services/auth.service";
+import { AuthService } from "../../store/services/auth.service";
 
 import { IInput } from "../../shared/input.interface";
 

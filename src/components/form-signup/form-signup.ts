@@ -1,5 +1,5 @@
 import Block from "../../framework/Block";
-import { AuthService, SignupData } from "../../services/auth.service";
+import { AuthService, SignupData } from "../../store/services/auth.service";
 import { IInput } from "../../shared/input.interface";
 import { Button } from "../button/button";
 import { Fieldset } from "../input/fieldset";

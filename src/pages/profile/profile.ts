@@ -3,7 +3,7 @@ import { FormProfile } from "../../components/form-profile/form-profile";
 import { LeftNavigate } from "../../components/left-navigate/left-navigate";
 import Block from "../../framework/Block";
 import { connect } from "../../framework/HOC";
-import { AuthService } from "../../services/auth.service";
+import { AuthService } from "../../store/services/auth.service";
 
 class Profile extends Block {
   service: AuthService;

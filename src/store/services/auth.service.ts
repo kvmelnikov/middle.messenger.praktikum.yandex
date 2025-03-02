@@ -1,7 +1,7 @@
-import { baseUrl } from "../App";
-import { setLogin } from "../store/Actions";
+import { baseUrl } from "../../App";
+// import { setLogin } from "../actions/auth.actions";
 import { HTTPTransport } from "./HTTPTransport";
-import { router } from "../App";
+import { router } from "../../App";
 
 export type SignupData = {
   email: string;
@@ -62,7 +62,7 @@ export class AuthService {
       const response = this.http.post(`${baseUrl}auth/user`);
       return response;
     } catch (error) {
-      setLogin("test");
+      // setLogin("test");
     }
   }
 }

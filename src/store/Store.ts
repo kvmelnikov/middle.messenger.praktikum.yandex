@@ -5,12 +5,16 @@ export enum StoreEvents {
   Updated = "updated",
 }
 
+export interface Indexed<T = unknown> {
+  [key: string]: T;
+}
+
 // function set(state: Indexed, path: string, value: unknown){
 //   return { user: { name: 'John' }
 // }
 
 class Store extends EventBus {
-  private _state: BlockProps = {};
+  private _state: Indexed = {};
   static _instance: Store;
 
   constructor() {
@@ -23,7 +27,7 @@ class Store extends EventBus {
   }
 
   public set(path: string, value: unknown) {
-    // this.state = set(this.state, path, value);
+    this._state = set(this._state, path, value);
 
     // метод EventBus
 
@@ -38,6 +42,36 @@ class Store extends EventBus {
     this.emit(StoreEvents.Updated);
     this._state = {};
   }
+}
+
+function set(object: Indexed, path: string, value: unknown): Indexed {
+  // Если объект не является объектом или равен null, возвращаем его без изменений
+  if (typeof object !== "object" || object === null) {
+    return object;
+  }
+
+  // Разбиваем путь на массив ключей
+  const keys = path.split(".");
+  let current = object as Indexed;
+
+  // Проходим по всем ключам, кроме последнего
+  for (let i = 0; i < keys.length - 1; i++) {
+    const key = keys[i];
+
+    // Если текущий ключ не существует или не является объектом, создаем новый объект
+    if (!current[key] || typeof current[key] !== "object") {
+      current[key] = {};
+    }
+
+    // Переходим на следующий уровень вложенности
+    current = current[key] as Indexed;
+  }
+
+  // Устанавливаем значение по последнему ключу
+  const lastKey = keys[keys.length - 1];
+  current[lastKey] = value;
+
+  return object;
 }
 
 export default new Store();
