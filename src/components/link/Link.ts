@@ -3,9 +3,10 @@ import Block from "../../framework/Block";
 interface LinkProps {
   class: string;
   dataAction?: string;
-  dataPage: string;
+  dataPage?: string;
   text: string;
   href?: string;
+  onClick?: (e: Event) => void;
 }
 
 export class Link extends Block {
@@ -13,9 +14,10 @@ export class Link extends Block {
     super({
       ...props,
       class: props.class,
-      dataAction: props.dataAction || "default",
-      dataPage: props.dataPage,
       text: props.text,
+      events: {
+        click: (e: Event) => {},
+      },
     });
   }
 

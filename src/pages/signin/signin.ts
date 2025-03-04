@@ -7,6 +7,7 @@ import { connect } from "../../framework/HOC";
 import { AuthService } from "../../store/services/auth.service";
 
 import { IInput } from "../../shared/input.interface";
+import { router } from "../../App";
 
 const dataInputs: IInput[] = [
   {
@@ -60,10 +61,12 @@ class Signin extends Block {
       ),
       LinkSignin: new Link({
         class: "link-login",
-        dataAction: "default",
-        dataPage: "signin",
         text: "Нет аккаунта?",
-        href: "/signup",
+
+        onClick: (e: Event) => {
+          e.preventDefault();
+          router.go("/signup");
+        },
       }),
 
       LinkMainPage: new Link({

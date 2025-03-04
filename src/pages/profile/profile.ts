@@ -3,10 +3,11 @@ import { FormProfile } from "../../components/form-profile/form-profile";
 import { LeftNavigate } from "../../components/left-navigate/left-navigate";
 import Block from "../../framework/Block";
 import { connect } from "../../framework/HOC";
-import { AuthService } from "../../store/services/auth.service";
+import { UserController } from "../../store/controlers/user.controler";
 
 class Profile extends Block {
-  service: AuthService;
+  userController: UserController;
+
   constructor() {
     super({
       isEditable: false,
@@ -19,11 +20,11 @@ class Profile extends Block {
         onClick: () => {},
       }),
     });
-    this.service = new AuthService();
+    this.userController = new UserController();
+    // this.userController.getUser();
   }
   protected init(): void {
     super.init();
-    this.service.getUser();
   }
 
   protected override render(): string {

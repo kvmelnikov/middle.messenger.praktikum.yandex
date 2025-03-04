@@ -46,15 +46,8 @@ export class AuthService {
       });
   }
 
-  public async getUser() {
-    this.http
-      .get(`${baseUrl}auth/user`)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  public async getUserRequest() {
+    return this.http.get(`${baseUrl}auth/user`);
   }
 
   public async logout() {
