@@ -6,6 +6,7 @@ interface LinkProps {
   dataPage: string;
   text: string;
   href?: string;
+  onClick?: (e: Event) => void;
 }
 
 export class Link extends Block {
@@ -16,6 +17,12 @@ export class Link extends Block {
       dataAction: props.dataAction || "default",
       dataPage: props.dataPage,
       text: props.text,
+      events: {
+        click: (e: Event) => {
+          e.preventDefault();
+          props.onClick && props.onClick(e);
+        },
+      },
     });
   }
 

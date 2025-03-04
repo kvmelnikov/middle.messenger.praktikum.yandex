@@ -15,12 +15,13 @@ interface RequestOptions<Q = QueryParams, D = XMLHttpRequestBodyInit> {
   data?: D;
   query?: Q;
   signal?: AbortSignal;
+  credentials?: boolean;
 }
 
 type HTTPMethod = <R = unknown>(
   url: string,
   options?: Partial<RequestOptions<QueryParams>>
-) => Promise<R>;
+) => Promise<R | void>;
 
 export class HTTPTransport {
   private createMethod(method: Methods): HTTPMethod {
@@ -51,6 +52,10 @@ export class HTTPTransport {
         : url;
 
       xhr.open(options.method as string, fullUrl);
+
+      if (options.credentials) {
+        xhr.withCredentials = true;
+      }
 
       if (options.headers) {
         Object.entries(options.headers).forEach(([key, value]) => {

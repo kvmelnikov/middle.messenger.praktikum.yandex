@@ -1,3 +1,4 @@
+import { router } from "../../App";
 import Block from "../../framework/Block";
 import { Input } from "../input/input";
 import { Link } from "../link/Link";
@@ -13,7 +14,10 @@ export class HeaderLeftPanel extends Block {
         dataPage: "profile",
         dataAction: "default",
         text: "Профиль >",
-        href: "/profile",
+        onClick: (e: Event) => {
+          e.preventDefault();
+          router.go("/profile");
+        },
       }),
     });
   }

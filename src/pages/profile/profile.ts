@@ -20,9 +20,6 @@ class Profile extends Block {
       }),
     });
     this.service = new AuthService();
-  }
-  protected init(): void {
-    super.init();
     this.service.getUser();
   }
 

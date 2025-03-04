@@ -23,6 +23,7 @@ export class AuthService {
       .post(`${baseUrl}auth/signup`, {
         data: JSON.stringify(signupData),
         headers: { "Content-Type": "application/json" },
+        credentials: true,
       })
       .then((res) => {
         router.go("/login");
@@ -37,6 +38,7 @@ export class AuthService {
       .post(`${baseUrl}auth/signin`, {
         data: JSON.stringify({ login: login, password: password }),
         headers: { "Content-Type": "application/json" },
+        credentials: true,
       })
       .then(() => {
         router.go("/chat");
@@ -48,7 +50,9 @@ export class AuthService {
 
   public async getUser() {
     this.http
-      .get(`${baseUrl}auth/user`)
+      .get(`${baseUrl}auth/user`, {
+        credentials: true,
+      })
       .then((res) => {
         console.log(res);
       })

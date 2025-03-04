@@ -13,6 +13,5 @@ export default class App {
     router.use("/signup", Signup);
     router.use("/profile", Profile);
     router.start();
-    router.go("/signin");
   }
 }
