@@ -1,4 +1,4 @@
-import Block from "../../framework/Block";
+import Block, { BlockProps } from "../../framework/Block";
 import { connect } from "../../framework/HOC";
 import { IInput } from "../../shared/input.interface";
 import { Avatar } from "../avatar/avatar";
@@ -137,17 +137,21 @@ const inputsPassword: IInput[] = [
     },
   },
 ];
-export class FormProfile extends Block {
+interface FormProfileProps extends BlockProps {
+  isEditableProfile: boolean;
+  isEditablePassword: boolean;
+  inputsData: Block[];
+}
+class FormProfile extends Block {
   isEditableProfile: false;
-
   isEditablePassword: false;
 
-  constructor() {
+  constructor(props: FormProfileProps) {
     super({
       events: {
         submit: (e: Event) => this.onSubmit(e),
       },
-      Avatar: new Avatar({
+      Avtaar: new Avatar({
         src: "../../../public/images/avatar-example.png",
         className: "avatar_big profile__avatar",
       }),
@@ -238,13 +242,15 @@ export class FormProfile extends Block {
   }
 }
 
-const mapStateToProps = (state: any) => {
-  return {
+const mapStateToProps = (state: BlockProps): FormProfileProps => {
+  const props = {
     // Здесь вы можете маппить нужные части состояния в пропсы компонента
     // Например:
-    email: state.user?.email ?? "",
-    login: state.user?.login ?? "",
-  };
+    isEditableProfile: false,
+    isEditablePassword: false,
+  } as FormProfileProps;
+
+  return props;
 };
 
 export default connect(mapStateToProps)(FormProfile);

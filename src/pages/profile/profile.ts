@@ -1,5 +1,5 @@
 import { Button } from "../../components/button/button";
-import { FormProfile } from "../../components/form-profile/form-profile";
+import FormProfile from "../../components/form-profile/form-profile";
 import { LeftNavigate } from "../../components/left-navigate/left-navigate";
 import Block from "../../framework/Block";
 import { connect } from "../../framework/HOC";
@@ -11,7 +11,7 @@ class Profile extends Block {
     super({
       isEditable: false,
       LeftNavigate: new LeftNavigate(),
-      FormProfile: new FormProfile(),
+      FormProfile: new FormProfile({}),
       ButtonExit: new Button({
         text: "Выйти",
         class: "button__apperance",
@@ -35,6 +35,7 @@ const mapStateToProps = (state: any) => {
   return {
     // Здесь вы можете маппить нужные части состояния в пропсы компонента
     // Например:
+
     email: state.user?.email ?? "",
     login: state.user?.login ?? "",
   };
