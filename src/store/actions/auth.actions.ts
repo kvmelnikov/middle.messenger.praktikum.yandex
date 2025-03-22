@@ -6,5 +6,5 @@ import store from "../Store";
 // };
 
 export const setProfile = (data: IProfile) => {
-  store.set("profile.data", data);
+  store.set("profile", data);
 };

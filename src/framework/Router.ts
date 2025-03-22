@@ -5,7 +5,6 @@ function isEqual(lhs, rhs) {
 
 function render(query, block) {
   const root = document.getElementById(query);
-  console.log(root, query);
   root.append(block.getContent());
   return root;
 }

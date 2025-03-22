@@ -243,6 +243,18 @@ class FormProfile extends Block {
 }
 
 const mapStateToProps = (state: BlockProps): FormProfileProps => {
+  console.log(state.profile);
+  // new Fieldset({
+
+  // class: "profile__info-line",
+  // name: dataForm.name,
+  // label: dataForm.label,
+  // input: new Input({
+  //   class: "input-profile",
+  //   dataInput: dataForm,
+  //   onBlur: (e: Event) => this.onBlur(e),
+  // }),
+
   const props = {
     // Здесь вы можете маппить нужные части состояния в пропсы компонента
     // Например:
