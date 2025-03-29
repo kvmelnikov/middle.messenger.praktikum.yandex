@@ -10,6 +10,7 @@ import Handlebars from "handlebars";
 type TBlockProps =
   | ((e: Event) => void)
   | undefined
+  | Record<string, string>
   | EventCallback
   | Block
   | IProfile

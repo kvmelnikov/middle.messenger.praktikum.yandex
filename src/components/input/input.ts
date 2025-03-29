@@ -3,9 +3,10 @@ import { connect } from "../../framework/HOC";
 import { IInput } from "../../shared/input.interface";
 import { IProfile } from "../../shared/profile.interface";
 interface InputProps extends BlockProps {
-  value?: string;
+  value?: Record<string, string>;
+  placeholder?: string;
   class?: string;
-  dataInput?: IInput;
+  dataInput: IInput;
   onKeyup?: (e: Event) => void;
   onBlur?: (e: Event) => void;
 }
@@ -14,7 +15,7 @@ class Input extends Block {
     super({
       ...props,
       class: props.class,
-      value: props.value,
+      value: props.value ? props.value[props.dataInput.name] : "empty",
       placeholder: props.dataInput?.placeholder,
       minlength: props.dataInput?.validators?.minlength || "0",
       maxlength: props.dataInput?.validators?.maxlength || "99999999",
@@ -50,22 +51,6 @@ const mapStateToProps = (state: BlockProps): InputProps => {
 
   const props = {
     value: profile?.login,
-    dataInput: {
-      label: "Логин",
-      placeholder: "",
-      name: "login",
-      type: "text",
-      value: "ivanivanov",
-      errorText: "введите текст",
-      validators: {
-        minlength: "2",
-        maxlength: "40",
-        pattern: "",
-
-        required: "required",
-      },
-    },
-    class: "profile__info-line",
   };
 
   return props;
