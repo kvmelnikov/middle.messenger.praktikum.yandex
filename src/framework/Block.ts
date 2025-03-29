@@ -1,4 +1,5 @@
 import { IInput } from "../shared/input.interface";
+import { IProfile } from "../shared/profile.interface";
 import {
   VALIDATION_ERRORS,
   VALIDATION_RULES,
@@ -7,8 +8,11 @@ import EventBus, { EventCallback } from "./EventBus";
 import Handlebars from "handlebars";
 
 type TBlockProps =
+  | ((e: Event) => void)
+  | undefined
   | EventCallback
   | Block
+  | IProfile
   | Block[]
   | IInput
   | string

@@ -25,8 +25,8 @@ class Profile extends Block {
 
   protected override render(): string {
     return `<main class="profile">
-                        {{{LeftNavigate}}}
-                        {{{FormProfile}}}
+                        {{{ LeftNavigate }}}
+                        {{{ FormProfile }}}
                     </main>`;
   }
 }
@@ -35,7 +35,6 @@ const mapStateToProps = (state: any) => {
   return {
     // Здесь вы можете маппить нужные части состояния в пропсы компонента
     // Например:
-
     email: state.user?.email ?? "",
     login: state.user?.login ?? "",
   };

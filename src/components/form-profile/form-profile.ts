@@ -1,10 +1,11 @@
 import Block, { BlockProps } from "../../framework/Block";
 import { connect } from "../../framework/HOC";
 import { IInput } from "../../shared/input.interface";
+import { IProfile } from "../../shared/profile.interface";
 import { Avatar } from "../avatar/avatar";
 import { Button } from "../button/button";
 import { Fieldset } from "../input/fieldset";
-import { Input } from "../input/input";
+import Input from "../input/input";
 
 const inputsData: IInput[] = [
   {
@@ -138,10 +139,9 @@ const inputsPassword: IInput[] = [
   },
 ];
 interface FormProfileProps extends BlockProps {
-  isEditableProfile: boolean;
-  isEditablePassword: boolean;
-  inputsData: Block[];
+  valueLogin?: string;
 }
+
 class FormProfile extends Block {
   isEditableProfile: false;
   isEditablePassword: false;
@@ -155,19 +155,27 @@ class FormProfile extends Block {
         src: "../../../public/images/avatar-example.png",
         className: "avatar_big profile__avatar",
       }),
-      Inputs: inputsData.map(
-        (dataForm) =>
-          new Fieldset({
-            class: "profile__info-line",
-            name: dataForm.name,
-            label: dataForm.label,
-            input: new Input({
-              class: "input-profile",
-              dataInput: dataForm,
-              onBlur: (e: Event) => this.onBlur(e),
-            }),
-          })
-      ),
+      InputLogin: new Fieldset({
+        class: "profile__info-line",
+        name: "login",
+        label: "Логин",
+        input: new Input({
+          onBlur: (e: Event) => this.onBlur(e),
+        }),
+      }),
+      // Inputs: inputsData.map(
+      //   (dataForm) =>
+      //     new Fieldset({
+      //       class: "profile__info-line",
+      //       name: dataForm.name,
+      //       label: dataForm.label,
+      //       input: new Input({
+      //         class: "input-profile",
+      //         dataInput: dataForm,
+      //         onBlur: (e: Event) => this.onBlur(e),
+      //       }),
+      //     })
+      // ),
       ButtonSave: new Button({
         text: "Сохранить",
         class: "button__apperance",
@@ -185,7 +193,7 @@ class FormProfile extends Block {
         text: "Изменить пароль",
         class: "button__apperance",
         onClick: () => {
-          this.onChangePassword();
+          //  this.onChangePassword();
         },
       }),
     });
@@ -202,32 +210,35 @@ class FormProfile extends Block {
     });
   }
 
-  onChangePassword() {
-    this.setProps({
-      isEditableProfile: true,
-    });
-    this.setLists({
-      Inputs: inputsPassword.map(
-        (dataForm) =>
-          new Fieldset({
-            class: "profile__info-line",
-            name: dataForm.name,
-            label: dataForm.label,
-            input: new Input({
-              class: "input-profile",
-              dataInput: dataForm,
-              onBlur: (e: Event) => this.onBlur(e),
-            }),
-          })
-      ),
-    });
-  }
+  // onChangePassword() {
+  //   this.setProps({
+  //     isEditableProfile: true,
+  //   });
+  //   this.setLists({
+  //     Inputs: inputsPassword.map(
+  //       (dataForm) =>
+  //         new Fieldset({
+  //           class: "profile__info-line",
+  //           name: dataForm.name,
+  //           label: dataForm.label,
+  //           input: new Input({
+  //             class: "input-profile",
+  //             dataInput: dataForm,
+  //             onBlur: (e: Event) => this.onBlur(e),
+  //           }),
+  //         })
+  //     ),
+  //   });
+  // }
 
   protected render(): string {
+    debugger;
+
     return `                <form class="profile__main">
                                 {{{Avatar}}}
                                 <p class="profile__name">Иван</p>
-                                {{{ Inputs }}}
+                                {{{ InputLogin }}}
+                              
                                 <div class="profile__actions">  
                                     {{#if isEditableProfile}}                   
                                         {{{ ButtonSave }}}
@@ -243,23 +254,12 @@ class FormProfile extends Block {
 }
 
 const mapStateToProps = (state: BlockProps): FormProfileProps => {
-  console.log(state.profile);
-  // new Fieldset({
-
-  // class: "profile__info-line",
-  // name: dataForm.name,
-  // label: dataForm.label,
-  // input: new Input({
-  //   class: "input-profile",
-  //   dataInput: dataForm,
-  //   onBlur: (e: Event) => this.onBlur(e),
-  // }),
+  const profile = state.profile as IProfile;
 
   const props = {
     // Здесь вы можете маппить нужные части состояния в пропсы компонента
     // Например:
-    isEditableProfile: false,
-    isEditablePassword: false,
+    valueLogin: profile?.login || "empty",
   } as FormProfileProps;
 
   return props;

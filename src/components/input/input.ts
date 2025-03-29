@@ -1,25 +1,28 @@
-import Block from "../../framework/Block";
+import Block, { BlockProps } from "../../framework/Block";
+import { connect } from "../../framework/HOC";
 import { IInput } from "../../shared/input.interface";
-interface InputProps {
-  class: string;
-  dataInput: IInput;
+import { IProfile } from "../../shared/profile.interface";
+interface InputProps extends BlockProps {
+  value?: string;
+  class?: string;
+  dataInput?: IInput;
   onKeyup?: (e: Event) => void;
   onBlur?: (e: Event) => void;
 }
-export class Input extends Block {
+class Input extends Block {
   constructor(props: InputProps) {
     super({
       ...props,
       class: props.class,
-      value: props.dataInput.value,
-      placeholder: props.dataInput.placeholder,
-      minlength: props.dataInput.validators?.minlength || "0",
-      maxlength: props.dataInput.validators?.maxlength || "99999999",
-      pattern: props.dataInput.validators?.pattern || "*",
-      name: props.dataInput.name,
-      required: props.dataInput.validators?.required || "",
-      title: props.dataInput.title || "",
-      type: props.dataInput.type,
+      value: props.value,
+      placeholder: props.dataInput?.placeholder,
+      minlength: props.dataInput?.validators?.minlength || "0",
+      maxlength: props.dataInput?.validators?.maxlength || "99999999",
+      pattern: props.dataInput?.validators?.pattern || "*",
+      name: props.dataInput?.name,
+      required: props.dataInput?.validators?.required || "",
+      title: props.dataInput?.title || "",
+      type: props.dataInput?.type,
 
       events: {
         keyup: (e: Event) => {
@@ -41,3 +44,31 @@ export class Input extends Block {
     return '<input class="input {{class}}" name="{{name}}" title="{{title}}" pattern="{{pattern}}" maxlength="{{maxlength}}" minlength="{{minlength}}" {{required}} placeholder="{{placeholder}}" {{disabled}} type="{{type}}" value="{{value}}" >';
   }
 }
+
+const mapStateToProps = (state: BlockProps): InputProps => {
+  const profile = state.profile as IProfile;
+
+  const props = {
+    value: profile?.login,
+    dataInput: {
+      label: "Логин",
+      placeholder: "",
+      name: "login",
+      type: "text",
+      value: "ivanivanov",
+      errorText: "введите текст",
+      validators: {
+        minlength: "2",
+        maxlength: "40",
+        pattern: "",
+
+        required: "required",
+      },
+    },
+    class: "profile__info-line",
+  };
+
+  return props;
+};
+
+export default connect(mapStateToProps)(Input);

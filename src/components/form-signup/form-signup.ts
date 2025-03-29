@@ -3,7 +3,7 @@ import { AuthService, SignupData } from "../../store/services/auth.service";
 import { IInput } from "../../shared/input.interface";
 import { Button } from "../button/button";
 import { Fieldset } from "../input/fieldset";
-import { Input } from "../input/input";
+import Input from "../input/input";
 const inputsData: IInput[] = [
   {
     label: "Почта",

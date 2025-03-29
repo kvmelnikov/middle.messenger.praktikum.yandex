@@ -5,7 +5,7 @@ import { Message } from "../../components/message/message";
 import { SvgIcon } from "../../components/svg-icon/svg-icon";
 import Block from "../../framework/Block";
 import { HeaderChat } from "../../components/header-chat/header-chat";
-import { Input } from "../../components/input/input";
+import Input from "../../components/input/input";
 import { ChatParticipant } from "../../components/chat-participant/chat-participant";
 import { IInput } from "../../shared/input.interface";
 import { connect } from "../../framework/HOC";
