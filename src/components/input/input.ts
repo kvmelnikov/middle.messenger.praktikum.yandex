@@ -1,9 +1,11 @@
+import { K } from "handlebars";
 import Block, { BlockProps } from "../../framework/Block";
 import { connect } from "../../framework/HOC";
 import { IInput } from "../../shared/input.interface";
 import { IProfile } from "../../shared/profile.interface";
 interface InputProps extends BlockProps {
-  value?: Record<string, string>;
+  value?: string;
+  values?: IProfile;
   placeholder?: string;
   class?: string;
   dataInput: IInput;
@@ -15,7 +17,7 @@ class Input extends Block {
     super({
       ...props,
       class: props.class,
-      value: props.value ? props.value[props.dataInput.name] : "empty",
+      value: "f",
       placeholder: props.dataInput?.placeholder,
       minlength: props.dataInput?.validators?.minlength || "0",
       maxlength: props.dataInput?.validators?.maxlength || "99999999",
@@ -46,14 +48,21 @@ class Input extends Block {
   }
 }
 
-const mapStateToProps = (state: BlockProps): InputProps => {
-  const profile = state.profile as IProfile;
+function isEqual(oldState: BlockProps, newState: BlockProps) {
+  // Реализуйте правильное сравнение состояний
+  return JSON.stringify(oldState) === JSON.stringify(newState);
+}
 
-  const props = {
-    value: profile?.login,
+// Пример использования с компонентом
+const mapStateToProps = (state: BlockProps, ownProps: InputProps) => {
+  const profile = state.profile as Record<string, string>;
+  console.log(state, ownProps);
+
+  return {
+    value: profile ? profile[ownProps.dataInput.name] : "",
+    // Можно добавить другие значения из хранилища
+    // ...ownProps // Если нужно сохранить оригинальные пропсы
   };
-
-  return props;
 };
 
 export default connect(mapStateToProps)(Input);

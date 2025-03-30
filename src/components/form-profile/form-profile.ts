@@ -1,7 +1,6 @@
 import Block, { BlockProps } from "../../framework/Block";
 import { connect } from "../../framework/HOC";
-import { IInput } from "../../shared/input.interface";
-import { IProfile } from "../../shared/profile.interface";
+
 import { Avatar } from "../avatar/avatar";
 import { Button } from "../button/button";
 import { Fieldset } from "../input/fieldset";
@@ -155,10 +154,12 @@ class FormProfile extends Block {
         src: "../../../public/images/avatar-example.png",
         className: "avatar_big profile__avatar",
       }),
+
       InputLogin: new Fieldset({
         class: "profile__info-line",
         name: "login",
         label: "Логин",
+
         input: new Input({
           dataInput: {
             label: "Логин",
@@ -166,6 +167,7 @@ class FormProfile extends Block {
             name: "login",
             type: "text",
             errorText: "введите текст",
+            value: props.valueLogin,
             validators: {
               minlength: "2",
               maxlength: "40",
@@ -268,12 +270,11 @@ class FormProfile extends Block {
 }
 
 const mapStateToProps = (state: BlockProps): FormProfileProps => {
-  const profile = state.profile as IProfile;
-
+  const profile = state.profile as Record<string, string>;
   const props = {
     // Здесь вы можете маппить нужные части состояния в пропсы компонента
     // Например:
-    valueLogin: profile?.login || "empty",
+    valueLogin: profile ? profile["login"] : "",
   } as FormProfileProps;
 
   return props;

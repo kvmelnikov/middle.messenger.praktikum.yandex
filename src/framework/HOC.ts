@@ -1,38 +1,35 @@
 import Block, { BlockProps } from "./Block";
-
 import store, { StoreEvents } from "../store/Store";
 
 export function connect<P extends BlockProps>(
-  mapStateToProps: (state: BlockProps) => P
+  mapStateToProps: (state: BlockProps, ownProps: any) => P
 ) {
   return function (Component: typeof Block) {
     return class extends Component {
       constructor(props: P) {
-        // сохраняем начальное состояние
-        let state = mapStateToProps(store.getState());
+        // Сохраняем начальные пропсы компонента
+        const ownProps = props;
 
-        super({ ...props, ...state });
+        // Получаем начальное состояние из хранилища
+        let state = mapStateToProps(store.getState(), ownProps);
 
-        // подписываемся на событие
+        // Объединяем пропсы компонента и пропсы из хранилища
+        super({ ...ownProps, ...state });
+
+        // Подписываемся на событие обновления хранилища
         store.on(StoreEvents.Updated, () => {
-          // при обновлении получаем новое состояние
+          // При обновлении получаем новое состояние
+          const newState = mapStateToProps(store.getState(), ownProps);
 
-          const newState = mapStateToProps(store.getState());
+          // Обновляем компонент, если данные изменились
+          if (!isEqual(state, newState)) {
+            this.setProps({ ...ownProps, ...newState });
+          }
 
-          // если что-то из используемых данных поменялось, обновляем компонент
-          // if (!isEqual(state, newState)) {
-
-          this.setProps({ ...newState });
-          //}
-
-          // не забываем сохранить новое состояние
+          // Сохраняем новое состояние
           state = newState;
         });
       }
     };
   };
-}
-
-function isEqual(oldState: BlockProps, newState: BlockProps) {
-  return true;
 }
