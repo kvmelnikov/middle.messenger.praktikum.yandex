@@ -94,50 +94,50 @@ const inputsData: IInput[] = [
   },
 ];
 
-const inputsPassword: IInput[] = [
-  {
-    label: "Старый пароль",
-    placeholder: "",
-    name: "oldPassword",
-    type: "password",
+// const inputsPassword: IInput[] = [
+//   {
+//     label: "Старый пароль",
+//     placeholder: "",
+//     name: "oldPassword",
+//     type: "password",
 
-    errorText: "введите текст",
-    validators: {
-      minlength: "2",
-      maxlength: "40",
-      pattern: "",
-      required: "required",
-    },
-  },
-  {
-    label: "Новый пароль",
-    placeholder: "",
-    name: "newPassword",
-    type: "password",
+//     errorText: "введите текст",
+//     validators: {
+//       minlength: "2",
+//       maxlength: "40",
+//       pattern: "",
+//       required: "required",
+//     },
+//   },
+//   {
+//     label: "Новый пароль",
+//     placeholder: "",
+//     name: "newPassword",
+//     type: "password",
 
-    errorText: "введите текст",
-    validators: {
-      minlength: "2",
-      maxlength: "40",
-      pattern: "",
-      required: "required",
-    },
-  },
-  {
-    label: "Повторите новый пароль",
-    placeholder: "",
-    name: "newPassword",
-    type: "password",
+//     errorText: "введите текст",
+//     validators: {
+//       minlength: "2",
+//       maxlength: "40",
+//       pattern: "",
+//       required: "required",
+//     },
+//   },
+//   {
+//     label: "Повторите новый пароль",
+//     placeholder: "",
+//     name: "newPassword",
+//     type: "password",
 
-    errorText: "введите текст",
-    validators: {
-      minlength: "2",
-      maxlength: "40",
-      pattern: "",
-      required: "required",
-    },
-  },
-];
+//     errorText: "введите текст",
+//     validators: {
+//       minlength: "2",
+//       maxlength: "40",
+//       pattern: "",
+//       required: "required",
+//     },
+//   },
+// ];
 interface FormProfileProps extends BlockProps {
   valueLogin?: string;
 }
@@ -198,6 +198,9 @@ class FormProfile extends Block {
         text: "Сохранить",
         class: "button__apperance",
         type: "submit",
+        onClick: (e) => {
+          this.onSubmit(e);
+        },
       }),
 
       ButtonChangeProfile: new Button({
@@ -215,11 +218,6 @@ class FormProfile extends Block {
         },
       }),
     });
-  }
-
-  onsubmit(e: Event) {
-    e.preventDefault();
-    super.onSubmit(e);
   }
 
   onChangeEditable() {
