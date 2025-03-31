@@ -1,4 +1,5 @@
-import { baseUrl } from "../../App";
+import { baseUrl, router } from "../../App";
+import { IProfile } from "../../shared/profile.interface";
 import { HTTPTransport } from "./HTTPTransport";
 
 export class UserService {
@@ -7,9 +8,21 @@ export class UserService {
     this.http = new HTTPTransport();
   }
 
-  updateUserProfile(data: any) {
-    return this.http.put(`${baseUrl}user/profile`, data);
+  public async updateUserProfile(data: Record<string, string>) {
+    this.http
+      .put(`${baseUrl}user/profile`, {
+        data: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+        credentials: true,
+      })
+      .then((res) => {
+        router.go("/profile");
+      })
+      .catch((err: { reason: string }) => {
+        alert(err.reason);
+      });
   }
+
   updateUserPassword(data: any) {
     return this.http.put(`${baseUrl}user/password`, data);
   }

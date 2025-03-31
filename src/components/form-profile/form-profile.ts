@@ -1,6 +1,8 @@
 import Block, { BlockProps } from "../../framework/Block";
 import { connect } from "../../framework/HOC";
 import { IInput } from "../../shared/input.interface";
+import { IProfile } from "../../shared/profile.interface";
+import { UserService } from "../../store/services/user.service";
 
 import { Avatar } from "../avatar/avatar";
 import { Button } from "../button/button";
@@ -145,6 +147,7 @@ interface FormProfileProps extends BlockProps {
 class FormProfile extends Block {
   isEditableProfile: false;
   isEditablePassword: false;
+  service: UserService;
 
   constructor(props: FormProfileProps) {
     super({
@@ -199,7 +202,7 @@ class FormProfile extends Block {
         class: "button__apperance",
         type: "submit",
         onClick: (e) => {
-          this.onSubmit(e);
+          this.service.updateUserProfile(this.onSubmit(e));
         },
       }),
 
@@ -218,12 +221,14 @@ class FormProfile extends Block {
         },
       }),
     });
+    this.service = new UserService();
   }
 
   onChangeEditable() {
     this.setProps({
       isEditableProfile: true,
     });
+
     this.setLists({
       Inputs: inputsData.map(
         (dataForm) =>

@@ -328,7 +328,7 @@ export default class Block {
     });
   }
 
-  onSubmit(e: Event): void {
+  onSubmit(e: Event): Record<string, string> {
     e.preventDefault();
     const dataForm: Record<string, string> = {};
     this.lists.Inputs.forEach((el) => {
@@ -343,5 +343,6 @@ export default class Block {
       }
     });
     console.log(dataForm);
+    return dataForm;
   }
 }
