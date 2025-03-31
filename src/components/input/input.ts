@@ -1,10 +1,10 @@
-import { K } from "handlebars";
 import Block, { BlockProps } from "../../framework/Block";
 import { connect } from "../../framework/HOC";
 import { IInput } from "../../shared/input.interface";
 import { IProfile } from "../../shared/profile.interface";
 interface InputProps extends BlockProps {
   value?: string;
+  disabled?: boolean;
   values?: IProfile;
   placeholder?: string;
   class?: string;
@@ -17,7 +17,6 @@ class Input extends Block {
     super({
       ...props,
       class: props.class,
-      value: "loading",
       placeholder: props.dataInput?.placeholder,
       minlength: props.dataInput?.validators?.minlength || "0",
       maxlength: props.dataInput?.validators?.maxlength || "99999999",
@@ -44,13 +43,19 @@ class Input extends Block {
   }
 
   override render(): string {
-    return '<input class="input {{class}}" name="{{name}}" title="{{title}}" pattern="{{pattern}}" maxlength="{{maxlength}}" minlength="{{minlength}}" {{required}} placeholder="{{placeholder}}" {{disabled}} type="{{type}}" value="{{value}}" >';
+    if (this.props.disabled) {
+      return `<input disabled="{{disabled}}" class="input {{class}}" name="{{name}}" title="{{title}}" pattern="{{pattern}}" maxlength="{{maxlength}}" minlength="{{minlength}}" {{required}} placeholder="{{placeholder}}" {{disabled}} type="{{type}}" value="{{value}}" >`;
+    } else {
+      return `<input class="input {{class}}" name="{{name}}" title="{{title}}" pattern="{{pattern}}" maxlength="{{maxlength}}" minlength="{{minlength}}" {{required}} placeholder="{{placeholder}}" {{disabled}} type="{{type}}" value="{{value}}" >`;
+    }
   }
 }
 
 // Пример использования с компонентом
 const mapStateToProps = (state: BlockProps, ownProps: InputProps) => {
   const profile = state.profile as Record<string, string>;
+
+  console.log(state);
 
   return {
     value: profile ? profile[ownProps.dataInput.name] : "",

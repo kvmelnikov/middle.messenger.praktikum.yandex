@@ -140,7 +140,7 @@ export default class Block {
     oldProps: BlockProps,
     newProps: BlockProps
   ): boolean {
-    console.log(oldProps, newProps);
+    //console.log(oldProps, newProps);
 
     return true;
   }

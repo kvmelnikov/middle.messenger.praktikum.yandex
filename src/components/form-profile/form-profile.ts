@@ -186,6 +186,7 @@ class FormProfile extends Block {
             name: dataForm.name,
             label: dataForm.label,
             input: new Input({
+              disabled: true,
               class: "input-profile",
               dataInput: dataForm,
               onBlur: (e: Event) => this.onBlur(e),
@@ -225,6 +226,22 @@ class FormProfile extends Block {
     this.setProps({
       isEditableProfile: true,
     });
+    this.setLists({
+      Inputs: inputsData.map(
+        (dataForm) =>
+          new Fieldset({
+            class: "profile__info-line",
+            name: dataForm.name,
+            label: dataForm.label,
+            input: new Input({
+              disabled: false,
+              class: "input-profile",
+              dataInput: dataForm,
+              onBlur: (e: Event) => this.onBlur(e),
+            }),
+          })
+      ),
+    });
   }
 
   // onChangePassword() {
@@ -249,17 +266,13 @@ class FormProfile extends Block {
   // }
 
   protected render(): string {
-    debugger;
-
     return `                <form class="profile__main">
-                                {{{Avatar}}}
+                                {{{ Avatar }}}
                                 <p class="profile__name">Иван</p>
-                                {{{ InputLogin }}}
-                                {{{Inputs}}}
+                                {{{ Inputs }}}
                                 <div class="profile__actions">  
                                     {{#if isEditableProfile}}                   
                                         {{{ ButtonSave }}}
-                    
                                     {{ else }}
                                         {{{ ButtonChangeProfile }}}
                                         {{{ ButtonChangePass }}}
