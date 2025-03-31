@@ -17,7 +17,7 @@ class Input extends Block {
     super({
       ...props,
       class: props.class,
-      value: "f",
+      value: "loading",
       placeholder: props.dataInput?.placeholder,
       minlength: props.dataInput?.validators?.minlength || "0",
       maxlength: props.dataInput?.validators?.maxlength || "99999999",
@@ -48,15 +48,9 @@ class Input extends Block {
   }
 }
 
-function isEqual(oldState: BlockProps, newState: BlockProps) {
-  // Реализуйте правильное сравнение состояний
-  return JSON.stringify(oldState) === JSON.stringify(newState);
-}
-
 // Пример использования с компонентом
 const mapStateToProps = (state: BlockProps, ownProps: InputProps) => {
   const profile = state.profile as Record<string, string>;
-  console.log(state, ownProps);
 
   return {
     value: profile ? profile[ownProps.dataInput.name] : "",

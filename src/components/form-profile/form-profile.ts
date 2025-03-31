@@ -1,142 +1,143 @@
 import Block, { BlockProps } from "../../framework/Block";
 import { connect } from "../../framework/HOC";
+import { IInput } from "../../shared/input.interface";
 
 import { Avatar } from "../avatar/avatar";
 import { Button } from "../button/button";
 import { Fieldset } from "../input/fieldset";
 import Input from "../input/input";
 
-// const inputsData: IInput[] = [
-//   {
-//     label: "Почта",
-//     placeholder: "",
-//     name: "email",
-//     type: "email",
-//     value: "pochta@yandex.ru",
-//     errorText: "введите текст",
-//     validators: {
-//       minlength: "2",
-//       maxlength: "40",
-//       pattern: "",
-//       required: "required",
-//     },
-//   },
-//   {
-//     label: "Логин",
-//     placeholder: "",
-//     name: "login",
-//     type: "text",
-//     value: "ivanivanov",
-//     errorText: "введите текст",
-//     validators: {
-//       minlength: "2",
-//       maxlength: "40",
-//       pattern: "",
-//       required: "required",
-//     },
-//   },
-//   {
-//     label: "Имя",
-//     placeholder: "",
-//     name: "first_name",
-//     type: "text",
-//     value: "Иван",
-//     errorText: "введите текст",
-//     validators: {
-//       minlength: "2",
-//       maxlength: "40",
-//       pattern: "",
-//       required: "required",
-//     },
-//   },
-//   {
-//     label: "Фамилия",
-//     placeholder: "",
-//     name: "second_name",
-//     type: "text",
-//     value: "Иванов",
-//     errorText: "введите текст",
-//     validators: {
-//       minlength: "2",
-//       maxlength: "40",
-//       pattern: "",
-//       required: "required",
-//     },
-//   },
-//   {
-//     label: "Имя в чате",
-//     placeholder: "",
-//     name: "display_name",
-//     type: "text",
-//     value: "Иван",
-//     errorText: "введите текст",
-//     validators: {
-//       minlength: "2",
-//       maxlength: "40",
-//       pattern: "",
-//       required: "required",
-//     },
-//   },
-//   {
-//     label: "Телефон",
-//     placeholder: "",
-//     name: "phone",
-//     type: "text",
-//     value: "+7 (909) 967 30 30",
-//     errorText: "введите текст",
-//     validators: {
-//       minlength: "2",
-//       maxlength: "40",
-//       pattern: "",
-//       required: "required",
-//     },
-//   },
-// ];
+const inputsData: IInput[] = [
+  {
+    label: "Почта",
+    placeholder: "",
+    name: "email",
+    type: "email",
 
-// const inputsPassword: IInput[] = [
-//   {
-//     label: "Старый пароль",
-//     placeholder: "",
-//     name: "oldPassword",
-//     type: "password",
-//     value: "pochta2@yandex.ru",
-//     errorText: "введите текст",
-//     validators: {
-//       minlength: "2",
-//       maxlength: "40",
-//       pattern: "",
-//       required: "required",
-//     },
-//   },
-//   {
-//     label: "Новый пароль",
-//     placeholder: "",
-//     name: "newPassword",
-//     type: "password",
-//     value: "pochta2@yandex.ru",
-//     errorText: "введите текст",
-//     validators: {
-//       minlength: "2",
-//       maxlength: "40",
-//       pattern: "",
-//       required: "required",
-//     },
-//   },
-//   {
-//     label: "Повторите новый пароль",
-//     placeholder: "",
-//     name: "newPassword",
-//     type: "password",
-//     value: "pochta2@yandex.ru",
-//     errorText: "введите текст",
-//     validators: {
-//       minlength: "2",
-//       maxlength: "40",
-//       pattern: "",
-//       required: "required",
-//     },
-//   },
-// ];
+    errorText: "введите текст",
+    validators: {
+      minlength: "2",
+      maxlength: "40",
+      pattern: "",
+      required: "required",
+    },
+  },
+  {
+    label: "Логин",
+    placeholder: "",
+    name: "login",
+    type: "text",
+
+    errorText: "введите текст",
+    validators: {
+      minlength: "2",
+      maxlength: "40",
+      pattern: "",
+      required: "required",
+    },
+  },
+  {
+    label: "Имя",
+    placeholder: "",
+    name: "first_name",
+    type: "text",
+
+    errorText: "введите текст",
+    validators: {
+      minlength: "2",
+      maxlength: "40",
+      pattern: "",
+      required: "required",
+    },
+  },
+  {
+    label: "Фамилия",
+    placeholder: "",
+    name: "second_name",
+    type: "text",
+
+    errorText: "введите текст",
+    validators: {
+      minlength: "2",
+      maxlength: "40",
+      pattern: "",
+      required: "required",
+    },
+  },
+  {
+    label: "Имя в чате",
+    placeholder: "",
+    name: "display_name",
+    type: "text",
+
+    errorText: "введите текст",
+    validators: {
+      minlength: "2",
+      maxlength: "40",
+      pattern: "",
+      required: "required",
+    },
+  },
+  {
+    label: "Телефон",
+    placeholder: "",
+    name: "phone",
+    type: "text",
+
+    errorText: "введите текст",
+    validators: {
+      minlength: "2",
+      maxlength: "40",
+      pattern: "",
+      required: "required",
+    },
+  },
+];
+
+const inputsPassword: IInput[] = [
+  {
+    label: "Старый пароль",
+    placeholder: "",
+    name: "oldPassword",
+    type: "password",
+
+    errorText: "введите текст",
+    validators: {
+      minlength: "2",
+      maxlength: "40",
+      pattern: "",
+      required: "required",
+    },
+  },
+  {
+    label: "Новый пароль",
+    placeholder: "",
+    name: "newPassword",
+    type: "password",
+
+    errorText: "введите текст",
+    validators: {
+      minlength: "2",
+      maxlength: "40",
+      pattern: "",
+      required: "required",
+    },
+  },
+  {
+    label: "Повторите новый пароль",
+    placeholder: "",
+    name: "newPassword",
+    type: "password",
+
+    errorText: "введите текст",
+    validators: {
+      minlength: "2",
+      maxlength: "40",
+      pattern: "",
+      required: "required",
+    },
+  },
+];
 interface FormProfileProps extends BlockProps {
   valueLogin?: string;
 }
@@ -167,7 +168,6 @@ class FormProfile extends Block {
             name: "login",
             type: "text",
             errorText: "введите текст",
-            value: props.valueLogin,
             validators: {
               minlength: "2",
               maxlength: "40",
@@ -179,19 +179,20 @@ class FormProfile extends Block {
           onBlur: (e: Event) => this.onBlur(e),
         }),
       }),
-      // Inputs: inputsData.map(
-      //   (dataForm) =>
-      //     new Fieldset({
-      //       class: "profile__info-line",
-      //       name: dataForm.name,
-      //       label: dataForm.label,
-      //       input: new Input({
-      //         class: "input-profile",
-      //         dataInput: dataForm,
-      //         onBlur: (e: Event) => this.onBlur(e),
-      //       }),
-      //     })
-      // ),
+      Inputs: inputsData.map(
+        (dataForm) =>
+          new Fieldset({
+            class: "profile__info-line",
+            name: dataForm.name,
+            label: dataForm.label,
+            input: new Input({
+              class: "input-profile",
+              dataInput: dataForm,
+              onBlur: (e: Event) => this.onBlur(e),
+            }),
+          })
+      ),
+
       ButtonSave: new Button({
         text: "Сохранить",
         class: "button__apperance",
@@ -254,7 +255,7 @@ class FormProfile extends Block {
                                 {{{Avatar}}}
                                 <p class="profile__name">Иван</p>
                                 {{{ InputLogin }}}
-                              
+                                {{{Inputs}}}
                                 <div class="profile__actions">  
                                     {{#if isEditableProfile}}                   
                                         {{{ ButtonSave }}}
@@ -270,11 +271,9 @@ class FormProfile extends Block {
 }
 
 const mapStateToProps = (state: BlockProps): FormProfileProps => {
-  const profile = state.profile as Record<string, string>;
   const props = {
     // Здесь вы можете маппить нужные части состояния в пропсы компонента
     // Например:
-    valueLogin: profile ? profile["login"] : "",
   } as FormProfileProps;
 
   return props;
