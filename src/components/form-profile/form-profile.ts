@@ -1,11 +1,10 @@
 import Block, { BlockProps } from "../../framework/Block";
 import { connect } from "../../framework/HOC";
 import { IInput } from "../../shared/input.interface";
-import { IProfile } from "../../shared/profile.interface";
 import { UserService } from "../../store/services/user.service";
-
 import { Avatar } from "../avatar/avatar";
 import { Button } from "../button/button";
+import { DialogAvatar } from "../dialog-avatar/dialog-avatar";
 import { Fieldset } from "../input/fieldset";
 import Input from "../input/input";
 
@@ -145,6 +144,7 @@ class FormProfile extends Block {
   changeForm: false;
   isEditableProfile: false;
   isEditablePassword: false;
+  isChangeAvatar: false;
   service: UserService;
 
   constructor(props: FormProfileProps) {
@@ -152,11 +152,16 @@ class FormProfile extends Block {
       events: {
         submit: (e: Event) => this.onSubmit(e),
       },
-      Avtaar: new Avatar({
+      Avatar: new Avatar({
         src: "../../../public/images/avatar-example.png",
         className: "avatar_big profile__avatar",
+        onClick: (e) => {
+          this.onChangeAvatar();
+        },
       }),
-
+      DialogAvatar: new DialogAvatar({
+        heading: "Выберите аватар",
+      }),
       InputLogin: new Fieldset({
         class: "profile__info-line",
         name: "login",
@@ -231,6 +236,13 @@ class FormProfile extends Block {
     this.service = new UserService();
   }
 
+  onChangeAvatar() {
+    debugger;
+    this.setProps({
+      isChangeAvatar: true,
+    });
+  }
+
   onChangeEditable() {
     this.setProps({
       changeForm: true,
@@ -286,7 +298,6 @@ class FormProfile extends Block {
                                     {{#if changeForm }}
                                         {{#if isEditableProfile}}      
                                             {{{ ButtonSaveProfile  }}}             
-                                   
                                          {{ else }}
                                          {{{ ButtonSavePass }}}
                                     {{/if}}
@@ -296,7 +307,11 @@ class FormProfile extends Block {
                                         {{{ ButtonExit }}}
                                     {{/if}}  
                                 </div>
-                       </form>`;
+                            </form>
+                            {{#if isChangeAvatar}}
+                              {{{DialogAvatar}}}
+                            {{/if}}
+                            `;
   }
 }
 

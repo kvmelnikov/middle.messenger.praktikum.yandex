@@ -1,5 +1,4 @@
 import { baseUrl, router } from "../../App";
-import { IProfile } from "../../shared/profile.interface";
 import { HTTPTransport } from "./HTTPTransport";
 
 export class UserService {
