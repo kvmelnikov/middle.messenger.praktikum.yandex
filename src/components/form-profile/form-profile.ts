@@ -96,55 +96,53 @@ const inputsData: IInput[] = [
   },
 ];
 
-// const inputsPassword: IInput[] = [
-//   {
-//     label: "Старый пароль",
-//     placeholder: "",
-//     name: "oldPassword",
-//     type: "password",
-
-//     errorText: "введите текст",
-//     validators: {
-//       minlength: "2",
-//       maxlength: "40",
-//       pattern: "",
-//       required: "required",
-//     },
-//   },
-//   {
-//     label: "Новый пароль",
-//     placeholder: "",
-//     name: "newPassword",
-//     type: "password",
-
-//     errorText: "введите текст",
-//     validators: {
-//       minlength: "2",
-//       maxlength: "40",
-//       pattern: "",
-//       required: "required",
-//     },
-//   },
-//   {
-//     label: "Повторите новый пароль",
-//     placeholder: "",
-//     name: "newPassword",
-//     type: "password",
-
-//     errorText: "введите текст",
-//     validators: {
-//       minlength: "2",
-//       maxlength: "40",
-//       pattern: "",
-//       required: "required",
-//     },
-//   },
-// ];
+const inputsPassword: IInput[] = [
+  {
+    label: "Старый пароль",
+    placeholder: "",
+    name: "oldPassword",
+    type: "password",
+    errorText: "введите текст",
+    validators: {
+      minlength: "2",
+      maxlength: "40",
+      pattern: "",
+      required: "required",
+    },
+  },
+  {
+    label: "Новый пароль",
+    placeholder: "",
+    name: "newPassword",
+    type: "password",
+    errorText: "введите текст",
+    validators: {
+      minlength: "2",
+      maxlength: "40",
+      pattern: "",
+      required: "required",
+    },
+  },
+  {
+    label: "Повторите новый пароль",
+    placeholder: "",
+    name: "newPassword",
+    type: "password",
+    errorText: "введите текст",
+    validators: {
+      minlength: "2",
+      maxlength: "40",
+      pattern: "",
+      required: "required",
+    },
+  },
+];
 interface FormProfileProps extends BlockProps {
   valueLogin?: string;
 }
 
 class FormProfile extends Block {
+  changeForm: false;
   isEditableProfile: false;
   isEditablePassword: false;
   service: UserService;
@@ -197,12 +195,21 @@ class FormProfile extends Block {
           })
       ),
 
-      ButtonSave: new Button({
+      ButtonSaveProfile: new Button({
         text: "Сохранить",
         class: "button__apperance",
         type: "submit",
         onClick: (e) => {
           this.service.updateUserProfile(this.onSubmit(e));
+        },
+      }),
+
+      ButtonSavePass: new Button({
+        text: "Сохранить",
+        class: "button__apperance",
+        type: "submit",
+        onClick: (e) => {
+          this.service.updateUserPassword(this.onSubmit(e));
         },
       }),
 
@@ -217,7 +224,7 @@ class FormProfile extends Block {
         text: "Изменить пароль",
         class: "button__apperance",
         onClick: () => {
-          //  this.onChangePassword();
+          this.onChangePassword();
         },
       }),
     });
@@ -226,6 +233,7 @@ class FormProfile extends Block {
 
   onChangeEditable() {
     this.setProps({
+      changeForm: true,
       isEditableProfile: true,
     });
 
@@ -247,40 +255,46 @@ class FormProfile extends Block {
     });
   }
 
-  // onChangePassword() {
-  //   this.setProps({
-  //     isEditableProfile: true,
-  //   });
-  //   this.setLists({
-  //     Inputs: inputsPassword.map(
-  //       (dataForm) =>
-  //         new Fieldset({
-  //           class: "profile__info-line",
-  //           name: dataForm.name,
-  //           label: dataForm.label,
-  //           input: new Input({
-  //             class: "input-profile",
-  //             dataInput: dataForm,
-  //             onBlur: (e: Event) => this.onBlur(e),
-  //           }),
-  //         })
-  //     ),
-  //   });
-  // }
+  onChangePassword() {
+    this.setProps({
+      changeForm: true,
+      isEditablePassword: true,
+    });
+    this.setLists({
+      Inputs: inputsPassword.map(
+        (dataForm) =>
+          new Fieldset({
+            class: "profile__info-line",
+            name: dataForm.name,
+            label: dataForm.label,
+            input: new Input({
+              class: "input-profile",
+              dataInput: dataForm,
+              onBlur: (e: Event) => this.onBlur(e),
+            }),
+          })
+      ),
+    });
+  }
 
   protected render(): string {
     return `                <form class="profile__main">
                                 {{{ Avatar }}}
                                 <p class="profile__name">Иван</p>
                                 {{{ Inputs }}}
-                                <div class="profile__actions">  
-                                    {{#if isEditableProfile}}                   
-                                        {{{ ButtonSave }}}
-                                    {{ else }}
+                                <div class="profile__actions">
+                                    {{#if changeForm }}
+                                        {{#if isEditableProfile}}      
+                                            {{{ ButtonSaveProfile  }}}             
+                                   
+                                         {{ else }}
+                                         {{{ ButtonSavePass }}}
+                                    {{/if}}
+                                    {{else}}
                                         {{{ ButtonChangeProfile }}}
                                         {{{ ButtonChangePass }}}
                                         {{{ ButtonExit }}}
-                                    {{/if}}
+                                    {{/if}}  
                                 </div>
                        </form>`;
   }

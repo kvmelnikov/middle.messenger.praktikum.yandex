@@ -24,7 +24,18 @@ export class UserService {
   }
 
   updateUserPassword(data: any) {
-    return this.http.put(`${baseUrl}user/password`, data);
+    this.http
+      .put(`${baseUrl}user/password`, {
+        data: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+        credentials: true,
+      })
+      .then((res) => {
+        router.go("/profile");
+      })
+      .catch((err: { reason: string }) => {
+        alert(err.reason);
+      });
   }
 
   updateUserAvatar(data: any) {
