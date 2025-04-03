@@ -157,12 +157,15 @@ class FormProfile extends Block {
         dialog: new DialogAvatar({
           heading: "Выберите аватар",
         }),
+        onClick: (e) => {
+          this.closeModal();
+        },
       }),
       Avatar: new Avatar({
         src: "../../../public/images/avatar-example.png",
         className: "avatar_big profile__avatar",
         onClick: (e) => {
-          this.onChangeAvatar();
+          this.openModal();
         },
       }),
 
@@ -240,9 +243,17 @@ class FormProfile extends Block {
     this.service = new UserService();
   }
 
-  onChangeAvatar() {
+  openModal() {
+    console.log("open modal");
     this.setProps({
       isChangeAvatar: true,
+    });
+  }
+
+  closeModal() {
+    console.log("close modal");
+    this.setProps({
+      isChangeAvatar: false,
     });
   }
 
@@ -275,6 +286,7 @@ class FormProfile extends Block {
       changeForm: true,
       isEditablePassword: true,
     });
+
     this.setLists({
       Inputs: inputsPassword.map(
         (dataForm) =>
@@ -293,6 +305,7 @@ class FormProfile extends Block {
   }
 
   protected render(): string {
+    console.log("render form profile");
     return `                <form class="profile__main">
                                 {{{ Avatar }}}
                                 <p class="profile__name">Иван</p>
@@ -311,7 +324,6 @@ class FormProfile extends Block {
                                     {{/if}}  
                                 </div>
                                    {{#if isChangeAvatar}}
-                                    dsd
                                       {{{Modal}}}
                                    {{/if}}
                             </form>
