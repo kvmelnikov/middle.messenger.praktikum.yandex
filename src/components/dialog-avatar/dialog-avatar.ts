@@ -2,10 +2,16 @@ import Block from "../../framework/Block";
 
 interface DialogAvatarProps {
   heading: string;
+  close?: () => void;
 }
 export class DialogAvatar extends Block {
   constructor(props: DialogAvatarProps) {
     super({
+      events: {
+        onClick: () => {
+          console.log("click");
+        },
+      },
       //   InputLogin: new Fieldset({
       //     class: "profile__info-line",
       //     name: "login",
@@ -31,15 +37,19 @@ export class DialogAvatar extends Block {
     });
   }
 
+  hide() {
+    console.log("s");
+  }
+
   protected render(): string {
     return `
-        <div class="dialog-window">
-            <h5 class=s"dialog-window__heading">{{heading}}</h5>
-            <div class="dialog-window__info-line">
-            <label class="dialog-window__label">Логин</label>
-                
+        <div class="modal">
+            <div class="dialog-window">
+                <h5 class="dialog-window__heading">{{heading}}</h5>
+                <div class="dialog-window__info-line">
+                <label class="dialog-window__label">Логин</label>
             </div>
-        
-        </div>`;
+        </div>
+     `;
   }
 }

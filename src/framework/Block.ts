@@ -303,6 +303,7 @@ export default class Block {
   }
 
   public hide(): void {
+    console.log("hide");
     const content = this.getContent();
     if (content) {
       content.style.display = "none";

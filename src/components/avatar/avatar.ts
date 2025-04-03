@@ -10,7 +10,11 @@ export class Avatar extends Block {
     super({
       ...props,
       events: {
-        click: (e: Event) => {},
+        click: (e: Event) => {
+          if (props.onClick) {
+            props.onClick(e);
+          }
+        },
       },
     });
   }

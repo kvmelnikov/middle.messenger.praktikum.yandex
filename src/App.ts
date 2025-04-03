@@ -15,3 +15,9 @@ export default class App {
     router.start();
   }
 }
+
+const modal = document.querySelector("modal");
+
+modal?.addEventListener("click", () => {
+  console.log("modal");
+});

@@ -7,6 +7,7 @@ import { Button } from "../button/button";
 import { DialogAvatar } from "../dialog-avatar/dialog-avatar";
 import { Fieldset } from "../input/fieldset";
 import Input from "../input/input";
+import { Modal } from "../modal/modal";
 
 const inputsData: IInput[] = [
   {
@@ -152,6 +153,11 @@ class FormProfile extends Block {
       events: {
         submit: (e: Event) => this.onSubmit(e),
       },
+      Modal: new Modal({
+        dialog: new DialogAvatar({
+          heading: "Выберите аватар",
+        }),
+      }),
       Avatar: new Avatar({
         src: "../../../public/images/avatar-example.png",
         className: "avatar_big profile__avatar",
@@ -159,9 +165,7 @@ class FormProfile extends Block {
           this.onChangeAvatar();
         },
       }),
-      DialogAvatar: new DialogAvatar({
-        heading: "Выберите аватар",
-      }),
+
       InputLogin: new Fieldset({
         class: "profile__info-line",
         name: "login",
@@ -237,7 +241,6 @@ class FormProfile extends Block {
   }
 
   onChangeAvatar() {
-    debugger;
     this.setProps({
       isChangeAvatar: true,
     });
@@ -307,10 +310,12 @@ class FormProfile extends Block {
                                         {{{ ButtonExit }}}
                                     {{/if}}  
                                 </div>
+                                   {{#if isChangeAvatar}}
+                                    dsd
+                                      {{{Modal}}}
+                                   {{/if}}
                             </form>
-                            {{#if isChangeAvatar}}
-                              {{{DialogAvatar}}}
-                            {{/if}}
+                         
                             `;
   }
 }
