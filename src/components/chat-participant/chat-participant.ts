@@ -1,5 +1,5 @@
 import Block from "../../framework/Block";
-import { Avatar } from "../avatar/avatar";
+import Avatar from "../avatar/avatar";
 import { CounterMessage } from "../counter-message/counter-message";
 import { Time } from "../time/time";
 interface ChatParticipantProps {

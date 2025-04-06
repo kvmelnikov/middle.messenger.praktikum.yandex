@@ -55,8 +55,6 @@ class Input extends Block {
 const mapStateToProps = (state: BlockProps, ownProps: InputProps) => {
   const profile = state.profile as Record<string, string>;
 
-  console.log(state);
-
   return {
     value: profile ? profile[ownProps.dataInput.name] : "",
     // Можно добавить другие значения из хранилища

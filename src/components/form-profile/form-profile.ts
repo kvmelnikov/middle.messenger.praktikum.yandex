@@ -2,7 +2,7 @@ import Block, { BlockProps } from "../../framework/Block";
 import { connect } from "../../framework/HOC";
 import { IInput } from "../../shared/input.interface";
 import { UserService } from "../../store/services/user.service";
-import { Avatar } from "../avatar/avatar";
+import Avatar from "../avatar/avatar";
 import { Button } from "../button/button";
 import { DialogAvatar } from "../dialog-avatar/dialog-avatar";
 import { Fieldset } from "../input/fieldset";
@@ -139,6 +139,7 @@ const inputsPassword: IInput[] = [
 ];
 interface FormProfileProps extends BlockProps {
   valueLogin?: string;
+  avatar: File;
 }
 
 class FormProfile extends Block {
@@ -165,9 +166,8 @@ class FormProfile extends Block {
         },
       }),
       Avatar: new Avatar({
-        src: "../../../public/images/avatar-example.png",
         className: "avatar_big profile__avatar",
-        onClick: (e) => {
+        onClick: () => {
           this.openModal();
         },
       }),
@@ -333,10 +333,13 @@ class FormProfile extends Block {
   }
 }
 
-const mapStateToProps = (state: BlockProps): FormProfileProps => {
+const mapStateToProps = (
+  state: BlockProps,
+  ownProps: FormProfileProps
+): FormProfileProps => {
+  const file = state.profile_avatar as File;
   const props = {
-    // Здесь вы можете маппить нужные части состояния в пропсы компонента
-    // Например:
+    avatar: file,
   } as FormProfileProps;
 
   return props;

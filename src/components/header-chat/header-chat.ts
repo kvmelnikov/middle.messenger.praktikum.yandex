@@ -1,5 +1,5 @@
 import Block from "../../framework/Block";
-import { Avatar } from "../avatar/avatar";
+import Avatar from "../avatar/avatar";
 import { SvgIcon } from "../svg-icon/svg-icon";
 interface HeaderChatProps {
   avatarClass: string;

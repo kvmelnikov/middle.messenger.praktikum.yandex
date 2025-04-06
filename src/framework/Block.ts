@@ -13,6 +13,7 @@ type TBlockProps =
   | Record<string, string>
   | EventCallback
   | Block
+  | File
   | IProfile
   | Block[]
   | IInput

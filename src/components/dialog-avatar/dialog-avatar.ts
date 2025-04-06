@@ -48,9 +48,8 @@ export class DialogAvatar extends Block {
   }
   onSubmitFile(form: HTMLFormElement) {
     if (this.file) {
-      const formData = new FormData();
-      formData.append("avatar", this.file, this.file.name);
-      console.log(formData.getAll("avatar"));
+      const formData = new FormData(form);
+
       this.service.updateUserAvatar(formData);
     }
   }

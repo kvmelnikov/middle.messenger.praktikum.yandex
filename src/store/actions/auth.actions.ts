@@ -9,3 +9,7 @@ import store from "../Store";
 export const setProfile = (data: IProfile) => {
   store.set("profile", toRecord(data));
 };
+
+export const updateAvatar = (path: string) => {
+  store.set("profile_avatar", path);
+};
