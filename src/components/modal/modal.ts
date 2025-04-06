@@ -13,10 +13,7 @@ export class Modal extends Block {
       Dialog: props.dialog,
       events: {
         click: (e: Event) => {
-          e.preventDefault();
-          e.stopPropagation();
           props.onClick(e);
-          //      this.hide();
         },
       },
     });

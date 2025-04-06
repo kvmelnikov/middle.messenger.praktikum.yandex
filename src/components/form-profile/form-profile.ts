@@ -158,7 +158,10 @@ class FormProfile extends Block {
           heading: "Выберите аватар",
         }),
         onClick: (e) => {
-          this.closeModal();
+          const modal = e.target as HTMLDivElement;
+          if (modal.classList.contains("modal")) {
+            this.closeModal();
+          }
         },
       }),
       Avatar: new Avatar({
@@ -244,14 +247,12 @@ class FormProfile extends Block {
   }
 
   openModal() {
-    console.log("open modal");
     this.setProps({
       isChangeAvatar: true,
     });
   }
 
   closeModal() {
-    console.log("close modal");
     this.setProps({
       isChangeAvatar: false,
     });
