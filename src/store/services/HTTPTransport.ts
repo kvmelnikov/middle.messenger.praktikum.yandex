@@ -92,12 +92,7 @@ export class HTTPTransport {
         xhr.timeout = options.timeout;
       }
 
-      const dataToSend =
-        options.data && typeof options.data === "object"
-          ? JSON.stringify(options.data)
-          : options.data;
-
-      xhr.send(dataToSend);
+      xhr.send(options.data);
     });
   }
 }

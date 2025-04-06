@@ -37,8 +37,18 @@ export class UserService {
       });
   }
 
-  updateUserAvatar(data: any) {
-    return this.http.put(`${baseUrl}user/profile/avatar`, data);
+  updateUserAvatar(formData: FormData) {
+    return this.http
+      .put(`${baseUrl}user/profile/avatar`, {
+        credentials: true,
+        data: formData,
+      })
+      .then((res) => {
+        router.go("/profile");
+      })
+      .catch((err: { reason: string }) => {
+        alert(err.reason);
+      });
   }
 
   searchUser(data: any) {

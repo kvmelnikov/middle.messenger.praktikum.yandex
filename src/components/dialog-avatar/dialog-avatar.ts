@@ -1,5 +1,6 @@
+import { K } from "handlebars";
 import Block from "../../framework/Block";
-import { Fieldset } from "../input/fieldset";
+import { UserService } from "../../store/services/user.service";
 import Input from "../input/input-file";
 
 interface DialogAvatarProps {
@@ -7,34 +8,63 @@ interface DialogAvatarProps {
   close?: () => void;
 }
 export class DialogAvatar extends Block {
+  isFile: boolean;
+  service: UserService;
+  file: File | null;
   constructor(props: DialogAvatarProps) {
     super({
       events: {
         onClick: () => {
           console.log("click");
         },
+        submit: (e: Event) => {
+          e.preventDefault();
+          console.log(e.target as HTMLFormElement);
+          if (this.isFile) {
+            this.onSubmitFile(e.target as HTMLFormElement);
+          }
+        },
       },
       InputFile: new Input({
-        name: "file",
+        name: "avatar",
         type: "file",
         errorText: "введите текст",
         class: "profile__info-line",
+        onChange: (e: Event) => {
+          const target = e.target as HTMLInputElement;
+          const file: File | null = target.files?.[0] || null;
+          this.file = file;
+
+          if (file) {
+            console.log(file);
+            this.onFileUpload();
+          }
+        },
       }),
     });
-  }
 
-  hide() {
-    console.log("s");
+    this.service = new UserService();
+    this.isFile = false;
+  }
+  onSubmitFile(form: HTMLFormElement) {
+    if (this.file) {
+      const formData = new FormData();
+      formData.append("avatar", this.file, this.file.name);
+      console.log(formData.getAll("avatar"));
+      this.service.updateUserAvatar(formData);
+    }
+  }
+  onFileUpload() {
+    this.isFile = true;
   }
 
   protected render(): string {
     return `
-      
-            <div class="dialog-window">
+            <form class="dialog-window">
                 <h5 class="dialog-window__heading">{{heading}}</h5>
-                
                 {{{InputFile}}}
-            </div>
+                <input type="submit">
+            </form>
             </div>
      `;
   }
