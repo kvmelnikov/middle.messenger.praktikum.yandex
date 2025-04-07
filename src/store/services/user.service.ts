@@ -1,6 +1,7 @@
 import { baseUrl, router } from "../../App";
 import { IProfile } from "../../shared/profile.interface";
-import { updateAvatar } from "../actions/auth.actions";
+import { updateAvatar } from "../actions/user.actions";
+
 import { HTTPTransport } from "./HTTPTransport";
 
 export class UserService {

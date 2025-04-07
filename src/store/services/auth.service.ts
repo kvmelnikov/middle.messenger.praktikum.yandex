@@ -5,6 +5,7 @@ import { router } from "../../App";
 //import store from "../Store";
 import { setProfile } from "../actions/auth.actions";
 import { IProfile } from "../../shared/profile.interface";
+import { updateAvatar } from "../actions/user.actions";
 
 export type SignupData = {
   email: string;
@@ -58,6 +59,9 @@ export class AuthService {
       })
       .then((res: IProfile) => {
         setProfile(res);
+        updateAvatar(
+          `https://ya-praktikum.tech/api/v2/resources/${res.avatar}`
+        );
       })
       .catch((err) => {
         console.log(err);

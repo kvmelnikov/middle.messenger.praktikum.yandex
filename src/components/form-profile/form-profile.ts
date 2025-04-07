@@ -139,7 +139,6 @@ const inputsPassword: IInput[] = [
 ];
 interface FormProfileProps extends BlockProps {
   valueLogin?: string;
-  avatar: File;
 }
 
 class FormProfile extends Block {
@@ -306,7 +305,6 @@ class FormProfile extends Block {
   }
 
   protected render(): string {
-    console.log("render form profile");
     return `                <form class="profile__main">
                                 {{{ Avatar }}}
                                 <p class="profile__name">Иван</p>

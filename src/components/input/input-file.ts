@@ -15,7 +15,6 @@ class InputFile extends Block {
   service: UserService;
   constructor(props: InputFileProps) {
     super({
-      ...props,
       class: props.class,
       name: props.name,
       type: props?.type,
@@ -37,8 +36,6 @@ class InputFile extends Block {
 // Пример использования с компонентом
 const mapStateToProps = (state: BlockProps, ownProps: InputFileProps) => {
   //const profile = state.profile as Record<string, string>;
-
-  console.log(state);
 
   return {
     // value: profile ? profile[ownProps.dataInput.name] : "",

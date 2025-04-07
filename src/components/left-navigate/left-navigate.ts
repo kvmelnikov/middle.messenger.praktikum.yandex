@@ -1,14 +1,24 @@
-import Block from "../../framework/Block";
+import { router } from "../../App";
+import Block, { BlockProps } from "../../framework/Block";
 import { ButtonIcon } from "../button-icon/button-icon";
 
+interface LeftNavigateProps extends BlockProps {
+  onClick: (e: Event) => void;
+}
 export class LeftNavigate extends Block {
-  constructor() {
+  constructor(props: LeftNavigateProps) {
     super({
       ButtonIcon: new ButtonIcon({
-        dataPage: "mainPage",
         class: "button button-icon-left",
+        onClick: () => {
+          this.route();
+        },
       }),
     });
+  }
+
+  route() {
+    router.go("/chat");
   }
 
   override render() {

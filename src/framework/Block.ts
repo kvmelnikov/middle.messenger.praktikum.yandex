@@ -299,12 +299,11 @@ export default class Block {
   public show(): void {
     const content = this.getContent();
     if (content) {
-      content.style.display = "block";
+      content.style.display = "flex";
     }
   }
 
   public hide(): void {
-    console.log("hide");
     const content = this.getContent();
     if (content) {
       content.style.display = "none";

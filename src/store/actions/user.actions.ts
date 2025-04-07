@@ -1,5 +1,5 @@
 import store from "../Store";
 
-// export const setLogin = (data: string) => {
-//   store.set("login.name", "kirill");
-// };
+export const updateAvatar = (path: string) => {
+  store.set("profile_avatar", path);
+};

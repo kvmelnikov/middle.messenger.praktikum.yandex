@@ -26,7 +26,6 @@ class Avatar extends Block {
 }
 
 const mapStateToProps = (state: BlockProps, ownProps: AvatarProps) => {
-  console.log(state.profile_avatar, "updateAvatar");
   const props = {
     src: state.profile_avatar,
   } as AvatarProps;
