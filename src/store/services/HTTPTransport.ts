@@ -69,6 +69,7 @@ export class HTTPTransport {
             if (xhr.responseText === "OK") {
               resolve();
             }
+
             const response = JSON.parse(xhr.responseText);
 
             resolve(response);

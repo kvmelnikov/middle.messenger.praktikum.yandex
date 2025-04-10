@@ -194,20 +194,20 @@ export default class Block {
     Object.assign(this.props, nextProps);
   };
 
-  public getProps = (prop: string): TBlockProps => {
-    return this.props[prop];
-  };
-
-  public getChildren = (child: string): Block => {
-    return this.children[child];
-  };
-
   public setLists = (nextList: BlockLists): void => {
     if (!nextList) {
       return;
     }
 
     Object.assign(this.lists, nextList);
+  };
+
+  public getProps = (prop: string): TBlockProps => {
+    return this.props[prop];
+  };
+
+  public getChildren = (child: string): Block => {
+    return this.children[child];
   };
 
   get element(): HTMLElement | null {

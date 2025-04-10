@@ -9,6 +9,7 @@ import Input from "../../components/input/input";
 import { ChatParticipant } from "../../components/chat-participant/chat-participant";
 import { IInput } from "../../shared/input.interface";
 import { connect } from "../../framework/HOC";
+import { ChatService } from "../../store/services/chat.service";
 
 const chatParticipants = [...new Array(3).keys()].map(
   (item) =>
@@ -31,11 +32,13 @@ const dataInput: IInput = {
   placeholder: "Поиск",
   name: "Поиск",
   type: "text",
-  value: "",
   errorText: "",
 };
 
-export class MainPage extends Block {
+interface ChatProps {}
+
+class Chat extends Block {
+  service: ChatService;
   constructor() {
     super({
       HeaderLeftPanel: new HeaderLeftPanel({
@@ -60,7 +63,6 @@ export class MainPage extends Block {
         },
       }),
       ButtonIcon: new ButtonIcon({
-        dataPage: "mainPaige",
         class: "button-icon-right",
       }),
 
@@ -79,6 +81,8 @@ export class MainPage extends Block {
         alt: "скребка",
       }),
     });
+    this.service = new ChatService();
+    this.service.getChats();
   }
 
   onSearch() {
@@ -131,9 +135,9 @@ const mapStateToProps = (state: any) => {
   return {
     // Здесь вы можете маппить нужные части состояния в пропсы компонента
     // Например:
-    email: state.user?.email ?? "",
-    login: state.user?.login ?? "",
+    // email: state.user?.email ?? "",
+    // login: state.user?.login ?? "",
   };
 };
 
-export default connect(mapStateToProps)(MainPage);
+export default connect(mapStateToProps)(Chat);

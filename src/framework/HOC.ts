@@ -28,6 +28,7 @@ export function connect<
 
           // Обновляем компонент, если данные изменились
           // if (!isEqual(state, newState)) {
+
           this.setProps({ ...ownProps, ...newState });
           // }
 
