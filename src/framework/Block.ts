@@ -299,7 +299,7 @@ export default class Block {
   public show(): void {
     const content = this.getContent();
     if (content) {
-      content.style.display = "flex";
+      content.style.display = "block";
     }
   }
 

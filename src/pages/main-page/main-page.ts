@@ -78,6 +78,7 @@ class Chat extends Block {
       SvgIcon: new SvgIcon({
         path: "../../../public/svg/clip.svg",
         height: "32px",
+        width: "32px",
         alt: "скребка",
       }),
     });

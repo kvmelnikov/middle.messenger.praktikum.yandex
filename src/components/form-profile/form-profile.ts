@@ -154,6 +154,7 @@ class FormProfile extends Block {
         submit: (e: Event) => this.onSubmit(e),
       },
       Modal: new Modal({
+        className: "modal",
         dialog: new DialogAvatar({
           heading: "Выберите аватар",
         }),

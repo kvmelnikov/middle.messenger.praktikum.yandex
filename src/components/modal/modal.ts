@@ -2,6 +2,7 @@ import Block from "../../framework/Block";
 
 interface ModalProps {
   dialog: Block;
+  className: string;
   onClick: (e: Event) => void;
 }
 
@@ -11,6 +12,7 @@ export class Modal extends Block {
     super({
       ...props,
       Dialog: props.dialog,
+      className: props.className,
       events: {
         click: (e: Event) => {
           props.onClick(e);
@@ -20,6 +22,6 @@ export class Modal extends Block {
   }
 
   override render(): string {
-    return `<div class="modal">{{{Dialog}}}</div>`;
+    return `<div class="{{className}}">{{{Dialog}}}</div>`;
   }
 }
