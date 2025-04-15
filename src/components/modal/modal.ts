@@ -18,7 +18,7 @@ export class Modal extends Block {
           props.onClick(e);
           e.stopPropagation();
           const modal = e.target as HTMLDivElement;
-          if (modal.classList.contains("modal")) {
+          if (modal.classList.contains(props.className)) {
             this.toogleModal();
           }
         },

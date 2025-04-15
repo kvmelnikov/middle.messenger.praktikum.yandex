@@ -18,7 +18,7 @@ export class ChatService {
   public async createChat(title: string) {
     return this.http
       .post(`${baseUrl}/chats`, {
-        data: JSON.stringify({ title: title }),
+        data: JSON.stringify({ title }),
         headers: { "Content-Type": "application/json" },
         credentials: true,
       })

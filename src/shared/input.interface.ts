@@ -6,7 +6,6 @@ export interface IInput {
   name: string;
   title?: string;
   type: string;
-
   errorText: string;
   validators?: IValidator;
 }

@@ -134,7 +134,7 @@ export class FormSignup extends Block {
     this.service = new AuthService();
   }
 
-  onSubmit(e: Event): void {
+  onSubmit(e: Event) {
     e.preventDefault();
 
     const dataForm: Record<string, string> = {};
@@ -151,6 +151,7 @@ export class FormSignup extends Block {
     });
 
     this.service.signup(dataForm as SignupData);
+    return dataForm;
   }
 
   protected render(): string {

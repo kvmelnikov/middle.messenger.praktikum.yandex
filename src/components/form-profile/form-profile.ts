@@ -154,10 +154,15 @@ class FormProfile extends Block {
         submit: (e: Event) => this.onSubmit(e),
       },
       Avatar: new Avatar({
+        Modal: new Modal({
+          className: "modal",
+          dialog: new DialogAvatar({
+            heading: "Выберите аватар",
+          }),
+          onClick: (e) => {},
+        }),
         className: "avatar_big profile__avatar",
-        onClick: () => {
-          this.openModal();
-        },
+        onClick: () => {},
       }),
       InputLogin: new Fieldset({
         class: "profile__info-line",
@@ -310,12 +315,7 @@ class FormProfile extends Block {
                                         {{{ ButtonExit }}}
                                     {{/if}}  
                                 </div>
-                                   {{#if isChangeAvatar}}
-                                      {{{Modal}}}
-                                   {{/if}}
-                            </form>
-                         
-                            `;
+                            </form>`;
   }
 }
 

@@ -6,19 +6,13 @@ interface AvatarProps extends BlockProps {
   className?: string;
   src?: string;
   onClick?: (e: Event) => void;
+  Modal: Block;
 }
 class Avatar extends Block {
   constructor(props: AvatarProps) {
     super({
       ...props,
       src: props.src || "daf",
-      Modal: new Modal({
-        className: "modal",
-        dialog: new DialogAvatar({
-          heading: "Выберите аватар",
-        }),
-        onClick: (e) => {},
-      }),
       events: {
         click: (e: Event) => {
           const modal = this.getChildren("Modal");
@@ -31,7 +25,7 @@ class Avatar extends Block {
   override render(): string {
     return `
     <div>
-      {{{Modal}}}
+      {{{ Modal }}}
     <img class="{{className}}" src="{{src}}"  alt="Аватар">
     </div>
     `;
