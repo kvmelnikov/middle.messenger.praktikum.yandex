@@ -153,25 +153,12 @@ class FormProfile extends Block {
       events: {
         submit: (e: Event) => this.onSubmit(e),
       },
-      Modal: new Modal({
-        className: "modal",
-        dialog: new DialogAvatar({
-          heading: "Выберите аватар",
-        }),
-        onClick: (e) => {
-          const modal = e.target as HTMLDivElement;
-          if (modal.classList.contains("modal")) {
-            this.closeModal();
-          }
-        },
-      }),
       Avatar: new Avatar({
         className: "avatar_big profile__avatar",
         onClick: () => {
           this.openModal();
         },
       }),
-
       InputLogin: new Fieldset({
         class: "profile__info-line",
         name: "login",

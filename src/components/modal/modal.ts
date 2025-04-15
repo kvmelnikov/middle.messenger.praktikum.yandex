@@ -7,8 +7,8 @@ interface ModalProps {
 }
 
 export class Modal extends Block {
+  open: boolean;
   constructor(props: ModalProps) {
-    console.log("modal constructor");
     super({
       ...props,
       Dialog: props.dialog,
@@ -16,9 +16,39 @@ export class Modal extends Block {
       events: {
         click: (e: Event) => {
           props.onClick(e);
+          e.stopPropagation();
+          const modal = e.target as HTMLDivElement;
+          if (modal.classList.contains("modal")) {
+            this.toogleModal();
+          }
         },
       },
     });
+    this.hide();
+  }
+
+  public toogleModal() {
+    if (this.open) {
+      this.hide();
+    } else {
+      this.show();
+    }
+  }
+
+  public show(): void {
+    const content = this.getContent();
+    if (content) {
+      content.style.display = "block";
+    }
+    this.open = true;
+  }
+
+  public hide(): void {
+    const content = this.getContent();
+    if (content) {
+      content.style.display = "none";
+    }
+    this.open = false;
   }
 
   override render(): string {

@@ -24,6 +24,6 @@ export class SvgIcon extends Block {
   }
 
   render() {
-    return '<img src="{{path}}" alt="{{alt}}"  width="{{width}}" height="{{height}}">';
+    return '<img class="svg-icon" src="{{path}}" alt="{{alt}}"  width="{{width}}" height="{{height}}">';
   }
 }

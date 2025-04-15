@@ -1,4 +1,5 @@
 import Block from "../../framework/Block";
+import { ChatService } from "../../store/services/chat.service";
 import Avatar from "../avatar/avatar";
 import { Modal } from "../modal/modal";
 import { SvgIcon } from "../svg-icon/svg-icon";
@@ -10,6 +11,7 @@ interface HeaderChatProps {
 }
 export class HeaderChat extends Block {
   isUserActions: false;
+  service: ChatService;
   constructor(props: HeaderChatProps) {
     super({
       Avatar: new Avatar({
@@ -37,6 +39,7 @@ export class HeaderChat extends Block {
       }),
       name: props.name,
     });
+    this.service = new ChatService();
   }
 
   closeModal() {

@@ -1,5 +1,7 @@
 import Block, { BlockProps } from "../../framework/Block";
 import { connect } from "../../framework/HOC";
+import { DialogAvatar } from "../dialog-avatar/dialog-avatar";
+import { Modal } from "../modal/modal";
 interface AvatarProps extends BlockProps {
   className?: string;
   src?: string;
@@ -10,18 +12,29 @@ class Avatar extends Block {
     super({
       ...props,
       src: props.src || "daf",
+      Modal: new Modal({
+        className: "modal",
+        dialog: new DialogAvatar({
+          heading: "Выберите аватар",
+        }),
+        onClick: (e) => {},
+      }),
       events: {
         click: (e: Event) => {
-          if (props.onClick) {
-            props.onClick(e);
-          }
+          const modal = this.getChildren("Modal");
+          modal.show();
         },
       },
     });
   }
 
   override render(): string {
-    return '<img class="{{className}}" src="{{src}}"  alt="Аватар">';
+    return `
+    <div>
+      {{{Modal}}}
+    <img class="{{className}}" src="{{src}}"  alt="Аватар">
+    </div>
+    `;
   }
 }
 

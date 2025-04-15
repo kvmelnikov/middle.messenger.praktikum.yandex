@@ -6,27 +6,10 @@ import { SvgIcon } from "../../components/svg-icon/svg-icon";
 import Block from "../../framework/Block";
 import { HeaderChat } from "../../components/header-chat/header-chat";
 import Input from "../../components/input/input";
-import { ChatParticipant } from "../../components/chat-participant/chat-participant";
 import { IInput } from "../../shared/input.interface";
 import { connect } from "../../framework/HOC";
 import { ChatService } from "../../store/services/chat.service";
 
-const chatParticipants = [...new Array(3).keys()].map(
-  (item) =>
-    new ChatParticipant({
-      time: `23.5${item}`,
-      name: "Kirill",
-      count: item,
-    })
-);
-const chatParticipants2 = [...new Array(4).keys()].map(
-  (item) =>
-    new ChatParticipant({
-      time: `23.5${item}`,
-      name: "Kirill",
-      count: item,
-    })
-);
 const dataInput: IInput = {
   label: "",
   placeholder: "Поиск",
@@ -45,11 +28,11 @@ class Chat extends Block {
         InputSearch: new Input({
           class: "input-search",
           dataInput: dataInput,
-          onKeyup: (e: KeyboardEvent) => {
-            if (e.key === "Enter") {
-              this.onSearch();
-            }
-          },
+          // onKeyup: (e: KeyboardEvent) => {
+          //   if (e.key === "Enter") {
+          //     this.onSearch();
+          //   }
+          // },
         }),
       }),
       InputMessage: new Input({
@@ -66,7 +49,7 @@ class Chat extends Block {
         class: "button-icon-right",
       }),
 
-      ChatParticipants: chatParticipants,
+      // ChatParticipants: chatParticipants,
       HeaderChat: new HeaderChat({
         avatarSrc: "../../../public/images/avatar-example.png",
         avatarClass: "avatar_small",
@@ -86,12 +69,12 @@ class Chat extends Block {
     this.service.getChats();
   }
 
-  onSearch() {
-    this.setLists({
-      ...this.props,
-      ChatParticipants: chatParticipants2,
-    });
-  }
+  // onSearch() {
+  //   this.setLists({
+  //     ...this.props,
+  //     ChatParticipants: chatParticipants2,
+  //   });
+  // }
 
   onMessage(e: Event) {
     const input = e.target as HTMLInputElement;
@@ -117,7 +100,6 @@ class Chat extends Block {
                   {{{ HeaderChat }}}
                   <div class="workspace-chat">
                     {{{Messages}}}
-                    <p>По ссылке содержатся сверстаные тултипы и модальные окна</p>
                     {{{ Link data-page="auxiliaryElements" data-action="default" text="Вспомогательные компоненты" class="link link-login" }}}
                 </div>
                    <div class="footer-chat">
