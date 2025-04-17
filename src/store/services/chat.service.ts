@@ -9,10 +9,17 @@ export class ChatService {
   }
 
   public async getChats(offset = 0, limit = 10, title = "") {
-    return this.http.get<IChat[]>(`${baseUrl}/chats`, {
-      query: { offset, limit, title },
-      credentials: true,
-    });
+    return this.http
+      .get<IChat[]>(`${baseUrl}/chats`, {
+        query: { offset, limit, title },
+        credentials: true,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   public async createChat(title: string) {

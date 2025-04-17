@@ -1,11 +1,9 @@
 import { ButtonIcon } from "../../components/button-icon/button-icon";
 import { DateMessage } from "../../components/date-message/date-message";
-import { HeaderLeftPanel } from "../../components/header-left-panel/header-left-panel";
-import { Message } from "../../components/message/message";
+import LeftPanel from "../../components/left-panel/left-panel";
 import { SvgIcon } from "../../components/svg-icon/svg-icon";
 import Block from "../../framework/Block";
 import { HeaderChat } from "../../components/header-chat/header-chat";
-import Input from "../../components/input/input";
 import { IInput } from "../../shared/input.interface";
 import { connect } from "../../framework/HOC";
 import { ChatService } from "../../store/services/chat.service";
@@ -24,31 +22,10 @@ class Chat extends Block {
   service: ChatService;
   constructor() {
     super({
-      HeaderLeftPanel: new HeaderLeftPanel({
-        InputSearch: new Input({
-          class: "input-search",
-          dataInput: dataInput,
-          // onKeyup: (e: KeyboardEvent) => {
-          //   if (e.key === "Enter") {
-          //     this.onSearch();
-          //   }
-          // },
-        }),
-      }),
-      InputMessage: new Input({
-        class: "chat-form__input-message",
-        dataInput: dataInput,
-        onBlur: (e: Event) => this.onBlur(e),
-        onKeyup: (e: KeyboardEvent) => {
-          if (e.key === "Enter") {
-            this.onMessage(e);
-          }
-        },
-      }),
+      LeftPanel: new LeftPanel({}),
       ButtonIcon: new ButtonIcon({
         class: "button-icon-right",
       }),
-
       // ChatParticipants: chatParticipants,
       HeaderChat: new HeaderChat({
         avatarSrc: "../../../public/images/avatar-example.png",
@@ -69,33 +46,9 @@ class Chat extends Block {
     this.service.getChats();
   }
 
-  // onSearch() {
-  //   this.setLists({
-  //     ...this.props,
-  //     ChatParticipants: chatParticipants2,
-  //   });
-  // }
-
-  onMessage(e: Event) {
-    const input = e.target as HTMLInputElement;
-    this.setLists({
-      ...this.props,
-      Messages: [
-        new Message({
-          time: Date.now().toString(),
-          text: input.value,
-          owner: "1",
-        }),
-      ],
-    });
-  }
-
   protected override render(): string {
     return `<main class="main-page__container">
-            <section class="left-panel">
-                 {{{ HeaderLeftPanel }}}
-                 {{{ ChatParticipants }}}
-            </section>
+                {{{ LeftPanel }}}
                 <section class="chat">
                   {{{ HeaderChat }}}
                   <div class="workspace-chat">
@@ -114,13 +67,8 @@ class Chat extends Block {
   }
 }
 
-const mapStateToProps = (state: any) => {
-  return {
-    // Здесь вы можете маппить нужные части состояния в пропсы компонента
-    // Например:
-    // email: state.user?.email ?? "",
-    // login: state.user?.login ?? "",
-  };
+const mapStateToProps = (state: any, ownProps: any) => {
+  return {};
 };
 
 export default connect(mapStateToProps)(Chat);

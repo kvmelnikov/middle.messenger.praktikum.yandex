@@ -1,14 +1,10 @@
 import { router } from "../../App";
 import Block from "../../framework/Block";
-import { DialogAvatar } from "../dialog-avatar/dialog-avatar";
 import { DialogChat } from "../dialog-chat/dialog-chat";
-import { Input } from "../input/input";
 import { Link } from "../link/Link";
 import { Modal } from "../modal/modal";
 import { SvgIcon } from "../svg-icon/svg-icon";
-interface HeaderLeftPanelProps {
-  InputSearch?: Input;
-}
+interface HeaderLeftPanelProps {}
 export class HeaderLeftPanel extends Block {
   constructor(props: HeaderLeftPanelProps) {
     super({
@@ -23,7 +19,9 @@ export class HeaderLeftPanel extends Block {
           dialog: new DialogChat({
             heading: "Создание чата",
           }),
-          onClick: (e) => {},
+          onClick: (e) => {
+            e;
+          },
         }),
       }),
       LinkProfile: new Link({

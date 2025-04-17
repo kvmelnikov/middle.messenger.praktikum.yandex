@@ -1,5 +1,5 @@
 import Block from "../../framework/Block";
-import Avatar from "../avatar/avatar";
+
 import { CounterMessage } from "../counter-message/counter-message";
 import { Time } from "../time/time";
 interface ChatParticipantProps {
@@ -12,10 +12,10 @@ export class ChatParticipant extends Block {
     super({
       ...props,
       Time: new Time({ time: props.time }),
-      Avatar: new Avatar({
-        src: "../../../public/images/avatar-example.png",
-        className: "avatar_medium",
-      }),
+      // Avatar: new Avatar({
+      //   src: "../../../public/images/avatar-example.png",
+      //   className: "avatar_medium",
+      // }),
       CounterMessage: new CounterMessage({
         counter: props.count,
       }),
