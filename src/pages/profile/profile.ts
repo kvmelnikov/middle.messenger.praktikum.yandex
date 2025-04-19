@@ -2,7 +2,7 @@ import { Button } from "../../components/button/button";
 import FormProfile from "../../components/form-profile/form-profile";
 import { LeftNavigate } from "../../components/left-navigate/left-navigate";
 import Block from "../../framework/Block";
-import { router } from "../../App";
+
 import { AuthService } from "../../store/services/auth.service";
 
 class Profile extends Block {

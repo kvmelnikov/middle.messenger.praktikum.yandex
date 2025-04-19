@@ -46,6 +46,7 @@ export class AuthService {
       })
       .then(() => {
         router.go("/chat");
+        1;
       })
       .catch((err) => {
         alert(err);

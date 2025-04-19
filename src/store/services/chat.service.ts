@@ -1,6 +1,7 @@
 import { IChat } from "../../shared/chat.interface";
 import { HTTPTransport } from "./HTTPTransport";
 import { baseUrl } from "../../App";
+import { setChats } from "../actions/chat.actions";
 export class ChatService {
   http: HTTPTransport;
 
@@ -14,8 +15,8 @@ export class ChatService {
         query: { offset, limit, title },
         credentials: true,
       })
-      .then((res) => {
-        console.log(res);
+      .then((chats) => {
+        setChats(chats as IChat[]);
       })
       .catch((err) => {
         console.error(err);
@@ -30,7 +31,8 @@ export class ChatService {
         credentials: true,
       })
       .then((res) => {
-        console.log(res);
+        console.info(res);
+        // setChats(res as IChat[]);
       })
       .catch((err) => {
         console.error(err);

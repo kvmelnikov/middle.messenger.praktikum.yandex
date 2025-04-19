@@ -5,8 +5,8 @@ import { SvgIcon } from "../../components/svg-icon/svg-icon";
 import Block from "../../framework/Block";
 import { HeaderChat } from "../../components/header-chat/header-chat";
 import { IInput } from "../../shared/input.interface";
-import { connect } from "../../framework/HOC";
 import { ChatService } from "../../store/services/chat.service";
+import connect from "../../framework/HOC";
 
 const dataInput: IInput = {
   label: "",
@@ -67,8 +67,9 @@ class Chat extends Block {
   }
 }
 
-const mapStateToProps = (state: any, ownProps: any) => {
-  return {};
-};
+// const mapStateToProps = (state: any, ownProps: any) => {
+//   return {};
+// };
 
-export default connect(mapStateToProps)(Chat);
+// export default connect(mapStateToProps)(Chat);
+export default Chat;

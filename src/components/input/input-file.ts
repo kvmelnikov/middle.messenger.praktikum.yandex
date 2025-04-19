@@ -1,5 +1,5 @@
 import Block, { BlockProps } from "../../framework/Block";
-import { connect } from "../../framework/HOC";
+import connect from "../../framework/HOC";
 import { IInput } from "../../shared/input.interface";
 import { UserService } from "../../store/services/user.service";
 
@@ -34,14 +34,15 @@ class InputFile extends Block {
 }
 
 // Пример использования с компонентом
-const mapStateToProps = (state: BlockProps, ownProps: InputFileProps) => {
-  //const profile = state.profile as Record<string, string>;
+// const mapStateToProps = (state: BlockProps, ownProps: InputFileProps) => {
+//   //const profile = state.profile as Record<string, string>;
 
-  return {
-    // value: profile ? profile[ownProps.dataInput.name] : "",
-    // Можно добавить другие значения из хранилища
-    // ...ownProps // Если нужно сохранить оригинальные пропсы
-  };
-};
+//   return {
+//     // value: profile ? profile[ownProps.dataInput.name] : "",
+//     // Можно добавить другие значения из хранилища
+//     // ...ownProps // Если нужно сохранить оригинальные пропсы
+//   };
+// };
 
-export default connect(mapStateToProps)(InputFile);
+// export default connect(mapStateToProps)(InputFile);
+export default InputFile;

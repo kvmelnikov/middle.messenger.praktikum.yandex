@@ -3,10 +3,10 @@ import { Fieldset } from "../../components/input/fieldset";
 import Input from "../../components/input/input";
 import { Link } from "../../components/link/Link";
 import Block from "../../framework/Block";
-import { connect } from "../../framework/HOC";
 import { AuthService } from "../../store/services/auth.service";
 
 import { IInput } from "../../shared/input.interface";
+import connect from "../../framework/HOC";
 
 const dataInputs: IInput[] = [
   {
@@ -123,13 +123,12 @@ class Signin extends Block {
   }
 }
 
-const mapStateToProps = (state: any) => {
-  return {
-    // Здесь вы можете маппить нужные части состояния в пропсы компонента
-    // Например:
-    email: state.user?.email ?? "",
-    login: state.user?.login ?? "",
-  };
-};
+// const mapStateToProps = (state: any) => {
+//   // return {
+//   //   email: state.user?.email ?? "",
+//   //   login: state.user?.login ?? "",
+//   // };
+// };
 
-export default connect(mapStateToProps)(Signin);
+// export default connect(mapStateToProps)(Signin);
+export default Signin;

@@ -1,5 +1,6 @@
 import Block, { BlockProps } from "../../framework/Block";
-import { connect } from "../../framework/HOC";
+import connect from "../../framework/HOC";
+
 import { IInput } from "../../shared/input.interface";
 import { UserService } from "../../store/services/user.service";
 import Avatar from "../avatar/avatar";
@@ -319,16 +320,14 @@ class FormProfile extends Block {
   }
 }
 
-const mapStateToProps = (
-  state: BlockProps,
-  ownProps: FormProfileProps
-): FormProfileProps => {
-  const file = state.profile_avatar as File;
-  const props = {
-    avatar: file,
-  } as FormProfileProps;
+// const mapStateToProps = (state: BlockProps): FormProfileProps => {
+//   const file = state.profile_avatar as File;
+//   const props = {
+//     avatar: file,
+//   } as FormProfileProps;
 
-  return props;
-};
+//   return props;
+// };
 
-export default connect(mapStateToProps)(FormProfile);
+// export default connect(mapStateToProps)(FormProfile);
+export default FormProfile;

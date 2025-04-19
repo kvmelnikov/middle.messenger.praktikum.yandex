@@ -1,5 +1,3 @@
-import { IInput } from "../shared/input.interface";
-import { IProfile } from "../shared/profile.interface";
 import {
   VALIDATION_ERRORS,
   VALIDATION_RULES,
@@ -7,20 +5,7 @@ import {
 import EventBus, { EventCallback } from "./EventBus";
 import Handlebars from "handlebars";
 
-type TBlockProps =
-  | ((e: Event) => void)
-  | undefined
-  | Record<string, string>
-  | EventCallback
-  | Block
-  | File
-  | IProfile
-  | Block[]
-  | IInput
-  | string
-  | number
-  | BlokEvents
-  | boolean;
+type TBlockProps = any; // здесь реально можеть быть любое значение
 
 export interface BlockProps {
   [key: string]: TBlockProps;

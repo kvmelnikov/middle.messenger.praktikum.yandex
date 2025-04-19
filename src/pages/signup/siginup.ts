@@ -1,7 +1,7 @@
 import { FormSignup } from "../../components/form-signup/form-signup";
 import { Link } from "../../components/link/Link";
 import Block from "../../framework/Block";
-import { connect } from "../../framework/HOC";
+import connect from "../../framework/HOC";
 
 class Signup extends Block {
   constructor() {
@@ -22,13 +22,14 @@ class Signup extends Block {
   }
 }
 
-const mapStateToProps = (state: any) => {
-  return {
-    // Здесь вы можете маппить нужные части состояния в пропсы компонента
-    // Например:
-    email: state.user?.email ?? "",
-    login: state.user?.login ?? "",
-  };
-};
+// const mapStateToProps = (state: any) => {
+//   return {
+//     // Здесь вы можете маппить нужные части состояния в пропсы компонента
+//     // Например:
+//     email: state.user?.email ?? "",
+//     login: state.user?.login ?? "",
+//   };
+// };
 
-export default connect(mapStateToProps)(Signup);
+// export default connect(mapStateToProps)(Signup);
+export default Signup;

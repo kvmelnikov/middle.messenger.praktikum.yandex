@@ -1,5 +1,6 @@
 import Block, { BlockProps } from "../../framework/Block";
-import { connect } from "../../framework/HOC";
+import connect from "../../framework/HOC";
+
 import { DialogAvatar } from "../dialog-avatar/dialog-avatar";
 import { Modal } from "../modal/modal";
 interface AvatarProps extends BlockProps {
@@ -32,12 +33,13 @@ class Avatar extends Block {
   }
 }
 
-const mapStateToProps = (state: BlockProps, ownProps: AvatarProps) => {
-  const props = {
-    src: state.profile_avatar,
-  } as AvatarProps;
+// const mapStateToProps = (state: BlockProps, ownProps: AvatarProps) => {
+//   const props = {
+//     src: state.profile_avatar,
+//   } as AvatarProps;
 
-  return props;
-};
+//   return props;
+// };
 
-export default connect(mapStateToProps)(Avatar);
+// export default connect(mapStateToProps)(Avatar);
+export default Avatar;
