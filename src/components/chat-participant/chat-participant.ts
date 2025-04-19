@@ -2,12 +2,13 @@ import Block from "../../framework/Block";
 import { CounterMessage } from "../counter-message/counter-message";
 import { Time } from "../time/time";
 interface ChatParticipantProps {
-  time?: string;
+  id: number;
+  time: string | null;
   unread_count: number;
-  name: string;
   avatar: string | null;
 }
 export class ChatParticipant extends Block {
+  isActive: false;
   constructor(props: ChatParticipantProps) {
     super({
       ...props,
@@ -19,12 +20,27 @@ export class ChatParticipant extends Block {
       CounterMessage: new CounterMessage({
         counter: props.unread_count,
       }),
-      name: props.name,
+      events: {
+        click: (e: Event) => {
+          this.activeChat();
+        },
+      },
+    });
+  }
+
+  activeChat() {
+    this.setProps({
+      isActive: true,
     });
   }
 
   override render(): string {
-    return `<article class="chat-participant">
+    return ` {{#if isActive}}
+              <article class="chat-participant chat-participant_active">
+              {{else}}
+              qdsfda
+              <article class="chat-participant">
+              {{/if}} 
                 {{{ Avatar }}}
                     <div class="chat-participant__message">
                         <p class="chat-participant__name">{{name}}</p>

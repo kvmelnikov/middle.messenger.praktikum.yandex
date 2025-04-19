@@ -58,6 +58,13 @@ export default class Block {
     eventBus.emit(Block.EVENTS.INIT);
   }
 
+  public setState(newState: BlockProps) {
+    const { props, children, lists } = this._getChildrenPropsAndProps(newState);
+    this.setProps(props);
+    this.setLists(lists);
+    console.log(children);
+  }
+
   private _removeEvents(): void {
     const { events = {} } = this.props as {
       events?: Record<string, EventListener>;

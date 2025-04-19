@@ -2,73 +2,45 @@ import Block, { BlockProps } from "../../framework/Block";
 import connect from "../../framework/HOC";
 import { IChat } from "../../shared/chat.interface";
 import { ChatParticipant } from "../chat-participant/chat-participant";
+import { HeaderLeftPanel } from "../header-left-panel/header-left-panel";
 
 interface LeftPanelProps extends BlockProps {
-  value?: string;
-  number?: 2;
-  chats: IChat[];
-  loaded: string;
+  chats?: ChatParticipant[];
 }
 
 class LeftPanel extends Block {
   constructor(props: LeftPanelProps) {
     super({
-      //   HeaderLeftPanel: new HeaderLeftPanel({
-      //     // InputSearch: new Input({
-      //     //   class: "input-search",
-      //     //   dataInput: dataInput,
-      //     //   onKeyup: (e: KeyboardEvent) => {
-      //     //     if (e.key === "Enter") {
-      //     //       // this.onSearch();
-      //     //     }
-      //     //   },
-      //     // }),
-      //   }),
-      ChatParticipants: props.chats.map(
-        (chat) => new ChatParticipant({ time: chat.created_by })
-      ),
+      ...props,
+      HeaderLeftPanel: new HeaderLeftPanel({}),
     });
+  }
+  protected componentDidUpdate(
+    oldProps: BlockProps,
+    newProps: BlockProps
+  ): boolean {
+    return true;
   }
 
   protected render(): string {
-    return `<section  class="left-panel">                
-                 {{{ HeaderLeftPanel }}}
-                 {{{ ChatParticipants }}}
+    return `<section  class="left-panel"> 
+                  {{{ HeaderLeftPanel }}}               
+                 {{{ chats }}}
             </section>`;
   }
 }
 
 const mapStateToProps = (state: BlockProps): LeftPanelProps => {
-  const chatsInfo = [
-    {
-      id: 58223,
-      title: "dafddaf",
-      avatar: null,
-      created_by: 3586,
-      unread_count: 0,
-      last_message: null,
-    },
-    {
-      id: 58075,
-      title: "daf",
-      avatar: null,
-      created_by: 3586,
-      unread_count: 0,
-      last_message: null,
-    },
-  ];
-
-  //const chats: Record<string, string[]> = chatsInfo.map((chat) => re{});
-
-  const chats = chatsInfo?.map((chat) => {
-    return new ChatParticipant({
-      time: chat.created_by.toString() || "",
-      count: chat.unread_count,
-      name: chat.title,
-    });
-  });
-
-  return { chats: chats, loaded: chatsInfo ? chatsInfo[0].title : "null" };
+  const chats = state.chats?.map(
+    (chat: IChat) =>
+      new ChatParticipant({
+        time: chat.last_message ? chat.last_message.time : null,
+        unread_count: chat.unread_count,
+        id: chat.id,
+        avatar: chat.avatar,
+      })
+  );
+  return { chats };
 };
 
 export default connect(LeftPanel, mapStateToProps);

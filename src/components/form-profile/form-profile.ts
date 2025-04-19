@@ -309,7 +309,7 @@ class FormProfile extends Block {
                                             {{{ ButtonSaveProfile  }}}             
                                          {{ else }}
                                          {{{ ButtonSavePass }}}
-                                    {{/if}}
+                                          {{/if}}
                                     {{else}}
                                         {{{ ButtonChangeProfile }}}
                                         {{{ ButtonChangePass }}}

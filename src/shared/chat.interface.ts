@@ -1,10 +1,10 @@
 export interface IChat {
-  id: string;
+  id: number;
   title: string;
-  avatar: string;
+  avatar: string | null;
   unread_count: number;
   created_by: number;
-  last_message?: {
+  last_message: {
     user: {
       first_name: string;
       second_name: string;
@@ -15,5 +15,5 @@ export interface IChat {
     };
     time: string;
     content: string;
-  };
+  } | null;
 }

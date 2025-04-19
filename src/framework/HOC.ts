@@ -14,7 +14,7 @@ export default function connect<Tstate, Tprops extends BlockProps>(
       super({ ...props, ...mapStateToProps(store.getState() as Tstate) });
 
       store.on(StoreEvents.Updated, () => {
-        this.setProps({ ...mapStateToProps(store.getState() as Tstate) });
+        this.setState({ ...mapStateToProps(store.getState() as Tstate) });
       });
     }
   };
