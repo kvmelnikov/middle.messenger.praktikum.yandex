@@ -4,7 +4,9 @@ import { DialogChat } from "../dialog-chat/dialog-chat";
 import { Link } from "../link/Link";
 import { Modal } from "../modal/modal";
 import { SvgIcon } from "../svg-icon/svg-icon";
+import FormSearch from "../form-search/form-search";
 interface HeaderLeftPanelProps {}
+
 export class HeaderLeftPanel extends Block {
   constructor(props: HeaderLeftPanelProps) {
     super({
@@ -34,6 +36,7 @@ export class HeaderLeftPanel extends Block {
           router.go("/profile");
         },
       }),
+      FormSearch: new FormSearch(),
     });
   }
 
@@ -41,7 +44,7 @@ export class HeaderLeftPanel extends Block {
     return `<header class="header-left-panel">
                     {{{SvgIcon}}}
                     {{{ LinkProfile }}}
-                    {{{ InputSearch }}}
+                    {{{ FormSearch }}}
             </header>`;
   }
 }

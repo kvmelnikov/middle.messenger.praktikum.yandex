@@ -6,6 +6,7 @@ interface ChatParticipantProps {
   time: string | null;
   unread_count: number;
   avatar: string | null;
+  title: string;
 }
 export class ChatParticipant extends Block {
   isActive: false;
@@ -38,13 +39,12 @@ export class ChatParticipant extends Block {
     return ` {{#if isActive}}
               <article class="chat-participant chat-participant_active">
               {{else}}
-              qdsfda
               <article class="chat-participant">
               {{/if}} 
                 {{{ Avatar }}}
                     <div class="chat-participant__message">
                         <p class="chat-participant__name">{{name}}</p>
-                        <p class="chat-participant__text-message">Друзья, у меня для вас особенный выпуск новостей!</p>
+                        <p class="chat-participant__text-message">{{title}}</p>
                     </div> 
                 <div class="chat-participant__time">
                 {{{ Time }}}

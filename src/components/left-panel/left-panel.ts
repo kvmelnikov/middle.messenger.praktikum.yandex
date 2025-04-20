@@ -38,6 +38,7 @@ const mapStateToProps = (state: BlockProps): LeftPanelProps => {
         unread_count: chat.unread_count,
         id: chat.id,
         avatar: chat.avatar,
+        title: chat.title,
       })
   );
   return { chats };
