@@ -39,10 +39,12 @@ export class ChatService {
       })
       .then((res) => {
         console.info(res);
+        this.getChats();
         // setChats(res as IChat[]);
       })
       .catch((err) => {
         console.error(err);
+        this.getChats();
       });
   }
 }

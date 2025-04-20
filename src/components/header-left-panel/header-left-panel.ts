@@ -54,8 +54,12 @@ class HeaderLeftPanel extends Block {
     oldProps: BlockProps,
     newProps: BlockProps
   ): boolean {
-    if (newProps["loaded"]) {
+    const { loaded } = newProps;
+    if (loaded) {
       const modal = this.getChildren("Modal");
+      if (modal) {
+        modal.hide();
+      }
     }
     return true;
   }
