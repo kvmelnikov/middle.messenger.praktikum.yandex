@@ -1,6 +1,7 @@
 import Block from "../../framework/Block";
 import { ChatService } from "../../store/services/chat.service";
 import Avatar from "../avatar/avatar";
+import { DropDown } from "../drop-down/drop-down";
 import { Modal } from "../modal/modal";
 import { SvgIcon } from "../svg-icon/svg-icon";
 import { TooltipUser } from "../tooltip-user/tooltip-user";
@@ -12,8 +13,11 @@ interface HeaderChatProps {
 export class HeaderChat extends Block {
   isUserActions: false;
   service: ChatService;
+  isOpenedDropDown: boolean;
+
   constructor(props: HeaderChatProps) {
     super({
+      ...props,
       Avatar: new Avatar({
         className: props.avatarClass,
         src: props.avatarSrc,
@@ -23,46 +27,43 @@ export class HeaderChat extends Block {
         height: "15px",
         width: "15px",
         alt: "управление профилем",
-        onClick: () => {
-          this.openModal();
+        onClick: (e) => {
+          this.toogleDropDown();
         },
       }),
-      Modal: new Modal({
+      DropDown: new DropDown({
         dialog: new TooltipUser(),
         className: "modal-tooltip-user",
-        onClick: (e) => {
-          const modal = e.target as HTMLDivElement;
-          if (modal.classList.contains("modal-tooltip-user")) {
-            this.closeModal();
-          }
-        },
+        onClick: (e) => {},
       }),
-      name: props.name,
     });
     this.service = new ChatService();
   }
 
-  closeModal() {
-    this.setProps({
-      isUserActions: false,
-    });
+  toogleDropDown() {
+    const dropDown = this.getChildren("DropDown");
+
+    if (!dropDown) {
+      return;
+    }
+
+    if (dropDown && this.isOpenedDropDown) {
+      dropDown.hide();
+      this.isOpenedDropDown = false;
+    } else if (dropDown && !this.isOpenedDropDown) {
+      dropDown.show();
+      this.isOpenedDropDown = true;
+    }
   }
 
-  openModal() {
-    this.setProps({
-      isUserActions: true,
-    });
-  }
   override render(): string {
     return `<header class="header-chat">
                 {{{Avatar}}}
                 <div class="header-chat__name-block">
                     <p class="header-chat__name">{{name}}</p>
                 </div>
-                {{{ SvgIcon }}}
-                {{#if isUserActions}}
-                      {{{Modal}}}
-                {{/if}}
-                </header>`;
+                    {{{ SvgIcon }}}
+                    {{{DropDown}}}
+            </header>`;
   }
 }

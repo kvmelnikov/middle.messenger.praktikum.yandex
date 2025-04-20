@@ -62,7 +62,6 @@ export default class Block {
     const { props, children, lists } = this._getChildrenPropsAndProps(newState);
     this.setProps(props);
     this.setLists(lists);
-    console.log(children);
   }
 
   private _removeEvents(): void {

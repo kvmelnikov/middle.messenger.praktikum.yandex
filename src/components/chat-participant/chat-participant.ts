@@ -28,9 +28,8 @@ export class ChatParticipant extends Block {
 
   override render(): string {
     return ` 
-      
+    
               <article class="chat-participant">
-          
                 {{{ Avatar }}}
                     <div class="chat-participant__message">
                         <p class="chat-participant__name">{{name}}</p>
