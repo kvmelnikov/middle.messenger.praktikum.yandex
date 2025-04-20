@@ -9,7 +9,6 @@ interface ChatParticipantProps {
   title: string;
 }
 export class ChatParticipant extends Block {
-  isActive: false;
   constructor(props: ChatParticipantProps) {
     super({
       ...props,
@@ -22,25 +21,16 @@ export class ChatParticipant extends Block {
         counter: props.unread_count,
       }),
       events: {
-        click: (e: Event) => {
-          this.activeChat();
-        },
+        click: (e: Event) => {},
       },
     });
   }
 
-  activeChat() {
-    this.setProps({
-      isActive: true,
-    });
-  }
-
   override render(): string {
-    return ` {{#if isActive}}
-              <article class="chat-participant chat-participant_active">
-              {{else}}
+    return ` 
+      
               <article class="chat-participant">
-              {{/if}} 
+          
                 {{{ Avatar }}}
                     <div class="chat-participant__message">
                         <p class="chat-participant__name">{{name}}</p>

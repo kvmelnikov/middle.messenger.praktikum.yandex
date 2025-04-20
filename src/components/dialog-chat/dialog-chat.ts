@@ -1,11 +1,25 @@
 import Block from "../../framework/Block";
 import Input from "../input/input";
-import { ChatService } from "../../store/services/chat.service";
+import service, { ChatService } from "../../store/services/chat.service";
 import { Fieldset } from "../input/fieldset";
 
 interface DialogChatProps {
   heading: string;
 }
+
+const dataInput = {
+  label: "Новый чат",
+  placeholder: "",
+  name: "chat-title",
+  type: "text",
+  errorText: "введите текст",
+  validators: {
+    minlength: "2",
+    maxlength: "40",
+    pattern: "",
+    required: "required",
+  },
+};
 export class DialogChat extends Block {
   service: ChatService;
   constructor(props: DialogChatProps) {
@@ -25,36 +39,21 @@ export class DialogChat extends Block {
         name: "login",
         label: "Логин",
         input: new Input({
-          dataInput: {
-            label: "Логин",
-            placeholder: "",
-            name: "title",
-            type: "text",
-            errorText: "введите текст",
-            validators: {
-              minlength: "2",
-              maxlength: "40",
-              pattern: "",
-              required: "required",
-            },
-          },
+          dataInput: dataInput,
           class: "profile__info-line",
         }),
       }),
     });
 
-    this.service = new ChatService();
+    this.service = service;
   }
 
   onSubmitChat(e: Event) {
-    e.preventDefault();
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
-    const formValues: { [key: string]: string } = {};
-    for (const [key, value] of formData.entries()) {
-      formValues[key] = value.toString();
-    }
-    this.service.createChat(formValues.title);
+    const chatTitle = formData.get("chat-title") as string;
+
+    this.service.createChat(chatTitle);
   }
 
   protected render(): string {

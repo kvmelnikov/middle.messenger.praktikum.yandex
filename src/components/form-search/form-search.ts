@@ -32,13 +32,12 @@ class FormSearch extends Block {
 
   onSubmitSearch(e: Event) {
     e.preventDefault();
+
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
     const textSearch = formData.get("search") as string;
 
-    if (textSearch) {
-      this.service.getChats(0, 10, textSearch);
-    }
+    this.service.getChats(0, 10, textSearch);
   }
 
   protected render(): string {

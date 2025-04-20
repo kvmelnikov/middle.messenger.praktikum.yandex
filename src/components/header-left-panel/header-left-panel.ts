@@ -1,13 +1,16 @@
 import { router } from "../../App";
-import Block from "../../framework/Block";
+import Block, { BlockProps } from "../../framework/Block";
 import { DialogChat } from "../dialog-chat/dialog-chat";
 import { Link } from "../link/Link";
 import { Modal } from "../modal/modal";
 import { SvgIcon } from "../svg-icon/svg-icon";
 import FormSearch from "../form-search/form-search";
-interface HeaderLeftPanelProps {}
+import connect from "../../framework/HOC";
 
-export class HeaderLeftPanel extends Block {
+interface HeaderLeftPanelProps {
+  loaded?: boolean;
+}
+class HeaderLeftPanel extends Block {
   constructor(props: HeaderLeftPanelProps) {
     super({
       ...props,
@@ -16,15 +19,22 @@ export class HeaderLeftPanel extends Block {
         height: "15px",
         width: "15px",
         alt: "управление профилем",
-        Modal: new Modal({
-          className: "modal",
-          dialog: new DialogChat({
-            heading: "Создание чата",
-          }),
-          onClick: (e) => {
-            e;
-          },
+        onClick: (e) => {
+          const modal = this.getChildren("Modal");
+
+          if (modal) {
+            modal.show();
+          }
+        },
+      }),
+      Modal: new Modal({
+        className: "modal",
+        dialog: new DialogChat({
+          heading: "Создание чата",
         }),
+        onClick: (e) => {
+          e;
+        },
       }),
       LinkProfile: new Link({
         class: "profile-link",
@@ -40,11 +50,30 @@ export class HeaderLeftPanel extends Block {
     });
   }
 
+  protected componentDidUpdate(
+    oldProps: BlockProps,
+    newProps: BlockProps
+  ): boolean {
+    if (newProps["loaded"]) {
+      const modal = this.getChildren("Modal");
+    }
+    return true;
+  }
+
   override render(): string {
     return `<header class="header-left-panel">
+                    {{{Modal}}}
                     {{{SvgIcon}}}
                     {{{ LinkProfile }}}
                     {{{ FormSearch }}}
             </header>`;
   }
 }
+
+const mapStateToProps = (state: BlockProps): HeaderLeftPanelProps => {
+  const loaded = state.loaded;
+
+  return { loaded };
+};
+
+export default connect(HeaderLeftPanel, mapStateToProps);

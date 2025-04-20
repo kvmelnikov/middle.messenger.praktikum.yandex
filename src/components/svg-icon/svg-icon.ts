@@ -4,8 +4,7 @@ interface SvgIconProps {
   alt: string;
   height: string;
   width: string;
-  Modal?: Block;
-  onClick?: (e: Event) => void;
+  onClick: (e: Event) => void;
 }
 export class SvgIcon extends Block {
   constructor(props: SvgIconProps) {
@@ -16,8 +15,7 @@ export class SvgIcon extends Block {
       height: props.height,
       events: {
         click: (e: Event) => {
-          const modal = this.getChildren("Modal");
-          modal.show();
+          props.onClick(e);
         },
       },
     });
@@ -25,7 +23,7 @@ export class SvgIcon extends Block {
 
   render() {
     return `<div> 
-    {{{Modal}}}
+    
     <img class="svg-icon" src="{{path}}" alt="{{alt}}"  width="{{width}}" height="{{height}}"> </div>`;
   }
 }

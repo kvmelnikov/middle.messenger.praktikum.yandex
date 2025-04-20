@@ -2,7 +2,7 @@ import Block, { BlockProps } from "../../framework/Block";
 import connect from "../../framework/HOC";
 import { IChat } from "../../shared/chat.interface";
 import { ChatParticipant } from "../chat-participant/chat-participant";
-import { HeaderLeftPanel } from "../header-left-panel/header-left-panel";
+import HeaderLeftPanel from "../header-left-panel/header-left-panel";
 
 interface LeftPanelProps extends BlockProps {
   chats?: ChatParticipant[];
@@ -14,12 +14,6 @@ class LeftPanel extends Block {
       ...props,
       HeaderLeftPanel: new HeaderLeftPanel({}),
     });
-  }
-  protected componentDidUpdate(
-    oldProps: BlockProps,
-    newProps: BlockProps
-  ): boolean {
-    return true;
   }
 
   protected render(): string {

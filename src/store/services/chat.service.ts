@@ -4,9 +4,16 @@ import { baseUrl } from "../../App";
 import { setChats } from "../actions/chat.actions";
 export class ChatService {
   http: HTTPTransport;
+  static _instance: ChatService;
 
   constructor() {
     this.http = new HTTPTransport();
+
+    if (ChatService._instance) {
+      return ChatService._instance;
+    }
+
+    ChatService._instance = this;
   }
 
   public async getChats(offset = 0, limit = 10, title = "") {
@@ -39,3 +46,5 @@ export class ChatService {
       });
   }
 }
+
+export default new ChatService();
