@@ -70,11 +70,16 @@ export class AuthService {
   }
 
   public async logout() {
-    try {
-      const response = this.http.post(`${baseUrl}auth/user`);
-      return response;
-    } catch (error) {
-      //setLogin("test");
-    }
+    this.http
+      .post(`${baseUrl}auth/logout`, {
+        credentials: true,
+      })
+      .then((res) => {
+        router.go("/login");
+        console.info(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 }
