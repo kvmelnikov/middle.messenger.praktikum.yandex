@@ -45,6 +45,8 @@ export default class Block {
 
   protected eventBus: () => EventBus;
 
+  public isShow: boolean;
+
   constructor(propsWithChildren: BlockProps = {}) {
     const eventBus = new EventBus();
     const { props, children, lists } =
@@ -291,6 +293,7 @@ export default class Block {
     const content = this.getContent();
     if (content) {
       content.style.display = "block";
+      this.isShow = true;
     }
   }
 
@@ -298,6 +301,7 @@ export default class Block {
     const content = this.getContent();
     if (content) {
       content.style.display = "none";
+      this.isShow = false;
     }
   }
 

@@ -1,6 +1,7 @@
 import Block from "../../framework/Block";
 import { ChatService } from "../../store/services/chat.service";
 import Avatar from "../avatar/avatar";
+import { DialogAddUser } from "../dialog-add-user/dialog-add-user";
 import { DropDown } from "../drop-down/drop-down";
 import { Modal } from "../modal/modal";
 import { SvgIcon } from "../svg-icon/svg-icon";
@@ -13,7 +14,6 @@ interface HeaderChatProps {
 export class HeaderChat extends Block {
   isUserActions: false;
   service: ChatService;
-  isOpenedDropDown: boolean;
 
   constructor(props: HeaderChatProps) {
     super({
@@ -32,9 +32,8 @@ export class HeaderChat extends Block {
         },
       }),
       DropDown: new DropDown({
-        dialog: new TooltipUser(),
+        dialog: new TooltipUser({}),
         className: "modal-tooltip-user",
-        onClick: (e) => {},
       }),
     });
     this.service = new ChatService();
@@ -43,16 +42,10 @@ export class HeaderChat extends Block {
   toogleDropDown() {
     const dropDown = this.getChildren("DropDown");
 
-    if (!dropDown) {
-      return;
-    }
-
-    if (dropDown && this.isOpenedDropDown) {
+    if (dropDown.isShow) {
       dropDown.hide();
-      this.isOpenedDropDown = false;
-    } else if (dropDown && !this.isOpenedDropDown) {
+    } else {
       dropDown.show();
-      this.isOpenedDropDown = true;
     }
   }
 
@@ -63,7 +56,7 @@ export class HeaderChat extends Block {
                     <p class="header-chat__name">{{name}}</p>
                 </div>
                     {{{ SvgIcon }}}
-                    {{{DropDown}}}
+                    {{{ DropDown }}}
             </header>`;
   }
 }

@@ -4,11 +4,19 @@ interface TooltipAttachElementProps {
   src: string;
   alt: string;
   text: string;
+  onClick: (e: Event) => void;
 }
 
 export class TooltipAttachElement extends Block {
   constructor(props: TooltipAttachElementProps) {
-    super({ ...props });
+    super({
+      ...props,
+      events: {
+        click: (e: Event) => {
+          props.onClick(e);
+        },
+      },
+    });
   }
 
   protected render(): string {

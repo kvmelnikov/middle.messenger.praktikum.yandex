@@ -32,9 +32,7 @@ class HeaderLeftPanel extends Block {
         dialog: new DialogChat({
           heading: "Создание чата",
         }),
-        onClick: (e) => {
-          e;
-        },
+        onClick: (e) => {},
       }),
       LinkProfile: new Link({
         class: "profile-link",

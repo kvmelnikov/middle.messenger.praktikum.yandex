@@ -12,7 +12,6 @@ export class Modal extends Block {
     super({
       ...props,
       Dialog: props.dialog,
-      className: props.className,
       events: {
         click: (e: Event) => {
           props.onClick(e);
@@ -20,7 +19,7 @@ export class Modal extends Block {
 
           const modal = e.target as HTMLDivElement;
           if (modal.classList.contains(props.className)) {
-            this.toogleModal();
+            this.hide();
           }
         },
       },
@@ -28,28 +27,9 @@ export class Modal extends Block {
     this.hide();
   }
 
-  public toogleModal() {
-    if (this.open) {
-      this.hide();
-    } else {
-      this.show();
+  public closeModal() {
+    if (this.isShow) {
     }
-  }
-
-  public show(): void {
-    const content = this.getContent();
-    if (content) {
-      content.style.display = "block";
-    }
-    this.open = true;
-  }
-
-  public hide(): void {
-    const content = this.getContent();
-    if (content) {
-      content.style.display = "none";
-    }
-    this.open = false;
   }
 
   override render(): string {
