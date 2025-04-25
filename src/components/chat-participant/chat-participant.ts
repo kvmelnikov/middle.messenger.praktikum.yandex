@@ -1,4 +1,5 @@
 import Block from "../../framework/Block";
+import { setCurrentChatId } from "../../store/actions/chat.actions";
 import { CounterMessage } from "../counter-message/counter-message";
 import { Time } from "../time/time";
 interface ChatParticipantProps {
@@ -21,7 +22,9 @@ export class ChatParticipant extends Block {
         counter: props.unread_count,
       }),
       events: {
-        click: (e: Event) => {},
+        click: (e: Event) => {
+          setCurrentChatId(props.id);
+        },
       },
     });
   }

@@ -1,8 +1,6 @@
 import { baseUrl } from "../../App";
-// import { setLogin } from "../actions/auth.actions";
 import { HTTPTransport } from "./HTTPTransport";
 import { router } from "../../App";
-//import store from "../Store";
 import { setProfile } from "../actions/auth.actions";
 import { IProfile } from "../../shared/profile.interface";
 import { updateAvatar } from "../actions/user.actions";

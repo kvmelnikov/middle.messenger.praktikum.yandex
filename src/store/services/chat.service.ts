@@ -2,6 +2,7 @@ import { IChat } from "../../shared/chat.interface";
 import { HTTPTransport } from "./HTTPTransport";
 import { baseUrl } from "../../App";
 import { setChats } from "../actions/chat.actions";
+import { IChatUser } from "../../shared/chat-user.interface";
 export class ChatService {
   http: HTTPTransport;
   static _instance: ChatService;
@@ -28,6 +29,19 @@ export class ChatService {
       .catch((err) => {
         console.error(err);
       });
+  }
+
+  public async addUserToChat(data: IChatUser) {
+    return this.http
+      .put(`${baseUrl}/chats`, {
+        data: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+        credentials: true,
+      })
+      .then((res) => {
+        console.info(res);
+      })
+      .catch((err) => console.error(err));
   }
 
   public async createChat(title: string) {

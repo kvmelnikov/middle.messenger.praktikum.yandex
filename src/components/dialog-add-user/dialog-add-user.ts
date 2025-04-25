@@ -1,10 +1,14 @@
-import Block from "../../framework/Block";
+import Block, { BlockProps } from "../../framework/Block";
 import Input from "../input/input";
-import service, { ChatService } from "../../store/services/chat.service";
+import chatService, { ChatService } from "../../store/services/chat.service";
 import { Fieldset } from "../input/fieldset";
+import connect from "../../framework/HOC";
+import { IChatUser } from "../../shared/chat-user.interface";
+import userService, { UserService } from "../../store/services/user.service";
 
 interface DialogAddUserProps {
   heading: string;
+  chatId?: number;
 }
 
 const dataInput = {
@@ -22,7 +26,8 @@ const dataInput = {
 };
 
 export class DialogAddUser extends Block {
-  service: ChatService;
+  chatService: ChatService;
+  userService: UserService;
   constructor(props: DialogAddUserProps) {
     super({
       ...props,
@@ -32,7 +37,7 @@ export class DialogAddUser extends Block {
         },
         submit: (e: Event) => {
           e.preventDefault();
-          this.onSubmitChat(e);
+          this.onSubmitUser(e);
         },
       },
       Fieldset: new Fieldset({
@@ -46,25 +51,44 @@ export class DialogAddUser extends Block {
       }),
     });
 
-    this.service = service;
+    this.userService = userService;
+    this.chatService = chatService;
   }
 
-  onSubmitChat(e: Event) {
+  onSubmitUser(e: Event) {
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
     const chatTitle = formData.get("chat-title") as string;
 
-    this.service.createChat(chatTitle);
+    const data: IChatUser = {
+      users: [],
+      chatId: this.props.chatId,
+    };
+
+    this.userService.searchUser(chatTitle);
   }
 
   protected render(): string {
     return `
+            <div>
             <form class="dialog-window">
                 <h5 class="dialog-window__heading">{{heading}}</h5>
                 {{{Fieldset}}}
                 <button type="submit">Создать чат</button>
             </form>
+            
+
             </div>
+
+            
      `;
   }
 }
+
+const mapStateToProps = (state: BlockProps) => {
+  const chatId = state.currentChatId as number;
+
+  return { chatId: chatId };
+};
+
+export default connect(DialogAddUser, mapStateToProps);

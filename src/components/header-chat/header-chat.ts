@@ -47,6 +47,7 @@ export class HeaderChat extends Block {
     });
     this.chatService = new ChatService();
     this.authService = new AuthService();
+    this.authService.getUser();
   }
 
   toogleDropDown() {
