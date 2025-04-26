@@ -5,10 +5,12 @@ import { Fieldset } from "../input/fieldset";
 import connect from "../../framework/HOC";
 import { IChatUser } from "../../shared/chat-user.interface";
 import userService, { UserService } from "../../store/services/user.service";
+import { IUser } from "../../shared/user.interface";
+import User, { UserParticipant } from "../user/user";
 
 interface DialogAddUserProps {
-  heading: string;
   chatId?: number;
+  users?: Block[];
 }
 
 const dataInput = {
@@ -24,8 +26,7 @@ const dataInput = {
     required: "required",
   },
 };
-
-export class DialogAddUser extends Block {
+class DialogAddUser extends Block {
   chatService: ChatService;
   userService: UserService;
   constructor(props: DialogAddUserProps) {
@@ -71,24 +72,32 @@ export class DialogAddUser extends Block {
   protected render(): string {
     return `
             <div>
-            <form class="dialog-window">
-                <h5 class="dialog-window__heading">{{heading}}</h5>
-                {{{Fieldset}}}
-                <button type="submit">Создать чат</button>
-            </form>
-            
-
-            </div>
-
-            
+              <form class="dialog-window">
+                  <h5 class="dialog-window__heading">{{heading}}</h5>
+                  {{{Fieldset}}}
+                  <button type="submit">Поиск пользователя</button>
+                    <ul>
+                      {{{ users }}}
+                    </ul>
+              </form>
+            </div>       
      `;
   }
 }
 
-const mapStateToProps = (state: BlockProps) => {
+const mapStateToProps = (state: BlockProps): DialogAddUserProps => {
   const chatId = state.currentChatId as number;
+  const usersData = state.users as IUser[];
 
-  return { chatId: chatId };
+  const users = usersData?.map(
+    (user) =>
+      new User({
+        id: user.id,
+        name: user.login,
+      })
+  );
+
+  return { chatId, users };
 };
 
 export default connect(DialogAddUser, mapStateToProps);

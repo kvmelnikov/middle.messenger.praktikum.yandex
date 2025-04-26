@@ -1,5 +1,5 @@
 import Block, { BlockProps } from "../../framework/Block";
-import { DialogAddUser } from "../dialog-add-user/dialog-add-user";
+import DialogAddUser from "../dialog-add-user/dialog-add-user";
 import { Modal } from "../modal/modal";
 import { TooltipAttachElement } from "../tooltip-atach-element/tooltip-attach-element";
 
@@ -25,16 +25,13 @@ export class TooltipUser extends Block {
         },
       }),
       ModalAddUser: new Modal({
-        dialog: new DialogAddUser({
-          heading: "Добавить пользователя в чат",
-        }),
+        dialog: new DialogAddUser({}),
         className: "modal",
         onClick: () => {},
       }),
+
       ModalDeleteUser: new Modal({
-        dialog: new DialogAddUser({
-          heading: "Удалить пользователя из чата",
-        }),
+        dialog: new DialogAddUser({}),
         className: "modal",
         onClick: () => {},
       }),

@@ -33,7 +33,7 @@ export class ChatService {
 
   public async addUserToChat(data: IChatUser) {
     return this.http
-      .put(`${baseUrl}/chats`, {
+      .put(`${baseUrl}chats/users`, {
         data: JSON.stringify(data),
         headers: { "Content-Type": "application/json" },
         credentials: true,
@@ -59,6 +59,19 @@ export class ChatService {
       .catch((err) => {
         console.error(err);
         this.getChats();
+      });
+  }
+
+  public async GetChatUserToken(id: number) {
+    return this.http
+      .post(`${baseUrl}chats/token/${id}`, {
+        credentials: true,
+      })
+      .then((res) => {
+        console.info(res);
+      })
+      .catch((err) => {
+        console.error(err);
       });
   }
 }

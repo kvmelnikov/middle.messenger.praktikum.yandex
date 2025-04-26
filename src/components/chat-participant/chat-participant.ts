@@ -1,5 +1,6 @@
 import Block from "../../framework/Block";
 import { setCurrentChatId } from "../../store/actions/chat.actions";
+import chatService, { ChatService } from "../../store/services/chat.service";
 import { CounterMessage } from "../counter-message/counter-message";
 import { Time } from "../time/time";
 interface ChatParticipantProps {
@@ -10,6 +11,7 @@ interface ChatParticipantProps {
   title: string;
 }
 export class ChatParticipant extends Block {
+  chatService: ChatService;
   constructor(props: ChatParticipantProps) {
     super({
       ...props,
@@ -24,9 +26,11 @@ export class ChatParticipant extends Block {
       events: {
         click: (e: Event) => {
           setCurrentChatId(props.id);
+          this.chatService.GetChatUserToken(props.id);
         },
       },
     });
+    this.chatService = chatService;
   }
 
   override render(): string {
