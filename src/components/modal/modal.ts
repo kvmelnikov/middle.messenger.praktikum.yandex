@@ -14,7 +14,6 @@ export class Modal extends Block {
       Dialog: props.dialog,
       events: {
         click: (e: Event) => {
-          props.onClick(e);
           e.stopPropagation();
 
           const modal = e.target as HTMLDivElement;

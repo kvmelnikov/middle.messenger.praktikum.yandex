@@ -38,14 +38,12 @@ class Signin extends Block {
         text: "Нет аккаунта?",
         href: "/signup",
       }),
-
       LinkMainPage: new Link({
         class: "link-login",
         dataAction: "default",
         dataPage: "mainPage",
         text: "Перейти на главную страницу",
       }),
-
       ButtonEnter: new Button({
         text: "Войти",
         class: "button__apperance",
@@ -55,11 +53,6 @@ class Signin extends Block {
       }),
     });
     this.service = new AuthService();
-  }
-
-  onBlur(e: Event) {
-    e.preventDefault();
-    super.onBlur(e);
   }
 
   onSubmit(e: Event) {

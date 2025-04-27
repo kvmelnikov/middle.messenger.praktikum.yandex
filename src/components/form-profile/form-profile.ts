@@ -1,18 +1,19 @@
 import Block, { BlockProps } from "../../framework/Block";
 import connect from "../../framework/HOC";
-import { inputsProfile } from "../../shared/data-types-form";
+import { inputsPassword, inputsProfile } from "../../shared/data-types-form";
 import { IUser } from "../../shared/user.interface";
 import { UserService } from "../../store/services/user.service";
 import Avatar from "../avatar/avatar";
 import { Button } from "../button/button";
 import { DialogAvatar } from "../dialog-avatar/dialog-avatar";
 import { Fieldset } from "../input/fieldset";
-import Input from "../input/input";
 import { Modal } from "../modal/modal";
+import { prepareInputsToForm } from "./form-profile.utils";
 
 interface FormProfileProps extends BlockProps {
   valueLogin?: string;
   inputs?: Fieldset[];
+  currentUser?: IUser;
 }
 
 class FormProfile extends Block {
@@ -24,18 +25,18 @@ class FormProfile extends Block {
 
   constructor(props: FormProfileProps) {
     super({
-      events: {
-        submit: (e: Event) => this.onSubmit(e),
-      },
+      ...props,
       Avatar: new Avatar({
-        Modal: new Modal({
-          className: "modal",
-          dialog: new DialogAvatar({
-            heading: "Выберите аватар",
-          }),
-          onClick: (e) => {},
+        className: "avatar avatar_big",
+        onClick: () => {
+          this.openModalAvatar();
+        },
+      }),
+      Modal: new Modal({
+        className: "modal",
+        dialog: new DialogAvatar({
+          heading: "Выберите аватар",
         }),
-        className: "avatar_big profile__avatar",
         onClick: () => {},
       }),
       ButtonSaveProfile: new Button({
@@ -46,7 +47,6 @@ class FormProfile extends Block {
           this.service.updateUserProfile(this.onSubmit(e));
         },
       }),
-
       ButtonSavePass: new Button({
         text: "Сохранить",
         class: "button__apperance",
@@ -55,7 +55,6 @@ class FormProfile extends Block {
           this.service.updateUserPassword(this.onSubmit(e));
         },
       }),
-
       ButtonChangeProfile: new Button({
         text: "Изменить данные",
         class: "button__apperance",
@@ -70,26 +69,25 @@ class FormProfile extends Block {
           this.onChangePassword();
         },
       }),
+      events: {
+        submit: (e: Event) => this.onSubmit(e),
+      },
     });
     this.service = new UserService();
-  }
-
-  openModal() {
-    this.setProps({
-      isChangeAvatar: true,
-    });
-  }
-
-  closeModal() {
-    this.setProps({
-      isChangeAvatar: false,
-    });
   }
 
   onChangeEditable() {
     this.setProps({
       changeForm: true,
       isEditableProfile: true,
+    });
+
+    this.setLists({
+      fieldsets: prepareInputsToForm(
+        this.props.currentUser,
+        inputsProfile,
+        false
+      ),
     });
   }
 
@@ -98,6 +96,19 @@ class FormProfile extends Block {
       changeForm: true,
       isEditablePassword: true,
     });
+    this.setLists({
+      fieldsets: prepareInputsToForm(
+        this.props.currentUser,
+        inputsPassword,
+        false
+      ),
+    });
+  }
+
+  openModalAvatar() {
+    const modal = this.getChildren("Modal");
+
+    modal && !this.isShow ? modal.show() : modal.hide();
   }
 
   protected render(): string {
@@ -108,9 +119,11 @@ class FormProfile extends Block {
                                 <div class="profile__actions">
                                     {{#if changeForm }}
                                         {{#if isEditableProfile}}      
-                                            {{{ ButtonSaveProfile  }}}             
+                                            {{{ ButtonSaveProfile  }}}    
+                                               {{{ ButtonExit }}}         
                                          {{ else }}
                                          {{{ ButtonSavePass }}}
+                                           {{{ ButtonExit }}}
                                           {{/if}}
                                     {{else}}
                                         {{{ ButtonChangeProfile }}}
@@ -118,6 +131,7 @@ class FormProfile extends Block {
                                         {{{ ButtonExit }}}
                                     {{/if}}  
                                 </div>
+                                {{{ Modal }}}
                             </form>`;
   }
 }
@@ -126,28 +140,9 @@ const mapStateToProps = (state: BlockProps): FormProfileProps => {
   const avatar = state.profile_avatar as File;
   const currentUser = state.user as IUser;
 
-  const fieldsets = inputsProfile.map((form) => {
-    return new Fieldset({
-      class: "profile__info-line",
-      name: form.name,
-      label: form.label,
-      input: new Input({
-        class: "input-profile",
-        placeholder: form.placeholder,
-        minlength: form.validators?.minlength,
-        maxlength: form.validators?.maxlength,
-        pattern: form.validators?.pattern,
-        required: form.validators?.required,
-        name: form.name,
-        type: form.type,
-        value: currentUser?.hasOwnProperty(form.name)
-          ? (currentUser[form.name as keyof IUser] as string)
-          : "",
-      }),
-    });
-  });
+  const fieldsets = prepareInputsToForm(currentUser, inputsProfile, true);
 
-  return { avatar, fieldsets };
+  return { avatar, fieldsets, currentUser };
 };
 
 export default connect(FormProfile, mapStateToProps);

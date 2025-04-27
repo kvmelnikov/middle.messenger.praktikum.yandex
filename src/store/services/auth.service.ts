@@ -2,8 +2,8 @@ import { baseUrl } from "../../App";
 import { HTTPTransport } from "./HTTPTransport";
 import { router } from "../../App";
 import { setProfile } from "../actions/auth.actions";
-import { IProfile } from "../../shared/profile.interface";
 import { updateAvatar } from "../actions/user.actions";
+import { IUser } from "../../shared/user.interface";
 
 export type SignupData = {
   email: string;
@@ -56,7 +56,7 @@ export class AuthService {
       .get(`${baseUrl}auth/user`, {
         credentials: true,
       })
-      .then((res: IProfile) => {
+      .then((res: IUser) => {
         setProfile(res);
         updateAvatar(
           `https://ya-praktikum.tech/api/v2/resources/${res.avatar}`

@@ -203,6 +203,10 @@ export default class Block {
     return this.children[child];
   };
 
+  public getLists = (list: string): Block[] => {
+    return this.lists[list];
+  };
+
   get element(): HTMLElement | null {
     return this._element;
   }
