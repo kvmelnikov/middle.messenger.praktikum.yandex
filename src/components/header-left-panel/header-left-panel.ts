@@ -17,7 +17,7 @@ class HeaderLeftPanel extends Block {
   constructor(props: HeaderLeftPanelProps) {
     super({
       ...props,
-      SvgIcon: new SvgIcon({
+      CreateChat: new SvgIcon({
         path: "../../../public/images/add_user.png",
         height: "15px",
         width: "15px",
@@ -30,7 +30,7 @@ class HeaderLeftPanel extends Block {
           }
         },
       }),
-      Button: new Button({
+      ButtonLogout: new Button({
         text: "выйти",
         type: "button",
         class: "button button-logout",
@@ -75,12 +75,16 @@ class HeaderLeftPanel extends Block {
   }
 
   override render(): string {
-    return `<header class="header-left-panel">
-                    {{{Modal}}}
-                    {{{SvgIcon}}}
-                    {{{ LinkProfile }}}
-                    {{{ Button }}}
-                    {{{ FormSearch }}}
+    return `<header class="header-left-panel">         
+                    <div class="header-left-panel__user">
+                      {{{ ButtonLogout }}}
+                      {{{ LinkProfile }}}
+                    </div>
+                    <div class="header-left-panel__chat">
+                      {{{ CreateChat }}}
+                      {{{ FormSearch }}}
+                    </div>
+              {{{ Modal }}}
             </header>`;
   }
 }
