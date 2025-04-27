@@ -21,9 +21,9 @@ class Avatar extends Block {
 
   override render(): string {
     return `
-    <div>
+    <div class="{{className}}" >
       {{{ Modal }}}
-    <img class="{{className}}" src="{{src}}"  alt="Аватар">
+      <img src="{{src}}"  alt="Аватар">
     </div>
     `;
   }

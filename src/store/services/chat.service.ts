@@ -3,6 +3,8 @@ import { HTTPTransport } from "./HTTPTransport";
 import { baseUrl } from "../../App";
 import { setChats } from "../actions/chat.actions";
 import { IChatUser } from "../../shared/chat-user.interface";
+import { IUser } from "../../shared/user.interface";
+import { saveUsers } from "../actions/user.actions";
 export class ChatService {
   http: HTTPTransport;
   static _instance: ChatService;
@@ -65,6 +67,34 @@ export class ChatService {
   public async GetChatUserToken(id: number) {
     return this.http
       .post(`${baseUrl}chats/token/${id}`, {
+        credentials: true,
+      })
+      .then((res) => {
+        console.info(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  public async GetChatUsers(id: number) {
+    return this.http
+      .get(`${baseUrl}chats/${id}/users/`, {
+        credentials: true,
+      })
+      .then((res: IUser[]) => {
+        saveUsers(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  public async deleteUsersFromChat(data: IChatUser) {
+    return this.http
+      .delete(`${baseUrl}chats/users/`, {
+        data: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
         credentials: true,
       })
       .then((res) => {

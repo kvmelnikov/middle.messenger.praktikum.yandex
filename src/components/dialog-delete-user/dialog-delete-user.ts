@@ -8,7 +8,7 @@ import userService, { UserService } from "../../store/services/user.service";
 import { IUser } from "../../shared/user.interface";
 import User, { UserParticipant } from "../user/user";
 
-interface DialogAddUserProps {
+interface DialogDeleteUserProps {
   chatId?: number;
   users?: Block[];
 }
@@ -26,30 +26,17 @@ const dataInput = {
     required: "required",
   },
 };
-class DialogAddUser extends Block {
+class DialogDeleteUser extends Block {
   chatService: ChatService;
   userService: UserService;
-  constructor(props: DialogAddUserProps) {
+  constructor(props: DialogDeleteUserProps) {
     super({
       ...props,
       events: {
         onClick: () => {
           console.log("click");
         },
-        submit: (e: Event) => {
-          e.preventDefault();
-          this.onSubmitUser(e);
-        },
       },
-      Fieldset: new Fieldset({
-        class: "profile__info-line",
-        name: "login",
-        label: "Логин",
-        input: new Input({
-          dataInput: dataInput,
-          class: "profile__info-line",
-        }),
-      }),
     });
 
     this.userService = userService;
@@ -71,21 +58,16 @@ class DialogAddUser extends Block {
 
   protected render(): string {
     return `
-            <div class="dialog-window">
-              <form >
-                  <h5 class="dialog-window__heading">{{heading}}</h5>
-                  {{{Fieldset}}}
-                  <button type="submit">Поиск пользователя</button>
-                    <ul>
-                      {{{ users }}}
-                    </ul>
-              </form>
-            </div>       
-     `;
+       <div class="dialog-window">
+            <ul>
+                {{{ users }}}
+            </ul>
+        </div>    
+            `;
   }
 }
 
-const mapStateToProps = (state: BlockProps): DialogAddUserProps => {
+const mapStateToProps = (state: BlockProps): DialogDeleteUserProps => {
   const chatId = state.currentChatId as number;
   const usersData = state.users as IUser[];
 
@@ -94,11 +76,11 @@ const mapStateToProps = (state: BlockProps): DialogAddUserProps => {
       new User({
         id: user.id,
         name: user.login,
-        isAdd: true,
+        isAdd: false,
       })
   );
 
   return { chatId, users };
 };
 
-export default connect(DialogAddUser, mapStateToProps);
+export default connect(DialogDeleteUser, mapStateToProps);

@@ -2,9 +2,15 @@ import Block, { BlockProps } from "../../framework/Block";
 import DialogAddUser from "../dialog-add-user/dialog-add-user";
 import { Modal } from "../modal/modal";
 import { TooltipAttachElement } from "../tooltip-atach-element/tooltip-attach-element";
+import DialogDeleteUser from "../dialog-delete-user/dialog-delete-user";
+import chatService, { ChatService } from "../../store/services/chat.service";
+import connect from "../../framework/HOC";
+interface TooltipUserProps extends BlockProps {
+  chatId?: number;
+}
 
-interface TooltipUserProps extends BlockProps {}
-export class TooltipUser extends Block {
+class TooltipUser extends Block {
+  chatService: ChatService;
   constructor(props: TooltipUserProps) {
     super({
       ...props,
@@ -31,30 +37,26 @@ export class TooltipUser extends Block {
       }),
 
       ModalDeleteUser: new Modal({
-        dialog: new DialogAddUser({}),
+        dialog: new DialogDeleteUser({}),
         className: "modal",
         onClick: () => {},
       }),
     });
+
+    this.chatService = chatService;
   }
 
   openModalAddUser() {
     const modal = this.getChildren("ModalAddUser");
 
-    if (modal && !this.isShow) {
-      modal.show();
-    } else {
-      modal.hide();
-    }
+    modal && !this.isShow ? modal.show() : modal.hide();
   }
   openModalDeleteUser() {
     const modal = this.getChildren("ModalDeleteUser");
 
-    if (modal && !this.isShow) {
-      modal.show();
-    } else {
-      modal.hide();
-    }
+    this.chatService.GetChatUsers(this.props.chatId);
+
+    modal && !this.isShow ? modal.show() : modal.hide();
   }
 
   protected render(): string {
@@ -66,3 +68,11 @@ export class TooltipUser extends Block {
                 </div>`;
   }
 }
+
+const mapStateToProps = (state: BlockProps): TooltipUserProps => {
+  const chatId = state.currentChatId as number;
+
+  return { chatId };
+};
+
+export default connect(TooltipUser, mapStateToProps);

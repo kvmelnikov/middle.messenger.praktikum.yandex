@@ -8,6 +8,7 @@ interface UserParticipantProps {
   id?: number;
   chatId?: number;
   name?: string;
+  isAdd?: boolean;
 }
 
 export class UserParticipant extends Block {
@@ -22,7 +23,10 @@ export class UserParticipant extends Block {
             users: [props.id || 0],
             chatId: props.chatId || 0,
           };
-          this.chatService.addUserToChat(data);
+
+          props.isAdd
+            ? this.chatService.addUserToChat(data)
+            : this.chatService.deleteUsersFromChat(data);
         },
       },
     });

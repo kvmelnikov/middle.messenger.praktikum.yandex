@@ -6,11 +6,14 @@ import { Modal } from "../modal/modal";
 import { SvgIcon } from "../svg-icon/svg-icon";
 import FormSearch from "../form-search/form-search";
 import connect from "../../framework/HOC";
+import { Button } from "../button/button";
+import { AuthService } from "../../store/services/auth.service";
 
 interface HeaderLeftPanelProps {
   loaded?: boolean;
 }
 class HeaderLeftPanel extends Block {
+  authService: AuthService;
   constructor(props: HeaderLeftPanelProps) {
     super({
       ...props,
@@ -25,6 +28,14 @@ class HeaderLeftPanel extends Block {
           if (modal) {
             modal.show();
           }
+        },
+      }),
+      Button: new Button({
+        text: "выйти",
+        type: "button",
+        class: "button button-logout",
+        onClick: (e) => {
+          this.authService.logout();
         },
       }),
       Modal: new Modal({
@@ -46,6 +57,7 @@ class HeaderLeftPanel extends Block {
       }),
       FormSearch: new FormSearch(),
     });
+    this.authService = new AuthService();
   }
 
   protected componentDidUpdate(
@@ -67,6 +79,7 @@ class HeaderLeftPanel extends Block {
                     {{{Modal}}}
                     {{{SvgIcon}}}
                     {{{ LinkProfile }}}
+                    {{{ Button }}}
                     {{{ FormSearch }}}
             </header>`;
   }

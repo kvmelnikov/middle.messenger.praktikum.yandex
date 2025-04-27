@@ -2,10 +2,9 @@ import Block from "../../framework/Block";
 import { AuthService } from "../../store/services/auth.service";
 import { ChatService } from "../../store/services/chat.service";
 import Avatar from "../avatar/avatar";
-import { Button } from "../button/button";
 import { DropDown } from "../drop-down/drop-down";
 import { SvgIcon } from "../svg-icon/svg-icon";
-import { TooltipUser } from "../tooltip-user/tooltip-user";
+import TooltipUser from "../tooltip-user/tooltip-user";
 interface HeaderChatProps {
   avatarClass: string;
   avatarSrc: string;
@@ -20,17 +19,10 @@ export class HeaderChat extends Block {
     super({
       ...props,
       Avatar: new Avatar({
-        className: props.avatarClass,
+        className: "avatar",
         src: props.avatarSrc,
       }),
-      Button: new Button({
-        text: "выйти",
-        type: "button",
-        class: "button button-icon-right",
-        onClick: (e) => {
-          this.authService.logout();
-        },
-      }),
+
       SvgIcon: new SvgIcon({
         path: "../../../public/svg/more-svg.svg",
         height: "15px",
@@ -45,6 +37,7 @@ export class HeaderChat extends Block {
         className: "modal-tooltip-user",
       }),
     });
+
     this.chatService = new ChatService();
     this.authService = new AuthService();
     this.authService.getUser();
@@ -62,13 +55,14 @@ export class HeaderChat extends Block {
 
   override render(): string {
     return `<header class="header-chat">
+              <section class="header-chat__user">
                 {{{Avatar}}}
-                {{{Button}}}
                 <div class="header-chat__name-block">
-                    <p class="header-chat__name">{{name}}</p>
+                <p class="header-chat__name">{{name}}</p>
                 </div>
-                    {{{ SvgIcon }}}
-                    {{{ DropDown }}}
+              </section>
+                {{{ SvgIcon }}}
+                {{{ DropDown }}}
             </header>`;
   }
 }

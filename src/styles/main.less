@@ -130,6 +130,10 @@
   background-image: url("../../public/images/button-right.png");
 }
 
+.button-logout {
+  background-image: url("../../public/images/logout.png");
+}
+
 .button-icon-left {
   background-image: url("../../public/images/button-left.png");
 }
@@ -238,10 +242,10 @@
 }
 
 .header-chat {
-  align-items: center;
   position: relative;
   border-bottom: var(--border-panel);
   display: flex;
+  align-items: center;
   gap: 10px;
   grid-area: hd;
   justify-content: space-between;
@@ -249,7 +253,8 @@
   padding: 10px 0;
 
   &__user {
-    display: block;
+    display: flex;
+    gap: 10px;
   }
 
   &__name-block {
@@ -526,6 +531,7 @@
 .tooltip-attach-element {
   display: flex;
   gap: 15px;
+  cursor: pointer;
 
   &__image {
     height: 22px;
@@ -538,26 +544,25 @@
 }
 
 .modal {
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  position: fixed;
+  z-index: 8000;
+  padding-top: 100px;
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-tooltip-user {
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  position: fixed;
+  z-index: 5000;
   right: 0;
   top: 63px;
-  overflow: auto; /* Enable scroll if needed */
+  overflow: auto;
   width: 100%;
-  height: 100%;
   display: flex;
   justify-content: end;
 }
@@ -565,14 +570,14 @@
 .tooltip-attach {
   border: var(--border-panel);
   border-radius: 12px;
-  display: flex;
-  align-items: start;
+  align-items: end;
   flex-direction: column;
   gap: 16px;
   padding: 15px;
   width: 162px;
   height: 162px;
   background-color: #fefefe;
+  margin-left: auto;
 }
 
 .dialog-window {
