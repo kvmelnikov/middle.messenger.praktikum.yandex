@@ -38,44 +38,6 @@ class FormProfile extends Block {
         className: "avatar_big profile__avatar",
         onClick: () => {},
       }),
-      InputLogin: new Fieldset({
-        class: "profile__info-line",
-        name: "login",
-        label: "Логин",
-
-        input: new Input({
-          dataInput: {
-            label: "Логин",
-            placeholder: "",
-            name: "login",
-            type: "text",
-            errorText: "введите текст",
-            validators: {
-              minlength: "2",
-              maxlength: "40",
-              pattern: "",
-              required: "required",
-            },
-          },
-          class: "profile__info-line",
-          onBlur: (e: Event) => this.onBlur(e),
-        }),
-      }),
-      // Inputs: inputsData.map(
-      //   (dataForm) =>
-      //     new Fieldset({
-      //       class: "profile__info-line",
-      //       name: dataForm.name,
-      //       label: dataForm.label,
-      //       input: new Input({
-      //         disabled: true,
-      //         class: "input-profile",
-      //         dataInput: dataForm,
-      //         onBlur: (e: Event) => this.onBlur(e),
-      //       }),
-      //     })
-      // ),
-
       ButtonSaveProfile: new Button({
         text: "Сохранить",
         class: "button__apperance",
@@ -129,23 +91,6 @@ class FormProfile extends Block {
       changeForm: true,
       isEditableProfile: true,
     });
-
-    // this.setLists({
-    //   Inputs: inputsData.map(
-    //     (dataForm) =>
-    //       new Fieldset({
-    //         class: "profile__info-line",
-    //         name: dataForm.name,
-    //         label: dataForm.label,
-    //         input: new Input({
-    //           disabled: false,
-    //           class: "input-profile",
-    //           dataInput: dataForm,
-    //           onBlur: (e: Event) => this.onBlur(e),
-    //         }),
-    //       })
-    //   ),
-    // });
   }
 
   onChangePassword() {
@@ -153,22 +98,6 @@ class FormProfile extends Block {
       changeForm: true,
       isEditablePassword: true,
     });
-
-    // this.setLists({
-    //   Inputs: inputsPassword.map(
-    //     (dataForm) =>
-    //       new Fieldset({
-    //         class: "profile__info-line",
-    //         name: dataForm.name,
-    //         label: dataForm.label,
-    //         input: new Input({
-    //           class: "input-profile",
-    //           dataInput: dataForm,
-    //           onBlur: (e: Event) => this.onBlur(e),
-    //         }),
-    //       })
-    //   ),
-    // });
   }
 
   protected render(): string {
@@ -194,7 +123,7 @@ class FormProfile extends Block {
 }
 
 const mapStateToProps = (state: BlockProps): FormProfileProps => {
-  const file = state.profile_avatar as File;
+  const avatar = state.profile_avatar as File;
   const currentUser = state.user as IUser;
 
   const fieldsets = inputsProfile.map((form) => {
@@ -218,12 +147,7 @@ const mapStateToProps = (state: BlockProps): FormProfileProps => {
     });
   });
 
-  const props = {
-    avatar: file,
-    fieldsets,
-  } as FormProfileProps;
-
-  return props;
+  return { avatar, fieldsets };
 };
 
 export default connect(FormProfile, mapStateToProps);

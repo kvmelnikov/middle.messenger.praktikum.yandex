@@ -7,10 +7,8 @@ interface InputProps extends BlockProps {
   placeholder?: string;
   minlength?: string;
   maxlength?: string;
-  pattern?: string;
   name: string;
   required?: string;
-
   type: string;
   onKeyup?: (e: Event) => void;
   onBlur?: (e: Event) => void;
@@ -39,7 +37,7 @@ class Input extends Block {
     if (this.props.disabled) {
       return `<input disabled="{{disabled}}" class="input {{class}}" name="{{name}}" title="{{title}}" pattern="{{pattern}}" maxlength="{{maxlength}}" minlength="{{minlength}}" {{required}} placeholder="{{placeholder}}" {{disabled}} type="{{type}}" value="{{value}}" >`;
     } else {
-      return `<input class="input {{class}}" name="{{name}}" pattern="{{pattern}}" maxlength="{{maxlength}}" minlength="{{minlength}}" {{required}} placeholder="{{placeholder}}" {{disabled}} type="{{type}}" value="{{value}}" >`;
+      return `<input class="input {{class}}" name="{{name}}" maxlength="{{maxlength}}" minlength="{{minlength}}" {{required}} placeholder="{{placeholder}}" {{disabled}} type="{{type}}" value="{{value}}" >`;
     }
   }
 }

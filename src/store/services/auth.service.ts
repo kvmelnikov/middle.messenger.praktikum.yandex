@@ -72,9 +72,8 @@ export class AuthService {
       .post(`${baseUrl}auth/logout`, {
         credentials: true,
       })
-      .then((res) => {
-        router.go("/login");
-        console.info(res);
+      .then(() => {
+        router.go("/signin");
       })
       .catch((err) => {
         console.error(err);

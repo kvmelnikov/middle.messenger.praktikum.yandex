@@ -4,40 +4,8 @@ import Input from "../../components/input/input";
 import { Link } from "../../components/link/Link";
 import Block from "../../framework/Block";
 import { AuthService } from "../../store/services/auth.service";
+import { signinInputs } from "../../shared/data-types-form";
 
-import { IInput } from "../../shared/input.interface";
-import connect from "../../framework/HOC";
-
-const dataInputs: IInput[] = [
-  {
-    label: "Логин",
-    placeholder: "Введите логин",
-    name: "login",
-    type: "text",
-    value: "",
-    errorText: "Введите логин",
-    validators: {
-      minlength: "2",
-      maxlength: "40",
-      pattern: "",
-      required: "required",
-    },
-  },
-  {
-    label: "Пароль",
-    placeholder: "Введите пароль",
-    name: "password",
-    type: "password",
-    value: "",
-    errorText: "введите текст",
-    validators: {
-      minlength: "3",
-      maxlength: "20",
-      pattern: "",
-      required: "required",
-    },
-  },
-];
 class Signin extends Block {
   service: AuthService;
   constructor() {
@@ -45,15 +13,20 @@ class Signin extends Block {
       events: {
         submit: (e: Event) => this.onSubmit(e),
       },
-      Inputs: dataInputs.map(
-        (dataInput) =>
+      Inputs: signinInputs.map(
+        (form) =>
           new Fieldset({
             class: "form-login__info-line",
-            name: dataInput.name,
-            label: dataInput.label,
+            name: form.name,
+            label: form.label,
             input: new Input({
               class: "input-profile",
-              dataInput: dataInput,
+              placeholder: form.placeholder,
+              minlength: form.validators?.minlength,
+              maxlength: form.validators?.maxlength,
+              required: "required",
+              name: form.name,
+              type: form.type,
               onBlur: (e: Event) => this.onBlur(e),
             }),
           })
@@ -92,43 +65,27 @@ class Signin extends Block {
   onSubmit(e: Event) {
     e.preventDefault();
     super.onSubmit(e);
-    const dataForm: Record<string, string> = {};
-    this.lists.Inputs.forEach((el) => {
-      const childInput = el;
-      if (
-        (childInput.getChildren("Input").getContent() as HTMLInputElement)
-          .validity.valid
-      ) {
-        dataForm[childInput.getProps("name") as string] = (
-          childInput.getChildren("Input").getContent() as HTMLInputElement
-        ).value;
-      }
-    });
 
-    this.service.signin(dataForm.login, dataForm.password);
+    const parentDataForm = super.onSubmit(e);
+
+    this.service.signin(parentDataForm.login, parentDataForm.password);
+
+    return parentDataForm;
   }
 
   protected render(): string {
     return `<form class="form-login">
-    <h5 class="form-login__heading">Вход</h5>
-    <div class="form-login__info-line">
-        {{{ Inputs }}}
-    </div>
-    <div class="form-login__actions">
-        {{{ ButtonEnter }}}
-        {{{ LinkSignin }}}
-        {{{ LinkMainPage }}}
-    </div>
-        </form>`;
+              <h5 class="form-login__heading">Вход</h5>
+              <div class="form-login__info-line">
+                {{{ Inputs }}}
+              </div>
+              <div class="form-login__actions">
+                {{{ ButtonEnter }}}
+                {{{ LinkSignin }}}
+                {{{ LinkMainPage }}}
+              </div>
+            </form>`;
   }
 }
 
-// const mapStateToProps = (state: any) => {
-//   // return {
-//   //   email: state.user?.email ?? "",
-//   //   login: state.user?.login ?? "",
-//   // };
-// };
-
-// export default connect(mapStateToProps)(Signin);
 export default Signin;

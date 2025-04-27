@@ -128,3 +128,33 @@ export const inputsPassword: IInput[] = [
     },
   },
 ];
+
+export const signinInputs: IInput[] = [
+  {
+    label: "Логин",
+    placeholder: "Введите логин",
+    name: "login",
+    type: "text",
+
+    errorText: "Введите логин",
+    validators: {
+      minlength: "2",
+      maxlength: "40",
+      pattern: "",
+      required: "required",
+    },
+  },
+  {
+    label: "Пароль",
+    placeholder: "Введите пароль",
+    name: "password",
+    type: "password",
+    errorText: "введите текст",
+    validators: {
+      minlength: "3",
+      maxlength: "20",
+      pattern: "",
+      required: "required",
+    },
+  },
+];

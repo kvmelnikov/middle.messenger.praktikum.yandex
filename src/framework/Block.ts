@@ -312,6 +312,7 @@ export default class Block {
       if (childInput.getProps("name") === input.name) {
         console.log(`Blur ${input.name}:`, input.pattern, input.validity);
         if (!input.validity.valid) {
+          console.log(`Blur ${input.name}:`, input.pattern, input.validity);
           console.log(`Error ${input.name}:`, input.validationMessage);
         }
         if (!VALIDATION_RULES[input.name].test(input.value)) {
@@ -338,7 +339,7 @@ export default class Block {
         ).value;
       }
     });
-    console.log(dataForm);
+
     return dataForm;
   }
 }
