@@ -28,10 +28,10 @@ export class AuthService {
         credentials: true,
       })
       .then((res) => {
-        router.go("/login");
-      }) // вывод результата положительного {id: 3586}
+        router.go("/chat");
+      })
       .catch((err: { reason: string }) => {
-        alert(err.reason);
+        console.error(err);
       });
   }
 

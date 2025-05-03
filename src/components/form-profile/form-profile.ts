@@ -12,8 +12,9 @@ import { prepareInputsToForm } from "./form-profile.utils";
 
 interface FormProfileProps extends BlockProps {
   valueLogin?: string;
-  inputs?: Fieldset[];
+  Inputs?: Fieldset[];
   currentUser?: IUser;
+  display_name?: string;
 }
 
 class FormProfile extends Block {
@@ -43,17 +44,11 @@ class FormProfile extends Block {
         text: "Сохранить",
         class: "button__apperance",
         type: "submit",
-        onClick: (e) => {
-          this.service.updateUserProfile(this.onSubmit(e));
-        },
       }),
       ButtonSavePass: new Button({
         text: "Сохранить",
         class: "button__apperance",
         type: "submit",
-        onClick: (e) => {
-          this.service.updateUserPassword(this.onSubmit(e));
-        },
       }),
       ButtonChangeProfile: new Button({
         text: "Изменить данные",
@@ -73,6 +68,7 @@ class FormProfile extends Block {
         submit: (e: Event) => this.onSubmit(e),
       },
     });
+
     this.service = new UserService();
   }
 
@@ -83,11 +79,7 @@ class FormProfile extends Block {
     });
 
     this.setLists({
-      fieldsets: prepareInputsToForm(
-        this.props.currentUser,
-        inputsProfile,
-        false
-      ),
+      Inputs: prepareInputsToForm(this.props.currentUser, inputsProfile, false),
     });
   }
 
@@ -96,13 +88,27 @@ class FormProfile extends Block {
       changeForm: true,
       isEditablePassword: true,
     });
+
     this.setLists({
-      fieldsets: prepareInputsToForm(
+      Inputs: prepareInputsToForm(
         this.props.currentUser,
         inputsPassword,
         false
       ),
     });
+  }
+
+  onSubmit(e: Event) {
+    e.preventDefault();
+    super.onSubmit(e);
+
+    const dataForm = super.onSubmit(e);
+
+    this.props.isEditablePassword
+      ? this.service.updateUserPassword(dataForm)
+      : this.service.updateUserProfile(dataForm);
+
+    return dataForm;
   }
 
   openModalAvatar() {
@@ -114,8 +120,8 @@ class FormProfile extends Block {
   protected render(): string {
     return `                <form class="profile__main">
                                 {{{ Avatar }}}
-                                <p class="profile__name">Иван</p>
-                                {{{ fieldsets }}}
+                                <p class="profile__name">{{ display_name }}</p>
+                                {{{ Inputs }}}
                                 <div class="profile__actions">
                                     {{#if changeForm }}
                                         {{#if isEditableProfile}}      
@@ -139,10 +145,10 @@ class FormProfile extends Block {
 const mapStateToProps = (state: BlockProps): FormProfileProps => {
   const avatar = state.profile_avatar as File;
   const currentUser = state.user as IUser;
+  const display_name = currentUser?.display_name;
+  const Inputs = prepareInputsToForm(currentUser, inputsProfile, true);
 
-  const fieldsets = prepareInputsToForm(currentUser, inputsProfile, true);
-
-  return { avatar, fieldsets, currentUser };
+  return { avatar, Inputs, currentUser, display_name };
 };
 
 export default connect(FormProfile, mapStateToProps);

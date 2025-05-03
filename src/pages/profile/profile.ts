@@ -24,10 +24,14 @@ class Profile extends Block {
   }
 
   protected override render(): string {
-    return `<main class="profile">
+    return `
+            <div class="wrapper">
+              <main class="profile">
                         {{{ LeftNavigate }}}
                         {{{ FormProfile }}}
-                    </main>`;
+                    </main>
+            </div>        
+                    `;
   }
 }
 

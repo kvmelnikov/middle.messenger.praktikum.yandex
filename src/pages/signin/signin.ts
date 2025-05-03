@@ -5,6 +5,7 @@ import { Link } from "../../components/link/Link";
 import Block from "../../framework/Block";
 import { AuthService } from "../../store/services/auth.service";
 import { signinInputs } from "../../shared/data-types-form";
+import { router } from "../../App";
 
 class Signin extends Block {
   service: AuthService;
@@ -31,18 +32,15 @@ class Signin extends Block {
             }),
           })
       ),
-      LinkSignin: new Link({
+      LinkSignup: new Link({
         class: "link-login",
         dataAction: "default",
         dataPage: "signin",
         text: "Нет аккаунта?",
         href: "/signup",
-      }),
-      LinkMainPage: new Link({
-        class: "link-login",
-        dataAction: "default",
-        dataPage: "mainPage",
-        text: "Перейти на главную страницу",
+        onClick: () => {
+          router.go("/signup");
+        },
       }),
       ButtonEnter: new Button({
         text: "Войти",
@@ -74,7 +72,7 @@ class Signin extends Block {
               </div>
               <div class="form-login__actions">
                 {{{ ButtonEnter }}}
-                {{{ LinkSignin }}}
+                {{{ LinkSignup }}}
                 {{{ LinkMainPage }}}
               </div>
             </form>`;

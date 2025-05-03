@@ -6,6 +6,7 @@ import HeaderLeftPanel from "../header-left-panel/header-left-panel";
 
 interface LeftPanelProps extends BlockProps {
   chats?: ChatParticipant[];
+  userId?: number;
 }
 
 class LeftPanel extends Block {
@@ -30,11 +31,13 @@ const mapStateToProps = (state: BlockProps): LeftPanelProps => {
       new ChatParticipant({
         time: chat.last_message ? chat.last_message.time : null,
         unread_count: chat.unread_count,
-        id: chat.id,
+        chatId: chat.id,
+        userId: state.user.id as number,
         avatar: chat.avatar,
         title: chat.title,
       })
   );
+
   return { chats };
 };
 

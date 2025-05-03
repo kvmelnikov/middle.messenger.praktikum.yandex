@@ -1,5 +1,4 @@
 import { baseUrl, router } from "../../App";
-import { IProfile } from "../../shared/profile.interface";
 import { IUser } from "../../shared/user.interface";
 import { saveUsers, updateAvatar } from "../actions/user.actions";
 
@@ -17,10 +16,10 @@ export class UserService {
     }
   }
 
-  public async updateUserProfile(data: Record<string, string>) {
+  public async updateUserProfile(dataForm: Record<string, string>) {
     this.http
       .put(`${baseUrl}user/profile`, {
-        data: JSON.stringify(data),
+        data: JSON.stringify(dataForm),
         headers: { "Content-Type": "application/json" },
         credentials: true,
       })
@@ -32,14 +31,14 @@ export class UserService {
       });
   }
 
-  public async updateUserPassword(data: any) {
+  public async updateUserPassword(dataForm: Record<string, string>) {
     this.http
       .put(`${baseUrl}user/password`, {
-        data: JSON.stringify(data),
+        data: JSON.stringify(dataForm),
         headers: { "Content-Type": "application/json" },
         credentials: true,
       })
-      .then((res) => {
+      .then(() => {
         router.go("/profile");
       })
       .catch((err: { reason: string }) => {
@@ -53,11 +52,11 @@ export class UserService {
         credentials: true,
         data: formData,
       })
-      .then((res: IProfile) => {
+      .then((res: IUser) => {
         updateAvatar(
           `https://ya-praktikum.tech/api/v2/resources/${res.avatar}`
         );
-        https: router.go("/profile");
+        router.go("/profile");
       })
       .catch((err: { reason: string }) => {
         alert(err.reason);
@@ -69,9 +68,7 @@ export class UserService {
       .get(`${baseUrl}resources/${path}`, {
         credentials: true,
       })
-      .then((file: File) => {
-        console.log("херь какая то");
-      })
+      .then((file: File) => {})
       .catch((err) => {
         console.log(err);
       });

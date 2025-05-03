@@ -1,17 +1,19 @@
 import Block from "../../framework/Block";
 import { setCurrentChatId } from "../../store/actions/chat.actions";
-import chatService, { ChatService } from "../../store/services/chat.service";
+import { ChatController } from "../../store/controllers/chat.controller";
 import { CounterMessage } from "../counter-message/counter-message";
 import { Time } from "../time/time";
+import user from "../user/user";
 interface ChatParticipantProps {
-  id: number;
+  chatId: number;
+  userId: number;
   time: string | null;
   unread_count: number;
   avatar: string | null;
   title: string;
 }
 export class ChatParticipant extends Block {
-  chatService: ChatService;
+  chatController: ChatController;
   constructor(props: ChatParticipantProps) {
     super({
       ...props,
@@ -25,12 +27,12 @@ export class ChatParticipant extends Block {
       }),
       events: {
         click: (e: Event) => {
-          setCurrentChatId(props.id);
-          this.chatService.GetChatUserToken(props.id);
+          setCurrentChatId(props.chatId);
+          this.chatController.startChat(props.chatId, props.userId);
         },
       },
     });
-    this.chatService = chatService;
+    this.chatController = new ChatController();
   }
 
   override render(): string {

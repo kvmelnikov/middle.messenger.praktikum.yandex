@@ -4,106 +4,8 @@ import { IInput } from "../../shared/input.interface";
 import { Button } from "../button/button";
 import { Fieldset } from "../input/fieldset";
 import Input from "../input/input";
-const inputsData: IInput[] = [
-  {
-    label: "Почта",
-    placeholder: "",
-    name: "email",
-    type: "email",
-    value: "pochta@yandex.ru",
-    errorText: "введите текст",
-    validators: {
-      minlength: "2",
-      maxlength: "40",
-      pattern: "",
-      required: "required",
-    },
-  },
-  {
-    label: "Логин",
-    placeholder: "",
-    name: "login",
-    type: "text",
-    value: "ivanivanov",
-    errorText: "введите текст",
-    validators: {
-      minlength: "2",
-      maxlength: "40",
-      pattern: "",
-      required: "required",
-    },
-  },
-  {
-    label: "Имя",
-    placeholder: "",
-    name: "first_name",
-    type: "text",
-    value: "Иван",
-    errorText: "введите текст",
-    validators: {
-      minlength: "2",
-      maxlength: "40",
-      pattern: "",
-      required: "required",
-    },
-  },
-  {
-    label: "Фамилия",
-    placeholder: "",
-    name: "second_name",
-    type: "text",
-    value: "Иванов",
-    errorText: "введите текст",
-    validators: {
-      minlength: "2",
-      maxlength: "40",
-      pattern: "",
-      required: "required",
-    },
-  },
-  {
-    label: "Телефон",
-    placeholder: "",
-    name: "phone",
-    type: "text",
-    value: "+7 (909) 967 30 30",
-    errorText: "введите текст",
-    validators: {
-      minlength: "2",
-      maxlength: "40",
-      pattern: "",
-      required: "required",
-    },
-  },
-  {
-    label: "Пароль",
-    placeholder: "",
-    name: "password",
-    type: "password",
-    value: "Иванов",
-    errorText: "введите текст",
-    validators: {
-      minlength: "2",
-      maxlength: "40",
-      pattern: "",
-      required: "required",
-    },
-  },
-  {
-    label: "Пароль (ещё раз)",
-    placeholder: "",
-    name: "password",
-    type: "password",
-    value: "Иванов",
-    errorText: "введите текст",
-    validators: {
-      minlength: "2",
-      maxlength: "40",
-      pattern: "",
-      required: "required",
-    },
-  },
-];
+import { inputsSignup } from "../../shared/data-types-form";
+
 export class FormSignup extends Block {
   service: AuthService;
   constructor() {
@@ -111,15 +13,20 @@ export class FormSignup extends Block {
       events: {
         submit: (e: Event) => this.onSubmit(e),
       },
-      Inputs: inputsData.map(
-        (dataForm) =>
+      Inputs: inputsSignup.map(
+        (form: IInput) =>
           new Fieldset({
             class: "form-signin__info-line",
-            name: dataForm.name,
-            label: dataForm.label,
+            name: form.name,
+            label: form.label,
             input: new Input({
               class: "input-profile",
-              dataInput: dataForm,
+              placeholder: form.placeholder,
+              maxlength: form.validators?.maxlength,
+              minlength: form.validators?.minlength,
+              required: form.validators?.required,
+              name: form.name,
+              type: form.type,
               onBlur: (e: Event) => this.onBlur(e),
             }),
           })

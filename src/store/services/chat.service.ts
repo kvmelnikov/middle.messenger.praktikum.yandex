@@ -64,17 +64,18 @@ export class ChatService {
       });
   }
 
-  public async GetChatUserToken(id: number) {
-    return this.http
-      .post(`${baseUrl}chats/token/${id}`, {
+  public async GetChatUserToken(id: number): Promise<{ token: string }> {
+    try {
+      const response = await this.http.post(`${baseUrl}chats/token/${id}`, {
         credentials: true,
-      })
-      .then((res) => {
-        console.info(res);
-      })
-      .catch((err) => {
-        console.error(err);
       });
+      return response as { token: string };
+    } catch (error: any) {
+      console.error("Ошибка при получении токена:", error);
+      throw new Error(
+        error.message || "Произошла ошибка при получении токена."
+      );
+    }
   }
 
   public async GetChatUsers(id: number) {

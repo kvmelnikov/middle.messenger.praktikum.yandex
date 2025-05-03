@@ -3,10 +3,14 @@ import Block, { BlockProps } from "../../framework/Block";
 import serviceChat, { ChatService } from "../../store/services/chat.service";
 import connect from "../../framework/HOC";
 import Chat from "../../components/chat/chat";
+import { AuthService } from "../../store/services/auth.service";
+
 interface MainPageProps {}
 
 class MainPage extends Block {
   serviceChat: ChatService;
+  authService: AuthService;
+
   constructor() {
     super({
       LeftPanel: new LeftPanel({}),
@@ -16,6 +20,8 @@ class MainPage extends Block {
     this.serviceChat = serviceChat;
 
     this.serviceChat.getChats();
+    this.authService = new AuthService();
+    this.authService.getUser();
   }
 
   protected override render(): string {

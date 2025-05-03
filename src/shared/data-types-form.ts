@@ -158,3 +158,97 @@ export const signinInputs: IInput[] = [
     },
   },
 ];
+
+export const inputsSignup: IInput[] = [
+  {
+    label: "Почта",
+    placeholder: "",
+    name: "email",
+    type: "email",
+    errorText: "введите текст",
+    validators: {
+      minlength: "2",
+      maxlength: "40",
+      pattern: "",
+      required: "required",
+    },
+  },
+  {
+    label: "Логин",
+    placeholder: "",
+    name: "login",
+    type: "text",
+    errorText: "введите текст",
+    validators: {
+      minlength: "2",
+      maxlength: "40",
+      pattern: "",
+      required: "required",
+    },
+  },
+  {
+    label: "Имя",
+    placeholder: "",
+    name: "first_name",
+    type: "text",
+    errorText: "введите текст",
+    validators: {
+      minlength: "2",
+      maxlength: "40",
+      pattern: "",
+      required: "required",
+    },
+  },
+  {
+    label: "Фамилия",
+    placeholder: "",
+    name: "second_name",
+    type: "text",
+    errorText: "введите текст",
+    validators: {
+      minlength: "2",
+      maxlength: "40",
+      pattern: "",
+      required: "required",
+    },
+  },
+  {
+    label: "Телефон",
+    placeholder: "",
+    name: "phone",
+    type: "text",
+    errorText: "введите текст",
+    validators: {
+      minlength: "2",
+      maxlength: "40",
+      pattern: "",
+      required: "required",
+    },
+  },
+  {
+    label: "Пароль",
+    placeholder: "",
+    name: "password",
+    type: "password",
+    errorText: "введите текст",
+    validators: {
+      minlength: "2",
+      maxlength: "40",
+      pattern: "",
+      required: "required",
+    },
+  },
+  {
+    label: "Пароль (ещё раз)",
+    placeholder: "",
+    name: "password",
+    type: "password",
+    errorText: "введите текст",
+    validators: {
+      minlength: "2",
+      maxlength: "40",
+      pattern: "",
+      required: "required",
+    },
+  },
+];
