@@ -1,52 +1,84 @@
-import { BlockProps } from "../../framework/Block";
+import EventBus from "../../framework/EventBus";
 
-type WebSocketParams = {
-  userId: number;
-  chatId: number;
-  token: string;
-};
+export enum WSEvents {
+  Connected = "connected",
+  Error = "error",
+  Message = "message",
+  Close = "close",
+}
 
-const API_URL = "wss://ya-praktikum.tech/ws/";
+export default class WSTransport extends EventBus {
+  private socket: WebSocket | null = null;
 
-export function createChatWebSocket(
-  params: WebSocketParams,
-  onMessageFunc?: (data: BlockProps) => void
-) {
-  const { userId, chatId, token } = params;
-  const socket = new WebSocket(`${API_URL}chats/${userId}/${chatId}/${token}`);
+  private ping: number;
 
-  socket.addEventListener("open", () => {
-    console.log("Соединение по WebSocket установлено");
-  });
+  constructor(private websocketUrl: string) {
+    super();
+  }
 
-  socket.addEventListener("close", (event) => {
-    const { wasClean, code } = event;
-    let { reason } = event;
-
-    console.log(
-      wasClean
-        ? "Соединение по WebSocket закрыто"
-        : "Соединение по WebSocket прервано"
-    );
-
-    if (code === 1006) {
-      reason = "Соединение закрыто из-за отсутствия активности в WebSocket";
+  public send(data: unknown) {
+    if (!this.socket) {
+      throw new Error("Socket is not connected");
     }
 
-    console.log(`Код: ${code} | Причина: ${reason}`);
-  });
+    (this.socket as WebSocket).send(JSON.stringify(data));
+  }
 
-  socket.addEventListener("message", (event) => {
-    const { data } = event;
+  public connect(): Promise<void> {
+    this.socket = new WebSocket(this.websocketUrl);
 
-    if (onMessageFunc && data) {
-      onMessageFunc(JSON.parse(data));
-    }
-  });
+    this.subscribe(this.socket as WebSocket);
 
-  socket.addEventListener("error", (event: any) => {
-    console.log("Ошибка", event.message);
-  });
+    this.setupPing();
 
-  return socket;
+    return new Promise((resolve) => {
+      this.on(WSEvents.Connected, () => {
+        resolve();
+      });
+    });
+  }
+
+  public close() {
+    (this.socket as WebSocket)?.close();
+  }
+
+  private setupPing() {
+    this.ping = setInterval(() => {
+      this.send({ type: "ping" });
+    }, 5000);
+
+    this.on(WSEvents.Close, () => {
+      clearInterval(this.ping as number);
+
+      this.on(WSEvents.Close, () => {
+        if (this.ping) {
+          clearInterval(this.ping as number);
+          this.ping = 0;
+        }
+      });
+    });
+  }
+
+  private subscribe(socket: WebSocket) {
+    socket.addEventListener("open", () => {
+      this.emit(WSEvents.Connected);
+    });
+    socket.addEventListener("close", () => {
+      this.emit(WSEvents.Close);
+    });
+
+    socket.addEventListener("error", (error) => {
+      this.emit(WSEvents.Error, error);
+    });
+
+    socket.addEventListener("message", (message) => {
+      const data = JSON.parse(message.data);
+
+      if (data.type && data.type === "pong") {
+        return;
+      }
+
+      this.emit(WSEvents.Message, data);
+    });
+  }
 }

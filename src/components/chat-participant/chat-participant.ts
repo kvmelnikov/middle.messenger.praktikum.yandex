@@ -1,9 +1,12 @@
 import Block from "../../framework/Block";
 import { setCurrentChatId } from "../../store/actions/chat.actions";
-import { ChatController } from "../../store/controllers/chat.controller";
+import messagesController, {
+  MessagesController,
+} from "../../store/controllers/message.controller";
 import { CounterMessage } from "../counter-message/counter-message";
+
 import { Time } from "../time/time";
-import user from "../user/user";
+
 interface ChatParticipantProps {
   chatId: number;
   userId: number;
@@ -13,7 +16,7 @@ interface ChatParticipantProps {
   title: string;
 }
 export class ChatParticipant extends Block {
-  chatController: ChatController;
+  messagesController: MessagesController;
   constructor(props: ChatParticipantProps) {
     super({
       ...props,
@@ -28,11 +31,11 @@ export class ChatParticipant extends Block {
       events: {
         click: (e: Event) => {
           setCurrentChatId(props.chatId);
-          this.chatController.startChat(props.chatId, props.userId);
+          this.messagesController.connect(props.chatId);
         },
       },
     });
-    this.chatController = new ChatController();
+    this.messagesController = messagesController;
   }
 
   override render(): string {

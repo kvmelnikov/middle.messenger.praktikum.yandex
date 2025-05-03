@@ -5,6 +5,7 @@ import Profile from "./pages/profile/profile";
 import Signup from "./pages/signup/siginup";
 
 export const baseUrl = "https://ya-praktikum.tech/api/v2/";
+
 export const router = new Router("app");
 export default class App {
   initial() {
