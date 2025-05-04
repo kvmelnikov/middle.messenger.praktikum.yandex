@@ -1,4 +1,5 @@
-import Block from "../../framework/Block";
+import Block, { BlockProps } from "../../framework/Block";
+import connect from "../../framework/HOC";
 import { AuthService } from "../../store/services/auth.service";
 import { ChatService } from "../../store/services/chat.service";
 import Avatar from "../avatar/avatar";
@@ -6,11 +7,9 @@ import { DropDown } from "../drop-down/drop-down";
 import { SvgIcon } from "../svg-icon/svg-icon";
 import TooltipUser from "../tooltip-user/tooltip-user";
 interface HeaderChatProps {
-  avatarClass: string;
-  avatarSrc: string;
-  name: string;
+  name?: string;
 }
-export class HeaderChat extends Block {
+class HeaderChat extends Block {
   isUserActions: false;
   chatService: ChatService;
   authService: AuthService;
@@ -20,9 +19,7 @@ export class HeaderChat extends Block {
       ...props,
       Avatar: new Avatar({
         className: "avatar",
-        src: props.avatarSrc,
       }),
-
       SvgIcon: new SvgIcon({
         path: "../../../public/svg/more-svg.svg",
         height: "15px",
@@ -66,3 +63,10 @@ export class HeaderChat extends Block {
             </header>`;
   }
 }
+
+const mapStateToProps = (state: BlockProps): HeaderChatProps => {
+  const name = state.user ? state.user.display_name : "";
+  return { name };
+};
+
+export default connect(HeaderChat, mapStateToProps);

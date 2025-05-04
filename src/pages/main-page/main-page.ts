@@ -5,7 +5,9 @@ import connect from "../../framework/HOC";
 import Chat from "../../components/chat/chat";
 import { AuthService } from "../../store/services/auth.service";
 
-interface MainPageProps {}
+interface MainPageProps {
+  currentChatId: number;
+}
 
 class MainPage extends Block {
   serviceChat: ChatService;
@@ -27,13 +29,20 @@ class MainPage extends Block {
   protected override render(): string {
     return `<main class="main-page__container">
                 {{{ LeftPanel }}}
-                {{{ Chat }}}
+                {{#if currentChatId}}
+                  {{{ Chat }}}
+                {{else}}
+                  <section class="chat_empty">
+                Выберите чат чтобы отправить сообщение
+                </section>
+                {{/if}}
             </main>`;
   }
 }
 
 const mapStateToProps = (state: BlockProps): MainPageProps => {
-  return {};
+  const currentChatId = state.currentChatId as number;
+  return { currentChatId };
 };
 
 export default connect(MainPage, mapStateToProps);

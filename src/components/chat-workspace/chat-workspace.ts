@@ -1,32 +1,43 @@
 import Block from "../../framework/Block";
-import serviceChat, { ChatService } from "../../store/services/chat.service";
 import connect from "../../framework/HOC";
+import { Message } from "../message/message";
+import { IMessage } from "../../shared/message.interface";
 
-interface ChatWorkSpaceProps {}
+interface ChatWorkSpaceProps {
+  messages?: Message[];
+}
 
 class ChatWorkSpace extends Block {
-  serviceChat: ChatService;
-
-  constructor() {
-    super({
-      Messages: [],
-    });
-
-    this.serviceChat = serviceChat;
+  constructor(props: ChatWorkSpaceProps) {
+    super({ ...props });
   }
 
   protected override render(): string {
     return ` 
             <div class="workspace-chat">
-                {{{Messages}}}
-                {{{ Link data-page="auxiliaryElements" data-action="default" text="Вспомогательные компоненты" class="link link-login" }}}
+                {{{ messages }}}
             </div>
             `;
   }
 }
 
 const mapStateToProps = (state: any): ChatWorkSpaceProps => {
-  return {};
+  const messagesData = state.messages as Record<number, IMessage[]>;
+  const currentChatId = state.currentChatId as number;
+
+  let messages: Message[] = [];
+
+  if (messagesData?.hasOwnProperty(currentChatId)) {
+    messages = messagesData[currentChatId].map((message) => {
+      return new Message({
+        time: message.time,
+        text: message.content,
+        owner: message.user_id,
+      });
+    });
+  }
+
+  return { messages };
 };
 
 export default connect(ChatWorkSpace, mapStateToProps);

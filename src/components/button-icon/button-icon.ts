@@ -1,6 +1,7 @@
 import Block from "../../framework/Block";
 interface ButtonIconProps {
   class: string;
+  type?: string;
   onClick?: (e: Event) => void;
 }
 export class ButtonIcon extends Block {
@@ -8,6 +9,7 @@ export class ButtonIcon extends Block {
     super({
       ...props,
       class: props.class,
+      type: props.type || "button",
       events: {
         click: (e: Event) => {
           if (props.onClick) {
@@ -19,6 +21,6 @@ export class ButtonIcon extends Block {
   }
 
   override render() {
-    return '<button type="button"  class="button {{class}}"></button>';
+    return '<button type="{{type}}"  class="button {{class}}"></button>';
   }
 }

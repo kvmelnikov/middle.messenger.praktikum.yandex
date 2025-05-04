@@ -2,7 +2,7 @@ import Block from "../../framework/Block";
 interface MessageProps {
   time: string;
   text: string;
-  owner: string;
+  owner: number;
 }
 export class Message extends Block {
   constructor(props: MessageProps) {

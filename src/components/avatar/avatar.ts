@@ -4,7 +4,7 @@ import connect from "../../framework/HOC";
 interface AvatarProps extends BlockProps {
   className?: string;
   src?: string;
-  onClick: (e: Event) => void;
+  onClick?: (e: Event) => void;
 }
 class Avatar extends Block {
   constructor(props: AvatarProps) {
@@ -13,7 +13,7 @@ class Avatar extends Block {
       src: props.src || "daf",
       events: {
         click: (e: Event) => {
-          props.onClick(e);
+          props.onClick ? props.onClick(e) : null;
         },
       },
     });

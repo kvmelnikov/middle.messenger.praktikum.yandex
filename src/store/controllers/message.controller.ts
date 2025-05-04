@@ -84,13 +84,11 @@ export class MessagesController {
   private onMessage(chatId: number, messages: IMessage | IMessage[]) {
     let messagesToAdd: IMessage[] = [];
 
-    // if (Array.isArray(messages)) {
-    //   messagesToAdd = (
-    //     transformMessagesFromApi(messages) as IMessage[]
-    //   ).reverse();
-    // } else {
-    //   messagesToAdd.push(transformMessagesFromApi(messages) as IMessage);
-    // }
+    if (Array.isArray(messages)) {
+      messagesToAdd = (messages as IMessage[]).reverse();
+    } else {
+      messagesToAdd.push(messages as IMessage);
+    }
 
     const currentMessages = (store.getState().messages || {})[chatId] || [];
     messagesToAdd = [...(currentMessages as IMessage[]), ...messagesToAdd];

@@ -1,10 +1,10 @@
 import { ButtonIcon } from "../../components/button-icon/button-icon";
-import LeftPanel from "../../components/left-panel/left-panel";
-import { SvgIcon } from "../../components/svg-icon/svg-icon";
 import Block, { BlockProps } from "../../framework/Block";
 import { IInput } from "../../shared/input.interface";
-import serviceChat, { ChatService } from "../../store/services/chat.service";
 import connect from "../../framework/HOC";
+import { Fieldset } from "../input/fieldset";
+import Input from "../input/input";
+import messagesController from "../../store/controllers/message.controller";
 
 const dataInput: IInput = {
   label: "",
@@ -14,43 +14,62 @@ const dataInput: IInput = {
   errorText: "",
 };
 
-interface FooterChatProps extends BlockProps {}
+interface FooterChatProps extends BlockProps {
+  chatId: number;
+}
 
 class FooterChat extends Block {
-  serviceChat: ChatService;
-  constructor() {
+  constructor(props: FooterChatProps) {
     super({
-      LeftPanel: new LeftPanel({}),
+      ...props,
+      Input: new Fieldset({
+        class: "profile__info-line",
+        name: "",
+        label: "",
+        input: new Input({
+          class: "chat-form__input-message",
+          placeholder: "Сообщение",
+          name: "message",
+          type: "text",
+        }),
+      }),
       ButtonIcon: new ButtonIcon({
         class: "button-icon-right",
+        type: "submit",
       }),
-      SvgIcon: new SvgIcon({
-        path: "../../../public/svg/clip.svg",
-        height: "32px",
-        width: "32px",
-        alt: "скребка",
-        onClick: (e) => {},
-      }),
+
+      events: {
+        submit: (e: Event) => {
+          e.preventDefault();
+          const data = e.target as HTMLFormElement;
+          const dataForm = new FormData(data);
+          const message = dataForm.get("message");
+          this.onMessageSend(message as string);
+        },
+      },
     });
-    this.serviceChat = serviceChat;
-    this.serviceChat.getChats();
+  }
+
+  onMessageSend(message: string) {
+    messagesController.postMessage(this.props.chatId, message);
   }
 
   protected override render(): string {
     return `
-            <div class="footer-chat">
+            <form class="footer-chat">
                 <div class="chat-form">
-                    {{{ SvgIcon  }}}
-                    {{{InputMessage}}}
+                    {{{ Input }}}
                     {{{ ButtonIcon }}} 
                 </div>  
-            </div>
+            </form>
                 `;
   }
 }
 
 const mapStateToProps = (state: BlockProps): FooterChatProps => {
-  return {};
+  const chatId = state.currentChatId as number;
+
+  return { chatId };
 };
 
 export default connect(FooterChat, mapStateToProps);

@@ -38,15 +38,17 @@ class DialogAddUser extends Block {
         },
         submit: (e: Event) => {
           e.preventDefault();
-          this.onSubmitUser(e);
+          this.onSearchUser(e);
         },
       },
       Fieldset: new Fieldset({
         class: "profile__info-line",
-        name: "login",
-        label: "Логин",
+        name: "Поиск пользователя",
+        label: "Поиск пользователя",
         input: new Input({
-          dataInput: dataInput,
+          placeholder: "Логин",
+          name: "login",
+          type: "text",
           class: "profile__info-line",
         }),
       }),
@@ -56,31 +58,26 @@ class DialogAddUser extends Block {
     this.chatService = chatService;
   }
 
-  onSubmitUser(e: Event) {
+  onSearchUser(e: Event) {
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
-    const chatTitle = formData.get("chat-title") as string;
+    const login = formData.get("login") as string;
 
-    const data: IChatUser = {
-      users: [],
-      chatId: this.props.chatId,
-    };
-
-    this.userService.searchUser(chatTitle);
+    this.userService.searchUser(login);
   }
 
   protected render(): string {
     return `
-            <div class="dialog-window">
-              <form >
+            <form class="dialog-window">
+           
                   <h5 class="dialog-window__heading">{{heading}}</h5>
                   {{{Fieldset}}}
                   <button type="submit">Поиск пользователя</button>
                     <ul>
                       {{{ users }}}
                     </ul>
-              </form>
-            </div>       
+           
+            </form>       
      `;
   }
 }

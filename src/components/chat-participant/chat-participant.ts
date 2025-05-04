@@ -21,10 +21,6 @@ export class ChatParticipant extends Block {
     super({
       ...props,
       Time: new Time({ time: props.time || "" }),
-      // Avatar: new Avatar({
-      //   src: "../../../public/images/avatar-example.png",
-      //   className: "avatar_medium",
-      // }),
       CounterMessage: new CounterMessage({
         counter: props.unread_count,
       }),
