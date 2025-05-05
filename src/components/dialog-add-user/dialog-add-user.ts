@@ -54,14 +54,12 @@ class DialogAddUser extends Block {
   protected render(): string {
     return `
             <form class="dialog-window">
-           
                   <h5 class="dialog-window__heading">{{heading}}</h5>
                   {{{Fieldset}}}
                   <button type="submit">Поиск пользователя</button>
                     <ul>
                       {{{ users }}}
                     </ul>
-           
             </form>       
      `;
   }

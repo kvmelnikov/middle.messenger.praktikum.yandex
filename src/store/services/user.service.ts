@@ -48,16 +48,20 @@ export class UserService {
   }
 
   public updateUserAvatar(formData: FormData) {
-    try {
-      const res = this.http.put(`${baseUrl}user/profile/avatar`, {
+    this.http
+      .put(`${baseUrl}user/profile/avatar`, {
         credentials: true,
         data: formData,
+      })
+      .then((res: IUser) => {
+        updateAvatar(
+          `https://ya-praktikum.tech/api/v2/resources/${res.avatar}`
+        );
+        router.go("/profile");
+      })
+      .catch((err: { reason: string }) => {
+        alert(err.reason);
       });
-      updateAvatar(`https://ya-praktikum.tech/api/v2/resources/${res.avatar}`);
-      router.go("/profile");
-    } catch (err) {
-      alert(err.reason);
-    }
   }
 
   public async resourcesFile(path: string) {
@@ -65,7 +69,6 @@ export class UserService {
       .get(`${baseUrl}resources/${path}`, {
         credentials: true,
       })
-      .then(() => {})
       .catch((err) => {
         console.log(err);
       });

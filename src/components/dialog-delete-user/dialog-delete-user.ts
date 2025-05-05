@@ -3,7 +3,7 @@ import chatService, { ChatService } from "../../store/services/chat.service";
 import connect from "../../framework/HOC";
 import userService, { UserService } from "../../store/services/user.service";
 import { IUser } from "../../shared/user.interface";
-
+import User from "../user/user";
 interface DialogDeleteUserProps {
   chatId?: number;
   users?: Block[];

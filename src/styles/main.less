@@ -163,10 +163,10 @@
 }
 
 .avatar_big {
-  height: 130px;
-  width: 130px;
   cursor: pointer;
+  height: 130px;
   margin: 0 auto;
+  width: 130px;
 }
 
 .time {
@@ -216,15 +216,15 @@
   padding: 21px 10px 14px;
 
   &__user {
+    align-items: center;
     display: flex;
     justify-content: space-between;
-    align-items: center;
   }
 
   &__chat {
+    align-items: center;
     display: flex;
     justify-content: space-between;
-    align-items: center;
   }
 }
 
@@ -256,23 +256,23 @@
 }
 
 .chat_empty {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   height: 100%;
+  justify-content: center;
 }
 
 .header-chat {
-  position: relative;
+  align-items: center;
   border-bottom: var(--border-panel);
   display: flex;
-  align-items: center;
   gap: 10px;
   grid-area: hd;
   justify-content: space-between;
   margin: 0 20px;
   padding: 10px 0;
+  position: relative;
 
   &__user {
     display: flex;
@@ -308,6 +308,7 @@
   &:hover {
     background-color: var(--active-item);
   }
+
   &_active {
     background-color: var(--active-item);
   }
@@ -546,20 +547,14 @@
   }
 }
 
-.tooltip-attach {
-  border: var(--border-panel);
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 15px;
-  width: 162px;
+.user-paticipant {
+  cursor: pointer;
 }
 
 .tooltip-attach-element {
+  cursor: pointer;
   display: flex;
   gap: 15px;
-  cursor: pointer;
 
   &__image {
     height: 22px;
@@ -572,54 +567,54 @@
 }
 
 .modal {
-  position: fixed;
-  z-index: 8000;
-  padding-top: 100px;
+  background-color: rgb(0 0 0 / 40%);
+  height: 100%;
   left: 0;
+  overflow: auto;
+  padding-top: 100px;
+  position: fixed;
   top: 0;
   width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 8000;
 }
 
 .modal-tooltip-user {
-  position: fixed;
-  z-index: 5000;
-  right: 0;
-  top: 63px;
-  overflow: auto;
-  width: 100%;
   display: flex;
   justify-content: end;
+  overflow: auto;
+  position: fixed;
+  right: 0;
+  top: 63px;
+  width: 100%;
+  z-index: 5000;
 }
 
 .tooltip-attach {
-  border: var(--border-panel);
-  border-radius: 12px;
   align-items: end;
-  flex-direction: column;
-  gap: 16px;
-  padding: 15px;
-  width: 162px;
-  height: 162px;
   background-color: #fefefe;
-  margin-left: auto;
-}
-
-.dialog-window {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  align-items: center;
   border: var(--border-panel);
   border-radius: 12px;
   display: flex;
   flex-direction: column;
+  gap: 16px;
+  height: 162px;
+  margin-left: auto;
+  padding: 15px;
+  width: 162px;
+}
+
+.dialog-window {
+  align-items: center;
+  background-color: #fefefe;
+  border: 1px solid #888;
+  border: var(--border-panel);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 20px;
   padding: 40px 0;
+  width: 80%;
   width: 340px;
 
   &__heading {

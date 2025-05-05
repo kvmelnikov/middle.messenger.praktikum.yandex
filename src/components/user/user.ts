@@ -37,7 +37,7 @@ export class UserParticipant extends Block {
   }
 
   override render(): string {
-    return `<li class="user">
+    return `<li class="user-paticipant">
                 {{name}}
             </li>`;
   }
