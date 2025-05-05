@@ -20,8 +20,11 @@ interface RouteProps {
 
 class Route {
   private _pathname: string;
+
   private _blockClass: typeof Block;
+
   private _block: Block | null;
+
   private _props: RouteProps;
 
   constructor(pathname: string, view: typeof Block, props: RouteProps) {
@@ -62,9 +65,13 @@ class Route {
 
 export default class Router {
   private static __instance: Router;
+
   private routes: Route[];
+
   private history: History;
+
   private _currentRoute: Route | null;
+
   private _rootQuery: string;
 
   constructor(rootQuery: string) {
