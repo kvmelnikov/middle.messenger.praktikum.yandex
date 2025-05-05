@@ -9,6 +9,7 @@ import { router } from "../../App";
 
 class Signin extends Block {
   service: AuthService;
+
   constructor() {
     super({
       events: {

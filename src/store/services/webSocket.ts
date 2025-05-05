@@ -21,13 +21,13 @@ export default class WSTransport extends EventBus {
       throw new Error("Socket is not connected");
     }
 
-    (this.socket as WebSocket).send(JSON.stringify(data));
+    (this.socket).send(JSON.stringify(data));
   }
 
   public connect(): Promise<void> {
     this.socket = new WebSocket(this.websocketUrl);
 
-    this.subscribe(this.socket as WebSocket);
+    this.subscribe(this.socket);
 
     this.setupPing();
 
@@ -48,11 +48,11 @@ export default class WSTransport extends EventBus {
     }, 5000);
 
     this.on(WSEvents.Close, () => {
-      clearInterval(this.ping as number);
+      clearInterval(this.ping);
 
       this.on(WSEvents.Close, () => {
         if (this.ping) {
-          clearInterval(this.ping as number);
+          clearInterval(this.ping);
           this.ping = 0;
         }
       });

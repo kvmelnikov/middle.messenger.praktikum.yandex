@@ -8,6 +8,7 @@ interface ModalProps {
 
 export class Modal extends Block {
   open: boolean;
+
   constructor(props: ModalProps) {
     super({
       ...props,

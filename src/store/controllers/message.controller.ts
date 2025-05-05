@@ -7,9 +7,12 @@ import { ChatService } from "../services/chat.service";
 export const BASE_URL_WS = "wss://ya-praktikum.tech/ws/";
 
 export class MessagesController {
-  private sockets: Map<Number, WSTransport> = new Map();
+  private sockets: Map<number, WSTransport> = new Map();
+
   static _instance: MessagesController;
+
   private baseURL: string;
+
   private chatService: ChatService;
 
   constructor(baseURL: string) {
@@ -85,9 +88,9 @@ export class MessagesController {
     let messagesToAdd: IMessage[] = [];
 
     if (Array.isArray(messages)) {
-      messagesToAdd = (messages as IMessage[]).reverse();
+      messagesToAdd = messages.reverse();
     } else {
-      messagesToAdd.push(messages as IMessage);
+      messagesToAdd.push(messages);
     }
 
     const currentMessages = (store.getState().messages || {})[chatId] || [];

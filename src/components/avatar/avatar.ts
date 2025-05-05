@@ -10,10 +10,12 @@ class Avatar extends Block {
   constructor(props: AvatarProps) {
     super({
       ...props,
-      src: props.src || "daf",
+      src: props.src,
       events: {
         click: (e: Event) => {
-          props.onClick ? props.onClick(e) : null;
+          if (props.onClick) {
+            props.onClick(e);
+          }
         },
       },
     });
@@ -26,11 +28,11 @@ class Avatar extends Block {
 }
 
 const mapStateToProps = (state: BlockProps): AvatarProps => {
-  const props = {
-    src: state.profile_avatar,
-  } as AvatarProps;
+  const src = state.profile_avatar as string;
 
-  return props;
+  return {
+    src,
+  };
 };
 
 export default connect(Avatar, mapStateToProps);

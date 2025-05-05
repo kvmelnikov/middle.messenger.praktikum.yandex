@@ -4,7 +4,6 @@ import messagesController, {
   MessagesController,
 } from "../../store/controllers/message.controller";
 import { CounterMessage } from "../counter-message/counter-message";
-
 import { Time } from "../time/time";
 
 interface ChatParticipantProps {
@@ -17,6 +16,7 @@ interface ChatParticipantProps {
 }
 export class ChatParticipant extends Block {
   messagesController: MessagesController;
+
   constructor(props: ChatParticipantProps) {
     super({
       ...props,
@@ -25,9 +25,15 @@ export class ChatParticipant extends Block {
         counter: props.unread_count,
       }),
       events: {
-        click: (e: Event) => {
-          setCurrentChatId(props.chatId);
-          this.messagesController.connect(props.chatId);
+        click: () => {
+          this.messagesController
+            .connect(props.chatId)
+            .then(() => {
+              setCurrentChatId(props.chatId);
+            })
+            .catch((error) => {
+              console.error("Ошибка при подключении:", error);
+            });
         },
       },
     });
@@ -36,8 +42,7 @@ export class ChatParticipant extends Block {
 
   override render(): string {
     return ` 
-    
-              <article class="chat-participant">
+           <article class="chat-participant">
                 {{{ Avatar }}}
                     <div class="chat-participant__message">
                         <p class="chat-participant__name">{{name}}</p>
@@ -47,6 +52,6 @@ export class ChatParticipant extends Block {
                 {{{ Time }}}
                 {{{ CounterMessage }}}
                 </div>  
-                </article>`;
+            </article>`;
   }
 }

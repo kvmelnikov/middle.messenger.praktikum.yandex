@@ -1,6 +1,4 @@
 import Block, { BlockProps } from "../../framework/Block";
-import connect from "../../framework/HOC";
-import { IInput } from "../../shared/input.interface";
 import { UserService } from "../../store/services/user.service";
 
 interface InputFileProps extends BlockProps {
@@ -13,6 +11,7 @@ interface InputFileProps extends BlockProps {
 }
 class InputFile extends Block {
   service: UserService;
+
   constructor(props: InputFileProps) {
     super({
       class: props.class,

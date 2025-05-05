@@ -7,6 +7,7 @@ import { AuthService } from "../../store/services/auth.service";
 
 class Profile extends Block {
   service: AuthService;
+
   constructor() {
     super({
       isEditable: false,

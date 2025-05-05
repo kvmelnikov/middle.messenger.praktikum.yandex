@@ -14,6 +14,7 @@ interface HeaderLeftPanelProps {
 }
 class HeaderLeftPanel extends Block {
   authService: AuthService;
+
   constructor(props: HeaderLeftPanelProps) {
     super({
       ...props,
@@ -22,7 +23,7 @@ class HeaderLeftPanel extends Block {
         height: "15px",
         width: "15px",
         alt: "управление профилем",
-        onClick: (e) => {
+        onClick: () => {
           const modal = this.getChildren("Modal");
 
           if (modal) {
@@ -34,7 +35,7 @@ class HeaderLeftPanel extends Block {
         text: "выйти",
         type: "button",
         class: "button button-logout",
-        onClick: (e) => {
+        onClick: () => {
           this.authService.logout();
         },
       }),
@@ -43,7 +44,7 @@ class HeaderLeftPanel extends Block {
         dialog: new DialogChat({
           heading: "Создание чата",
         }),
-        onClick: (e) => {},
+        onClick: () => {},
       }),
       LinkProfile: new Link({
         class: "profile-link",

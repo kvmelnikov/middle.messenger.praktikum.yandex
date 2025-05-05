@@ -11,6 +11,7 @@ interface TooltipUserProps extends BlockProps {
 
 class TooltipUser extends Block {
   chatService: ChatService;
+
   constructor(props: TooltipUserProps) {
     super({
       ...props,
@@ -18,7 +19,7 @@ class TooltipUser extends Block {
         src: "../../../public/images/add_user.png",
         alt: "Добавить пользователя",
         text: "Добавить пользователя",
-        onClick: (e: Event) => {
+        onClick: () => {
           this.openModalAddUser();
         },
       }),
@@ -26,7 +27,7 @@ class TooltipUser extends Block {
         src: "../../../public/images/delete-user.png",
         alt: "Удалить пользователя",
         text: "Удалить пользователя",
-        onClick: (e: Event) => {
+        onClick: () => {
           this.openModalDeleteUser();
         },
       }),
@@ -48,15 +49,23 @@ class TooltipUser extends Block {
 
   openModalAddUser() {
     const modal = this.getChildren("ModalAddUser");
-
-    modal && !this.isShow ? modal.show() : modal.hide();
+    if (modal && !this.isShow) {
+      modal.show();
+    } else {
+      modal.hide();
+    }
   }
+
   openModalDeleteUser() {
     const modal = this.getChildren("ModalDeleteUser");
 
     this.chatService.GetChatUsers(this.props.chatId);
 
-    modal && !this.isShow ? modal.show() : modal.hide();
+    if (modal && !this.isShow) {
+      modal.show();
+    } else {
+      modal.hide();
+    }
   }
 
   protected render(): string {

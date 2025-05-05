@@ -1,21 +1,12 @@
 import { ButtonIcon } from "../../components/button-icon/button-icon";
 import Block, { BlockProps } from "../../framework/Block";
-import { IInput } from "../../shared/input.interface";
 import connect from "../../framework/HOC";
 import { Fieldset } from "../input/fieldset";
 import Input from "../input/input";
 import messagesController from "../../store/controllers/message.controller";
 
-const dataInput: IInput = {
-  label: "",
-  placeholder: "Поиск",
-  name: "Поиск",
-  type: "text",
-  errorText: "",
-};
-
 interface FooterChatProps extends BlockProps {
-  chatId: number;
+  chatId?: number;
 }
 
 class FooterChat extends Block {

@@ -22,6 +22,7 @@ const dataInput = {
 };
 export class DialogChat extends Block {
   service: ChatService;
+
   constructor(props: DialogChatProps) {
     super({
       ...props,

@@ -1,34 +1,18 @@
 import Block, { BlockProps } from "../../framework/Block";
-import Input from "../input/input";
 import chatService, { ChatService } from "../../store/services/chat.service";
-import { Fieldset } from "../input/fieldset";
 import connect from "../../framework/HOC";
-import { IChatUser } from "../../shared/chat-user.interface";
 import userService, { UserService } from "../../store/services/user.service";
 import { IUser } from "../../shared/user.interface";
-import User, { UserParticipant } from "../user/user";
 
 interface DialogDeleteUserProps {
   chatId?: number;
   users?: Block[];
 }
-
-const dataInput = {
-  label: "Новый чат",
-  placeholder: "",
-  name: "chat-title",
-  type: "text",
-  errorText: "введите текст",
-  validators: {
-    minlength: "2",
-    maxlength: "40",
-    pattern: "",
-    required: "required",
-  },
-};
 class DialogDeleteUser extends Block {
   chatService: ChatService;
+
   userService: UserService;
+
   constructor(props: DialogDeleteUserProps) {
     super({
       ...props,
@@ -47,11 +31,6 @@ class DialogDeleteUser extends Block {
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
     const chatTitle = formData.get("chat-title") as string;
-
-    const data: IChatUser = {
-      users: [],
-      chatId: this.props.chatId,
-    };
 
     this.userService.searchUser(chatTitle);
   }

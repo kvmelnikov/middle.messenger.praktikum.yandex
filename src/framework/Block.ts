@@ -61,7 +61,7 @@ export default class Block {
   }
 
   public setState(newState: BlockProps) {
-    const { props, children, lists } = this._getChildrenPropsAndProps(newState);
+    const { props, lists } = this._getChildrenPropsAndProps(newState);
     this.setProps(props);
     this.setLists(lists);
   }
@@ -134,7 +134,7 @@ export default class Block {
     oldProps: BlockProps,
     newProps: BlockProps
   ): boolean {
-    //console.log(oldProps, newProps);
+    console.log(oldProps, newProps);
 
     return true;
   }

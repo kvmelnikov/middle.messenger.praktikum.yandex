@@ -1,4 +1,3 @@
-import { K } from "handlebars";
 import Block from "../../framework/Block";
 import { UserService } from "../../store/services/user.service";
 import Input from "../input/input-file";
@@ -9,10 +8,14 @@ interface DialogAvatarProps {
 }
 export class DialogAvatar extends Block {
   isFile: boolean;
+
   service: UserService;
+
   file: File | null;
+
   constructor(props: DialogAvatarProps) {
     super({
+      ...props,
       events: {
         onClick: () => {
           console.log("click");
@@ -46,6 +49,7 @@ export class DialogAvatar extends Block {
     this.service = new UserService();
     this.isFile = false;
   }
+
   onSubmitFile(form: HTMLFormElement) {
     if (this.file) {
       const formData = new FormData(form);
@@ -53,6 +57,7 @@ export class DialogAvatar extends Block {
       this.service.updateUserAvatar(formData);
     }
   }
+
   onFileUpload() {
     this.isFile = true;
   }

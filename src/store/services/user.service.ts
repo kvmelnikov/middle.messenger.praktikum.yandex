@@ -6,6 +6,7 @@ import { HTTPTransport } from "./HTTPTransport";
 
 export class UserService {
   http: HTTPTransport;
+
   static _instance: UserService;
 
   constructor() {
@@ -16,14 +17,14 @@ export class UserService {
     }
   }
 
-  public async updateUserProfile(dataForm: Record<string, string>) {
+  public updateUserProfile(dataForm: Record<string, string>) {
     this.http
       .put(`${baseUrl}user/profile`, {
         data: JSON.stringify(dataForm),
         headers: { "Content-Type": "application/json" },
         credentials: true,
       })
-      .then((res) => {
+      .then(() => {
         router.go("/profile");
       })
       .catch((err: { reason: string }) => {
@@ -31,7 +32,7 @@ export class UserService {
       });
   }
 
-  public async updateUserPassword(dataForm: Record<string, string>) {
+  public updateUserPassword(dataForm: Record<string, string>) {
     this.http
       .put(`${baseUrl}user/password`, {
         data: JSON.stringify(dataForm),
@@ -46,21 +47,17 @@ export class UserService {
       });
   }
 
-  public async updateUserAvatar(formData: FormData) {
-    return this.http
-      .put(`${baseUrl}user/profile/avatar`, {
+  public updateUserAvatar(formData: FormData) {
+    try {
+      const res = this.http.put(`${baseUrl}user/profile/avatar`, {
         credentials: true,
         data: formData,
-      })
-      .then((res: IUser) => {
-        updateAvatar(
-          `https://ya-praktikum.tech/api/v2/resources/${res.avatar}`
-        );
-        router.go("/profile");
-      })
-      .catch((err: { reason: string }) => {
-        alert(err.reason);
       });
+      updateAvatar(`https://ya-praktikum.tech/api/v2/resources/${res.avatar}`);
+      router.go("/profile");
+    } catch (err) {
+      alert(err.reason);
+    }
   }
 
   public async resourcesFile(path: string) {
@@ -68,14 +65,14 @@ export class UserService {
       .get(`${baseUrl}resources/${path}`, {
         credentials: true,
       })
-      .then((file: File) => {})
+      .then(() => {})
       .catch((err) => {
         console.log(err);
       });
   }
 
-  public async searchUser(login: string) {
-    return this.http
+  public searchUser(login: string) {
+    this.http
       .post(`${baseUrl}user/search`, {
         credentials: true,
         headers: { "Content-Type": "application/json" },

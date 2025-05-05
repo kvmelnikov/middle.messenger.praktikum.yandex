@@ -20,7 +20,9 @@ export class Link extends Block {
       events: {
         click: (e: Event) => {
           e.preventDefault();
-          props.onClick && props.onClick(e);
+          if (props.onClick) {
+            props.onClick(e);
+          }
         },
       },
     });

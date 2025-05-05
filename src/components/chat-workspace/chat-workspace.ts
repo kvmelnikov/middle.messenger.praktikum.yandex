@@ -32,6 +32,7 @@ const mapStateToProps = (state: any): ChatWorkSpaceProps => {
       return new Message({
         time: message.time,
         text: message.content,
+        currentUserId: state.user.id as number,
         owner: message.user_id,
       });
     });

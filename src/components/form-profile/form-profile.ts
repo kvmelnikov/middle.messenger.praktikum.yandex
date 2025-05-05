@@ -19,9 +19,13 @@ interface FormProfileProps extends BlockProps {
 
 class FormProfile extends Block {
   changeForm: false;
+
   isEditableProfile: false;
+
   isEditablePassword: false;
+
   isChangeAvatar: false;
+
   service: UserService;
 
   constructor(props: FormProfileProps) {
@@ -104,9 +108,11 @@ class FormProfile extends Block {
 
     const dataForm = super.onSubmit(e);
 
-    this.props.isEditablePassword
-      ? this.service.updateUserPassword(dataForm)
-      : this.service.updateUserProfile(dataForm);
+    if (this.props.isEditablePassword) {
+      this.service.updateUserPassword(dataForm);
+    } else {
+      this.service.updateUserProfile(dataForm);
+    }
 
     return dataForm;
   }
@@ -114,7 +120,11 @@ class FormProfile extends Block {
   openModalAvatar() {
     const modal = this.getChildren("Modal");
 
-    modal && !this.isShow ? modal.show() : modal.hide();
+    if (modal && !this.isShow) {
+      modal.show();
+    } else {
+      modal.hide();
+    }
   }
 
   protected render(): string {
@@ -143,12 +153,12 @@ class FormProfile extends Block {
 }
 
 const mapStateToProps = (state: BlockProps): FormProfileProps => {
-  const avatar = state.profile_avatar as File;
-  const currentUser = state.user as IUser;
-  const display_name = currentUser?.display_name;
+  const avatar = state.profile_avatar;
+  const currentUser = state.user;
+  const displayName = currentUser?.display_name;
   const Inputs = prepareInputsToForm(currentUser, inputsProfile, true);
 
-  return { avatar, Inputs, currentUser, display_name };
+  return { avatar, Inputs, currentUser, displayName };
 };
 
 export default connect(FormProfile, mapStateToProps);

@@ -3,32 +3,18 @@ import Input from "../input/input";
 import chatService, { ChatService } from "../../store/services/chat.service";
 import { Fieldset } from "../input/fieldset";
 import connect from "../../framework/HOC";
-import { IChatUser } from "../../shared/chat-user.interface";
-import userService, { UserService } from "../../store/services/user.service";
+import userService from "../../store/services/user.service";
 import { IUser } from "../../shared/user.interface";
-import User, { UserParticipant } from "../user/user";
+import User from "../user/user";
 
 interface DialogAddUserProps {
   chatId?: number;
   users?: Block[];
 }
 
-const dataInput = {
-  label: "Новый чат",
-  placeholder: "",
-  name: "chat-title",
-  type: "text",
-  errorText: "введите текст",
-  validators: {
-    minlength: "2",
-    maxlength: "40",
-    pattern: "",
-    required: "required",
-  },
-};
 class DialogAddUser extends Block {
   chatService: ChatService;
-  userService: UserService;
+
   constructor(props: DialogAddUserProps) {
     super({
       ...props,
@@ -54,7 +40,6 @@ class DialogAddUser extends Block {
       }),
     });
 
-    this.userService = userService;
     this.chatService = chatService;
   }
 
@@ -63,7 +48,7 @@ class DialogAddUser extends Block {
     const formData = new FormData(form);
     const login = formData.get("login") as string;
 
-    this.userService.searchUser(login);
+    userService.searchUser(login);
   }
 
   protected render(): string {

@@ -16,18 +16,19 @@ export type SignupData = {
 
 export class AuthService {
   http: HTTPTransport;
+
   constructor() {
     this.http = new HTTPTransport();
   }
 
-  public async signup(signupData: SignupData) {
+  public signup(signupData: SignupData) {
     this.http
       .post(`${baseUrl}auth/signup`, {
         data: JSON.stringify(signupData),
         headers: { "Content-Type": "application/json" },
         credentials: true,
       })
-      .then((res) => {
+      .then(() => {
         router.go("/chat");
       })
       .catch((err: { reason: string }) => {
@@ -35,7 +36,7 @@ export class AuthService {
       });
   }
 
-  public async signin(login: string, password: string) {
+  public signin(login: string, password: string) {
     this.http
       .post(`${baseUrl}auth/signin`, {
         data: JSON.stringify({ login: login, password: password }),
@@ -44,14 +45,13 @@ export class AuthService {
       })
       .then(() => {
         router.go("/chat");
-        1;
       })
       .catch((err) => {
         alert(err);
       });
   }
 
-  public async getUser() {
+  public getUser() {
     this.http
       .get(`${baseUrl}auth/user`, {
         credentials: true,
@@ -67,7 +67,7 @@ export class AuthService {
       });
   }
 
-  public async logout() {
+  public logout() {
     this.http
       .post(`${baseUrl}auth/logout`, {
         credentials: true,

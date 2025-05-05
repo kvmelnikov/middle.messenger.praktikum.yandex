@@ -1,5 +1,5 @@
 import { router } from "../../App";
-import Block, { BlockProps } from "../../framework/Block";
+import Block from "../../framework/Block";
 import { ButtonIcon } from "../button-icon/button-icon";
 
 export class LeftNavigate extends Block {

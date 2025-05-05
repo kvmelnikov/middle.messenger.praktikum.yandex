@@ -13,6 +13,7 @@ interface UserParticipantProps {
 
 export class UserParticipant extends Block {
   chatService: ChatService;
+
   constructor(props: UserParticipantProps) {
     super({
       ...props,
@@ -24,9 +25,11 @@ export class UserParticipant extends Block {
             chatId: props.chatId || 0,
           };
 
-          props.isAdd
-            ? this.chatService.addUserToChat(data)
-            : this.chatService.deleteUsersFromChat(data);
+          if (props.isAdd) {
+            this.chatService.addUserToChat(data);
+          } else {
+            this.chatService.deleteUsersFromChat(data);
+          }
         },
       },
     });

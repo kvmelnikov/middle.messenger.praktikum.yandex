@@ -8,6 +8,7 @@ import { inputsSignup } from "../../shared/data-types-form";
 
 export class FormSignup extends Block {
   service: AuthService;
+
   constructor() {
     super({
       events: {

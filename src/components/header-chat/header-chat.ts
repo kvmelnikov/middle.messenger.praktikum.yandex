@@ -11,7 +11,9 @@ interface HeaderChatProps {
 }
 class HeaderChat extends Block {
   isUserActions: false;
+
   chatService: ChatService;
+
   authService: AuthService;
 
   constructor(props: HeaderChatProps) {
@@ -25,7 +27,7 @@ class HeaderChat extends Block {
         height: "15px",
         width: "15px",
         alt: "управление профилем",
-        onClick: (e) => {
+        onClick: () => {
           this.toogleDropDown();
         },
       }),

@@ -7,6 +7,7 @@ import { IUser } from "../../shared/user.interface";
 import { saveUsers } from "../actions/user.actions";
 export class ChatService {
   http: HTTPTransport;
+
   static _instance: ChatService;
 
   constructor() {
@@ -19,8 +20,8 @@ export class ChatService {
     ChatService._instance = this;
   }
 
-  public async getChats(offset = 0, limit = 10, title = "") {
-    return this.http
+  public getChats(offset = 0, limit = 10, title = "") {
+    this.http
       .get<IChat[]>(`${baseUrl}/chats`, {
         query: { offset, limit, title },
         credentials: true,
@@ -33,8 +34,8 @@ export class ChatService {
       });
   }
 
-  public async addUserToChat(data: IChatUser) {
-    return this.http
+  public addUserToChat(data: IChatUser) {
+    this.http
       .put(`${baseUrl}chats/users`, {
         data: JSON.stringify(data),
         headers: { "Content-Type": "application/json" },
@@ -46,8 +47,8 @@ export class ChatService {
       .catch((err) => console.error(err));
   }
 
-  public async createChat(title: string) {
-    return this.http
+  public createChat(title: string) {
+    this.http
       .post(`${baseUrl}/chats`, {
         data: JSON.stringify({ title }),
         headers: { "Content-Type": "application/json" },
@@ -78,8 +79,8 @@ export class ChatService {
     }
   }
 
-  public async GetChatUsers(id: number) {
-    return this.http
+  public GetChatUsers(id: number) {
+    this.http
       .get(`${baseUrl}chats/${id}/users/`, {
         credentials: true,
       })
@@ -91,8 +92,8 @@ export class ChatService {
       });
   }
 
-  public async deleteUsersFromChat(data: IChatUser) {
-    return this.http
+  public deleteUsersFromChat(data: IChatUser) {
+    this.http
       .delete(`${baseUrl}chats/users/`, {
         data: JSON.stringify(data),
         headers: { "Content-Type": "application/json" },

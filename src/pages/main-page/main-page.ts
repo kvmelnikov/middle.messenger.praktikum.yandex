@@ -11,6 +11,7 @@ interface MainPageProps {
 
 class MainPage extends Block {
   serviceChat: ChatService;
+
   authService: AuthService;
 
   constructor() {

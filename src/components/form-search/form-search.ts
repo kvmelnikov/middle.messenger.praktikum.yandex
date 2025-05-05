@@ -11,6 +11,7 @@ const dataInput = {
 
 class FormSearch extends Block {
   service: ChatService;
+
   constructor() {
     super({
       events: {
