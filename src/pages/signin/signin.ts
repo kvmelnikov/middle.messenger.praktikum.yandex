@@ -15,6 +15,7 @@ class Signin extends Block {
       events: {
         submit: (e: Event) => this.onSubmit(e),
       },
+
       Inputs: signinInputs.map(
         (form) =>
           new Fieldset({
