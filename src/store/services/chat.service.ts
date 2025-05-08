@@ -71,11 +71,8 @@ export class ChatService {
         credentials: true,
       });
       return response as { token: string };
-    } catch (error: any) {
-      console.error("Ошибка при получении токена:", error);
-      throw new Error(
-        error.message || "Произошла ошибка при получении токена."
-      );
+    } catch (error: unknown) {
+      throw new Error("Произошла ошибка при получении токена.");
     }
   }
 

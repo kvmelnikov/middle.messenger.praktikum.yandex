@@ -27,6 +27,8 @@ class Input extends Block {
           e.stopPropagation();
           if (props.onBlur) {
             props.onBlur(e);
+          } else {
+            this.onBlur(e);
           }
         },
       },

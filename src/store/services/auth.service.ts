@@ -47,10 +47,14 @@ export class AuthService {
         router.go("/chat");
       })
       .catch((err) => {
-        const parsedError = JSON.parse(err.message);
-        const reason = parsedError.reason;
-        if (reason === "User already in system") {
-          router.go("/chat");
+        try {
+          const parsedError = JSON.parse(err.message);
+          const reason = parsedError.reason;
+          if (reason === "User already in system") {
+            router.go("/chat");
+          }
+        } catch (error) {
+          console.error(error);
         }
       });
   }

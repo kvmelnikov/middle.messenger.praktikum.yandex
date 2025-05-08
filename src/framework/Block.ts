@@ -5,7 +5,7 @@ import {
 import EventBus, { EventCallback } from "./EventBus";
 import Handlebars from "handlebars";
 
-type TBlockProps = any; // здесь реально можеть быть любое значение
+type TBlockProps = any; // здесь  можеть быть любое значение не знаю как обойти any
 
 export interface BlockProps {
   [key: string]: TBlockProps;
@@ -64,6 +64,10 @@ export default class Block {
     const { props, lists } = this._getChildrenPropsAndProps(newState);
     this.setProps(props);
     this.setLists(lists);
+  }
+
+  public setEvent(eventName: string, callback: EventCallback): void {
+    this.eventBus().on(eventName, callback);
   }
 
   private _removeEvents(): void {
@@ -311,38 +315,58 @@ export default class Block {
 
   public onBlur(e: Event): void {
     const input = e.target as HTMLInputElement;
-    this.lists.Inputs.forEach((el) => {
-      const childInput = el;
-      if (childInput.getProps("name") === input.name) {
-        console.log(`Blur ${input.name}:`, input.pattern, input.validity);
-        if (!input.validity.valid) {
+    if (this.lists.Inputs) {
+      this.lists.Inputs.forEach((el) => {
+        const childInput = el;
+        if (childInput.getProps("name") === input.name) {
           console.log(`Blur ${input.name}:`, input.pattern, input.validity);
-          console.log(`Error ${input.name}:`, input.validationMessage);
+          if (!input.validity.valid) {
+            console.log(`Blur ${input.name}:`, input.pattern, input.validity);
+            console.log(`Error ${input.name}:`, input.validationMessage);
+          }
+          if (!VALIDATION_RULES[input.name].test(input.value)) {
+            console.log(
+              `Error ${input.name}: поле должно быть`,
+              VALIDATION_ERRORS[input.name]
+            );
+          }
         }
-        if (!VALIDATION_RULES[input.name].test(input.value)) {
-          console.log(
-            `Error ${input.name}: поле должно быть`,
-            VALIDATION_ERRORS[input.name]
-          );
-        }
+      });
+    } else {
+      if (input.validity.valid) {
+        console.log(`Blur ${input.name}:`, input.pattern, input.validity);
+        console.log(`Error ${input.name}:`, input.validationMessage);
       }
-    });
+      if (!VALIDATION_RULES[input.name].test(input.value)) {
+        console.log(`Error ${input.name}:`, input.validationMessage);
+      }
+    }
   }
 
   onSubmit(e: Event): Record<string, string> {
     e.preventDefault();
     const dataForm: Record<string, string> = {};
-    this.lists.Inputs.forEach((el) => {
-      const childInput = el;
-      if (
-        (childInput.getChildren("Input").getContent() as HTMLInputElement)
-          .validity.valid
-      ) {
-        dataForm[childInput.getProps("name") as string] = (
-          childInput.getChildren("Input").getContent() as HTMLInputElement
-        ).value;
+    if (this.lists.Inputs) {
+      this.lists.Inputs.forEach((el) => {
+        const childInput = el;
+        if (
+          (childInput.getChildren("Input").getContent() as HTMLInputElement)
+            .validity.valid
+        ) {
+          dataForm[childInput.getProps("name") as string] = (
+            childInput.getChildren("Input").getContent() as HTMLInputElement
+          ).value;
+        }
+      });
+    } else {
+      const fieldset = this.getChildren(
+        "Input"
+      ).getContent() as HTMLFieldSetElement;
+      const input = fieldset.querySelector("input") as HTMLInputElement;
+      if (input.validity.valid) {
+        dataForm[input.name] = input.value;
       }
-    });
+    }
 
     return dataForm;
   }

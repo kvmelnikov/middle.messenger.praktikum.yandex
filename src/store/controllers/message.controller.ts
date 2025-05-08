@@ -27,7 +27,7 @@ export class MessagesController {
     transport.on(
       WSEvents.Message,
       (
-        message: any // any temp
+        message // any temp
       ) => this.onMessage(chatId, message)
     );
     transport.on(WSEvents.Close, () => this.onClose(chatId));

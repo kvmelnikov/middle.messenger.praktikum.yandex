@@ -22,6 +22,9 @@ class FooterChat extends Block {
           placeholder: "Сообщение",
           name: "message",
           type: "text",
+          required: "required",
+          maxlength: "100",
+          minlength: "1",
         }),
       }),
       ButtonIcon: new ButtonIcon({
@@ -32,10 +35,8 @@ class FooterChat extends Block {
       events: {
         submit: (e: Event) => {
           e.preventDefault();
-          const data = e.target as HTMLFormElement;
-          const dataForm = new FormData(data);
-          const message = dataForm.get("message");
-          this.onMessageSend(message as string);
+          const dataForm = this.onSubmit(e);
+          this.onMessageSend(dataForm.message);
         },
       },
     });

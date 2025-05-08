@@ -41,12 +41,4 @@ class FormSearch extends Block {
   }
 }
 
-// const mapStateToProps = (state: any) => {
-//   // return {
-//   //   email: state.user?.email ?? "",
-//   //   login: state.user?.login ?? "",
-//   // };
-// };
-
-// export default connect(mapStateToProps)(Signin);
 export default FormSearch;
