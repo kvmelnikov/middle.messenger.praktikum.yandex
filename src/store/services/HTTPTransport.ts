@@ -15,12 +15,13 @@ interface RequestOptions<Q = QueryParams, D = XMLHttpRequestBodyInit> {
   data?: D;
   query?: Q;
   signal?: AbortSignal;
+  credentials?: boolean;
 }
 
 type HTTPMethod = <R = unknown>(
   url: string,
   options?: Partial<RequestOptions<QueryParams>>
-) => Promise<R>;
+) => Promise<R | void>;
 
 export class HTTPTransport {
   private createMethod(method: Methods): HTTPMethod {
@@ -40,7 +41,7 @@ export class HTTPTransport {
   private request<R>(
     url: string,
     options: RequestOptions<QueryParams>
-  ): Promise<R> {
+  ): Promise<R | void> {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
 
@@ -52,6 +53,10 @@ export class HTTPTransport {
 
       xhr.open(options.method as string, fullUrl);
 
+      if (options.credentials) {
+        xhr.withCredentials = true;
+      }
+
       if (options.headers) {
         Object.entries(options.headers).forEach(([key, value]) => {
           xhr.setRequestHeader(key, value);
@@ -61,13 +66,18 @@ export class HTTPTransport {
       xhr.onload = () => {
         if (xhr.status >= 200 && xhr.status < 300) {
           try {
+            if (xhr.responseText === "OK") {
+              resolve();
+            }
+
             const response = JSON.parse(xhr.responseText);
+
             resolve(response);
           } catch (e) {
             reject(new Error("Failed to parse JSON response"));
           }
         } else {
-          reject(new Error(`HTTP error! status: ${xhr.status}`));
+          reject(new Error(`${xhr.responseText}`));
         }
       };
 
@@ -83,12 +93,7 @@ export class HTTPTransport {
         xhr.timeout = options.timeout;
       }
 
-      const dataToSend =
-        options.data && typeof options.data === "object"
-          ? JSON.stringify(options.data)
-          : options.data;
-
-      xhr.send(dataToSend);
+      xhr.send(options.data);
     });
   }
 }

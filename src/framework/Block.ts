@@ -1,4 +1,3 @@
-import { IInput } from "../shared/input.interface";
 import {
   VALIDATION_ERRORS,
   VALIDATION_RULES,
@@ -6,17 +5,9 @@ import {
 import EventBus, { EventCallback } from "./EventBus";
 import Handlebars from "handlebars";
 
-type TBlockProps =
-  | EventCallback
-  | Block
-  | Block[]
-  | IInput
-  | string
-  | number
-  | BlokEvents
-  | boolean;
+type TBlockProps = any; // здесь реально можеть быть любое значение
 
-interface BlockProps {
+export interface BlockProps {
   [key: string]: TBlockProps;
 }
 
@@ -54,6 +45,8 @@ export default class Block {
 
   protected eventBus: () => EventBus;
 
+  public isShow: boolean;
+
   constructor(propsWithChildren: BlockProps = {}) {
     const eventBus = new EventBus();
     const { props, children, lists } =
@@ -65,6 +58,12 @@ export default class Block {
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
+  }
+
+  public setState(newState: BlockProps) {
+    const { props, lists } = this._getChildrenPropsAndProps(newState);
+    this.setProps(props);
+    this.setLists(lists);
   }
 
   private _removeEvents(): void {
@@ -188,6 +187,14 @@ export default class Block {
     Object.assign(this.props, nextProps);
   };
 
+  public setLists = (nextList: BlockLists): void => {
+    if (!nextList) {
+      return;
+    }
+
+    Object.assign(this.lists, nextList);
+  };
+
   public getProps = (prop: string): TBlockProps => {
     return this.props[prop];
   };
@@ -196,12 +203,8 @@ export default class Block {
     return this.children[child];
   };
 
-  public setLists = (nextList: BlockLists): void => {
-    if (!nextList) {
-      return;
-    }
-
-    Object.assign(this.lists, nextList);
+  public getLists = (list: string): Block[] => {
+    return this.lists[list];
   };
 
   get element(): HTMLElement | null {
@@ -294,6 +297,7 @@ export default class Block {
     const content = this.getContent();
     if (content) {
       content.style.display = "block";
+      this.isShow = true;
     }
   }
 
@@ -301,6 +305,7 @@ export default class Block {
     const content = this.getContent();
     if (content) {
       content.style.display = "none";
+      this.isShow = false;
     }
   }
 
@@ -311,6 +316,7 @@ export default class Block {
       if (childInput.getProps("name") === input.name) {
         console.log(`Blur ${input.name}:`, input.pattern, input.validity);
         if (!input.validity.valid) {
+          console.log(`Blur ${input.name}:`, input.pattern, input.validity);
           console.log(`Error ${input.name}:`, input.validationMessage);
         }
         if (!VALIDATION_RULES[input.name].test(input.value)) {
@@ -323,7 +329,7 @@ export default class Block {
     });
   }
 
-  onSubmit(e: Event): void {
+  onSubmit(e: Event): Record<string, string> {
     e.preventDefault();
     const dataForm: Record<string, string> = {};
     this.lists.Inputs.forEach((el) => {
@@ -337,6 +343,7 @@ export default class Block {
         ).value;
       }
     });
-    console.log(dataForm);
+
+    return dataForm;
   }
 }

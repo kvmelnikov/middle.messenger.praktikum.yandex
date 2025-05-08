@@ -1,7 +1,8 @@
-import { FormSignin } from "../../components/form-signin/form-signin";
+import { FormSignup } from "../../components/form-signup/form-signup";
 import { Link } from "../../components/link/Link";
 import Block from "../../framework/Block";
-export class Signin extends Block {
+
+class Signup extends Block {
   constructor() {
     super({
       Link: new Link({
@@ -9,13 +10,15 @@ export class Signin extends Block {
         dataPage: "mainPage",
         text: "Войти",
       }),
-      FormSignin: new FormSignin(),
+      FormSignup: new FormSignup(),
     });
   }
 
   render(): string {
     return `<main class="signin">
-              {{{ FormSignin }}}
+            {{{ FormSignup }}}
             </main>`;
   }
 }
+
+export default Signup;

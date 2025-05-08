@@ -1,39 +1,57 @@
 import Block from "../../framework/Block";
-import { Avatar } from "../avatar/avatar";
+import { setCurrentChatId } from "../../store/actions/chat.actions";
+import messagesController, {
+  MessagesController,
+} from "../../store/controllers/message.controller";
 import { CounterMessage } from "../counter-message/counter-message";
 import { Time } from "../time/time";
+
 interface ChatParticipantProps {
-  time: string;
-  count: number;
-  name: string;
+  chatId: number;
+  userId: number;
+  time: string | null;
+  unread_count: number;
+  avatar: string | null;
+  title: string;
 }
 export class ChatParticipant extends Block {
+  messagesController: MessagesController;
+
   constructor(props: ChatParticipantProps) {
     super({
       ...props,
-      Time: new Time({ time: props.time }),
-      Avatar: new Avatar({
-        src: "../../../public/images/avatar-example.png",
-        className: "avatar_medium",
-      }),
+      Time: new Time({ time: props.time || "" }),
       CounterMessage: new CounterMessage({
-        counter: props.count,
+        counter: props.unread_count,
       }),
-      name: props.name,
+      events: {
+        click: () => {
+          this.messagesController
+            .connect(props.chatId)
+            .then(() => {
+              setCurrentChatId(props.chatId);
+            })
+            .catch((error) => {
+              console.error("Ошибка при подключении:", error);
+            });
+        },
+      },
     });
+    this.messagesController = messagesController;
   }
 
   override render(): string {
-    return `<article class="chat-participant">
+    return ` 
+           <article class="chat-participant">
                 {{{ Avatar }}}
                     <div class="chat-participant__message">
                         <p class="chat-participant__name">{{name}}</p>
-                        <p class="chat-participant__text-message">Друзья, у меня для вас особенный выпуск новостей!</p>
+                        <p class="chat-participant__text-message">{{title}}</p>
                     </div> 
                 <div class="chat-participant__time">
                 {{{ Time }}}
                 {{{ CounterMessage }}}
                 </div>  
-                </article>`;
+            </article>`;
   }
 }

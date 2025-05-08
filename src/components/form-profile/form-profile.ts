@@ -1,174 +1,59 @@
-import Block from "../../framework/Block";
-import { IInput } from "../../shared/input.interface";
-import { Avatar } from "../avatar/avatar";
+import Block, { BlockProps } from "../../framework/Block";
+import connect from "../../framework/HOC";
+import { inputsPassword, inputsProfile } from "../../shared/data-types-form";
+import { IUser } from "../../shared/user.interface";
+import { UserService } from "../../store/services/user.service";
+import Avatar from "../avatar/avatar";
 import { Button } from "../button/button";
+import { DialogAvatar } from "../dialog-avatar/dialog-avatar";
 import { Fieldset } from "../input/fieldset";
-import { Input } from "../input/input";
+import { Modal } from "../modal/modal";
+import { prepareInputsToForm } from "./form-profile.utils";
 
-const inputsData: IInput[] = [
-  {
-    label: "Почта",
-    placeholder: "",
-    name: "email",
-    type: "email",
-    value: "pochta@yandex.ru",
-    errorText: "введите текст",
-    validators: {
-      minlength: "2",
-      maxlength: "40",
-      pattern: "",
-      required: "required",
-    },
-  },
-  {
-    label: "Логин",
-    placeholder: "",
-    name: "login",
-    type: "text",
-    value: "ivanivanov",
-    errorText: "введите текст",
-    validators: {
-      minlength: "2",
-      maxlength: "40",
-      pattern: "",
-      required: "required",
-    },
-  },
-  {
-    label: "Имя",
-    placeholder: "",
-    name: "first_name",
-    type: "text",
-    value: "Иван",
-    errorText: "введите текст",
-    validators: {
-      minlength: "2",
-      maxlength: "40",
-      pattern: "",
-      required: "required",
-    },
-  },
-  {
-    label: "Фамилия",
-    placeholder: "",
-    name: "second_name",
-    type: "text",
-    value: "Иванов",
-    errorText: "введите текст",
-    validators: {
-      minlength: "2",
-      maxlength: "40",
-      pattern: "",
-      required: "required",
-    },
-  },
-  {
-    label: "Имя в чате",
-    placeholder: "",
-    name: "display_name",
-    type: "text",
-    value: "Иван",
-    errorText: "введите текст",
-    validators: {
-      minlength: "2",
-      maxlength: "40",
-      pattern: "",
-      required: "required",
-    },
-  },
-  {
-    label: "Телефон",
-    placeholder: "",
-    name: "phone",
-    type: "text",
-    value: "+7 (909) 967 30 30",
-    errorText: "введите текст",
-    validators: {
-      minlength: "2",
-      maxlength: "40",
-      pattern: "",
-      required: "required",
-    },
-  },
-];
+interface FormProfileProps extends BlockProps {
+  valueLogin?: string;
+  Inputs?: Fieldset[];
+  currentUser?: IUser;
+  display_name?: string;
+}
 
-const inputsPassword: IInput[] = [
-  {
-    label: "Старый пароль",
-    placeholder: "",
-    name: "oldPassword",
-    type: "password",
-    value: "pochta2@yandex.ru",
-    errorText: "введите текст",
-    validators: {
-      minlength: "2",
-      maxlength: "40",
-      pattern: "",
-      required: "required",
-    },
-  },
-  {
-    label: "Новый пароль",
-    placeholder: "",
-    name: "newPassword",
-    type: "password",
-    value: "pochta2@yandex.ru",
-    errorText: "введите текст",
-    validators: {
-      minlength: "2",
-      maxlength: "40",
-      pattern: "",
-      required: "required",
-    },
-  },
-  {
-    label: "Повторите новый пароль",
-    placeholder: "",
-    name: "newPassword",
-    type: "password",
-    value: "pochta2@yandex.ru",
-    errorText: "введите текст",
-    validators: {
-      minlength: "2",
-      maxlength: "40",
-      pattern: "",
-      required: "required",
-    },
-  },
-];
-export class FormProfile extends Block {
+class FormProfile extends Block {
+  changeForm: false;
+
   isEditableProfile: false;
 
   isEditablePassword: false;
 
-  constructor() {
+  isChangeAvatar: false;
+
+  service: UserService;
+
+  constructor(props: FormProfileProps) {
     super({
-      events: {
-        submit: (e: Event) => this.onSubmit(e),
-      },
+      ...props,
       Avatar: new Avatar({
-        src: "../../../public/images/avatar-example.png",
-        className: "avatar_big profile__avatar",
+        className: "avatar avatar_big",
+        onClick: () => {
+          this.openModalAvatar();
+        },
       }),
-      Inputs: inputsData.map(
-        (dataForm) =>
-          new Fieldset({
-            class: "profile__info-line",
-            name: dataForm.name,
-            label: dataForm.label,
-            input: new Input({
-              class: "input-profile",
-              dataInput: dataForm,
-              onBlur: (e: Event) => this.onBlur(e),
-            }),
-          })
-      ),
-      ButtonSave: new Button({
+      Modal: new Modal({
+        className: "modal",
+        dialog: new DialogAvatar({
+          heading: "Выберите аватар",
+        }),
+        onClick: () => {},
+      }),
+      ButtonSaveProfile: new Button({
         text: "Сохранить",
         class: "button__apperance",
         type: "submit",
       }),
-
+      ButtonSavePass: new Button({
+        text: "Сохранить",
+        class: "button__apperance",
+        type: "submit",
+      }),
       ButtonChangeProfile: new Button({
         text: "Изменить данные",
         class: "button__apperance",
@@ -183,56 +68,97 @@ export class FormProfile extends Block {
           this.onChangePassword();
         },
       }),
+      events: {
+        submit: (e: Event) => this.onSubmit(e),
+      },
     });
-  }
 
-  onsubmit(e: Event) {
-    e.preventDefault();
-    super.onSubmit(e);
+    this.service = new UserService();
   }
 
   onChangeEditable() {
     this.setProps({
+      changeForm: true,
       isEditableProfile: true,
+    });
+
+    this.setLists({
+      Inputs: prepareInputsToForm(this.props.currentUser, inputsProfile, false),
     });
   }
 
   onChangePassword() {
     this.setProps({
-      isEditableProfile: true,
+      changeForm: true,
+      isEditablePassword: true,
     });
+
     this.setLists({
-      Inputs: inputsPassword.map(
-        (dataForm) =>
-          new Fieldset({
-            class: "profile__info-line",
-            name: dataForm.name,
-            label: dataForm.label,
-            input: new Input({
-              class: "input-profile",
-              dataInput: dataForm,
-              onBlur: (e: Event) => this.onBlur(e),
-            }),
-          })
+      Inputs: prepareInputsToForm(
+        this.props.currentUser,
+        inputsPassword,
+        false
       ),
     });
   }
 
+  onSubmit(e: Event) {
+    e.preventDefault();
+    super.onSubmit(e);
+
+    const dataForm = super.onSubmit(e);
+
+    if (this.props.isEditablePassword) {
+      this.service.updateUserPassword(dataForm);
+    } else {
+      this.service.updateUserProfile(dataForm);
+    }
+
+    return dataForm;
+  }
+
+  openModalAvatar() {
+    const modal = this.getChildren("Modal");
+
+    if (modal && !this.isShow) {
+      modal.show();
+    } else {
+      modal.hide();
+    }
+  }
+
   protected render(): string {
     return `                <form class="profile__main">
-                                {{{Avatar}}}
-                                <p class="profile__name">Иван</p>
+                                {{{ Avatar }}}
+                                <p class="profile__name">{{ display_name }}</p>
                                 {{{ Inputs }}}
-                                <div class="profile__actions">  
-                                    {{#if isEditableProfile}}                   
-                                        {{{ ButtonSave }}}
-                    
-                                    {{ else }}
+                                <div class="profile__actions">
+                                    {{#if changeForm }}
+                                        {{#if isEditableProfile}}      
+                                            {{{ ButtonSaveProfile  }}}    
+                                               {{{ ButtonExit }}}         
+                                         {{ else }}
+                                         {{{ ButtonSavePass }}}
+                                           {{{ ButtonExit }}}
+                                          {{/if}}
+                                    {{else}}
                                         {{{ ButtonChangeProfile }}}
                                         {{{ ButtonChangePass }}}
                                         {{{ ButtonExit }}}
-                                    {{/if}}
+                                    {{/if}}  
                                 </div>
-                       </form>`;
+                                {{{ Modal }}}
+                            </form>`;
   }
 }
+
+const mapStateToProps = (state: BlockProps): FormProfileProps => {
+  const avatar = state.profile_avatar;
+  const currentUser = state.user;
+  const displayName = currentUser?.display_name;
+  const Inputs = prepareInputsToForm(currentUser, inputsProfile, true);
+
+  return { avatar, Inputs, currentUser, displayName };
+};
+
+export default connect(FormProfile, mapStateToProps);
