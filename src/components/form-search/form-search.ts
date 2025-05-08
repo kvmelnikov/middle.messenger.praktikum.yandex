@@ -2,13 +2,6 @@ import Input from "../../components/input/input";
 import Block from "../../framework/Block";
 import { ChatService } from "../../store/services/chat.service";
 
-const dataInput = {
-  placeholder: "Поиск",
-  name: "search",
-  type: "text",
-  errorText: "",
-};
-
 class FormSearch extends Block {
   service: ChatService;
 
@@ -20,7 +13,7 @@ class FormSearch extends Block {
       InputSearch: new Input({
         type: "text",
         placeholder: "Поиск",
-        dataInput: dataInput,
+        name: "search",
       }),
     });
     this.service = new ChatService();

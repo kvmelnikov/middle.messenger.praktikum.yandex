@@ -6,20 +6,6 @@ import { Fieldset } from "../input/fieldset";
 interface DialogChatProps {
   heading: string;
 }
-
-const dataInput = {
-  label: "Новый чат",
-  placeholder: "",
-  name: "chat-title",
-  type: "text",
-  errorText: "введите текст",
-  validators: {
-    minlength: "2",
-    maxlength: "40",
-    pattern: "",
-    required: "required",
-  },
-};
 export class DialogChat extends Block {
   service: ChatService;
 
@@ -37,11 +23,11 @@ export class DialogChat extends Block {
       },
       Fieldset: new Fieldset({
         class: "profile__info-line",
-        name: "login",
-        label: "Логин",
+        name: "chat-title",
+        label: "Новый чат",
         input: new Input({
-          dataInput: dataInput,
-          class: "profile__info-line",
+          name: "chat-title",
+          type: "text",
         }),
       }),
     });
