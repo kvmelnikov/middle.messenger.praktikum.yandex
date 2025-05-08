@@ -9,17 +9,6 @@
   publish = "dist" 
 
 [[redirects]]
-  from = "/"
-  to = "/"
+  from = "/*"
+  to = "/index.html"
   status = 200
-
-[[redirects]]
-  from = "/chat"
-  to = "/chat"
-  status = 200
-
-[[redirects]]
-  from = "/signup"
-  to = "/signup"
-  status = 200
-  
