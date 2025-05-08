@@ -17,7 +17,7 @@ class MainPage extends Block {
   constructor() {
     super({
       LeftPanel: new LeftPanel({}),
-      Chat: new Chat({}),
+      Chat: new Chat(),
     });
 
     this.serviceChat = serviceChat;
