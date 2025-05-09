@@ -24,11 +24,8 @@ export class MessagesController {
   }
 
   private subscribe(transport: WSTransport, chatId: number) {
-    transport.on(
-      WSEvents.Message,
-      (
-        message // any temp
-      ) => this.onMessage(chatId, message)
+    transport.on(WSEvents.Message, (message) =>
+      this.onMessage(chatId, message as IMessage)
     );
     transport.on(WSEvents.Close, () => this.onClose(chatId));
   }

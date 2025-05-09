@@ -1,19 +1,21 @@
 import Block from "../../framework/Block";
-import { UserService } from "../../store/services/user.service";
+import { ChatService } from "../../store/services/chat.service";
+
 import Input from "../input/input-file";
 
-interface DialogAvatarProps {
+interface DialogAvatarChatProps {
   heading: string;
   close?: () => void;
+  chatId: number;
 }
-export class DialogAvatar extends Block {
+export class DialogAvatarChat extends Block {
   isFile: boolean;
 
-  service: UserService;
+  service: ChatService;
 
   file: File | null;
 
-  constructor(props: DialogAvatarProps) {
+  constructor(props: DialogAvatarChatProps) {
     super({
       ...props,
       events: {
@@ -42,15 +44,16 @@ export class DialogAvatar extends Block {
       }),
     });
 
-    this.service = new UserService();
+    this.service = new ChatService();
     this.isFile = false;
   }
 
   onSubmitFile(form: HTMLFormElement) {
     if (this.file) {
       const formData = new FormData(form);
-
-      this.service.updateUserAvatar(formData);
+      formData.set("chatId", this.props.chatId.toString());
+      formData.set("avatar", this.file);
+      this.service.uploadChatAvatar(formData);
     }
   }
 

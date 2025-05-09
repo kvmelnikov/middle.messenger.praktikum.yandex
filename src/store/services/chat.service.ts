@@ -65,6 +65,20 @@ export class ChatService {
       });
   }
 
+  public uploadChatAvatar(data: FormData) {
+    this.http
+      .put(`${baseUrl}chats/avatar`, {
+        data,
+        credentials: true,
+      })
+      .then((res) => {
+        this.getChats();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
   public async GetChatUserToken(id: number): Promise<{ token: string }> {
     try {
       const response = await this.http.post(`${baseUrl}chats/token/${id}`, {
