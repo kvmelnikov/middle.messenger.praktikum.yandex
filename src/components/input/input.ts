@@ -11,7 +11,8 @@ interface InputProps extends BlockProps {
   required?: string;
   type: string;
   onKeyup?: (e: Event) => void;
-  onBlur?: (e: Event) => void;
+  onBlur?: (error: string) => void;
+  onError?: (e: string) => void;
 }
 class Input extends Block {
   constructor(props: InputProps) {
@@ -25,8 +26,9 @@ class Input extends Block {
         },
         blur: (e: Event) => {
           e.stopPropagation();
+          console.log(props.onBlur);
           if (props.onBlur) {
-            props.onBlur(e);
+            props.onBlur(this.onBlur(e));
           }
         },
       },
@@ -35,9 +37,12 @@ class Input extends Block {
 
   override render(): string {
     if (this.props.disabled) {
-      return `<input disabled="{{disabled}}" class="input {{class}}" name="{{name}}" title="{{title}}" pattern="{{pattern}}" maxlength="{{maxlength}}" minlength="{{minlength}}" {{required}} placeholder="{{placeholder}}" {{disabled}} type="{{type}}" value="{{value}}" >`;
+      return `<input disabled="{{disabled}}" class="input {{class}}" name="{{name}}" title="{{title}}" pattern="{{pattern}}" maxlength="{{maxlength}}" minlength="{{minlength}}" {{required}} placeholder="{{placeholder}}" {{disabled}} type="{{type}}" value="{{value}}" >
+              `;
     } else {
-      return `<input class="input {{class}}" name="{{name}}" maxlength="{{maxlength}}" minlength="{{minlength}}" {{required}} placeholder="{{placeholder}}" {{disabled}} type="{{type}}" value="{{value}}" >`;
+      return `
+        <input class="input {{class}}" name="{{name}}" maxlength="{{maxlength}}" minlength="{{minlength}}" {{required}} placeholder="{{placeholder}}" {{disabled}} type="{{type}}" value="{{value}}" >
+          `;
     }
   }
 }

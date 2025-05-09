@@ -65,17 +65,43 @@ export class ChatService {
       });
   }
 
+  public uploadChatAvatar(data: FormData) {
+    this.http
+      .put(`${baseUrl}chats/avatar`, {
+        data,
+        credentials: true,
+      })
+      .then(() => {
+        this.getChats();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  public deleteChat(chatId: number) {
+    this.http
+      .delete(`${baseUrl}/chats/`, {
+        data: JSON.stringify({ chatId }),
+        credentials: true,
+        headers: { "Content-Type": "application/json" },
+      })
+      .then(() => {
+        this.getChats();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
   public async GetChatUserToken(id: number): Promise<{ token: string }> {
     try {
       const response = await this.http.post(`${baseUrl}chats/token/${id}`, {
         credentials: true,
       });
       return response as { token: string };
-    } catch (error: any) {
-      console.error("Ошибка при получении токена:", error);
-      throw new Error(
-        error.message || "Произошла ошибка при получении токена."
-      );
+    } catch (error: unknown) {
+      throw new Error("Произошла ошибка при получении токена.");
     }
   }
 

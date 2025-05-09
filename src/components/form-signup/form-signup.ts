@@ -28,7 +28,6 @@ export class FormSignup extends Block {
               required: form.validators?.required,
               name: form.name,
               type: form.type,
-              onBlur: (e: Event) => this.onBlur(e),
             }),
           })
       ),

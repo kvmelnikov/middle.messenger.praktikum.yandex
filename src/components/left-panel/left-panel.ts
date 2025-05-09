@@ -33,10 +33,14 @@ const mapStateToProps = (state: BlockProps): LeftPanelProps => {
         unread_count: chat.unread_count,
         chatId: chat.id,
         userId: state.user.id as number,
-        avatar: chat.avatar,
+        avatar: chat.avatar
+          ? `https://ya-praktikum.tech/api/v2/resources/${chat.avatar}`
+          : null,
         title: chat.title,
       })
   );
+
+  console.log("chats", state.chats);
 
   return { chats };
 };

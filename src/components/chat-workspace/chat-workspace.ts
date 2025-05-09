@@ -1,4 +1,4 @@
-import Block from "../../framework/Block";
+import Block, { BlockProps } from "../../framework/Block";
 import connect from "../../framework/HOC";
 import { Message } from "../message/message";
 import { IMessage } from "../../shared/message.interface";
@@ -21,7 +21,7 @@ class ChatWorkSpace extends Block {
   }
 }
 
-const mapStateToProps = (state: any): ChatWorkSpaceProps => {
+const mapStateToProps = (state: BlockProps): ChatWorkSpaceProps => {
   const messagesData = state.messages as Record<number, IMessage[]>;
   const currentChatId = state.currentChatId as number;
 

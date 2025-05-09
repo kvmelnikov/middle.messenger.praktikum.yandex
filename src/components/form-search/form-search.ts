@@ -19,11 +19,6 @@ class FormSearch extends Block {
     this.service = new ChatService();
   }
 
-  onBlur(e: Event) {
-    e.preventDefault();
-    super.onBlur(e);
-  }
-
   onSubmitSearch(e: Event) {
     e.preventDefault();
 
@@ -41,12 +36,4 @@ class FormSearch extends Block {
   }
 }
 
-// const mapStateToProps = (state: any) => {
-//   // return {
-//   //   email: state.user?.email ?? "",
-//   //   login: state.user?.login ?? "",
-//   // };
-// };
-
-// export default connect(mapStateToProps)(Signin);
 export default FormSearch;
