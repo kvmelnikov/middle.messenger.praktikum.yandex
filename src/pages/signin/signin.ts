@@ -30,7 +30,6 @@ class Signin extends Block {
               required: "required",
               name: form.name,
               type: form.type,
-              onBlur: (e: Event) => this.onBlur(e),
             }),
           })
       ),

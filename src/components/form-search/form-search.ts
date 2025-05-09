@@ -19,11 +19,6 @@ class FormSearch extends Block {
     this.service = new ChatService();
   }
 
-  onBlur(e: Event) {
-    e.preventDefault();
-    super.onBlur(e);
-  }
-
   onSubmitSearch(e: Event) {
     e.preventDefault();
 
