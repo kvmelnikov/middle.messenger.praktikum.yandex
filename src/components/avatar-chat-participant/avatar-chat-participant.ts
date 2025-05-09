@@ -1,16 +1,15 @@
 import Block, { BlockProps } from "../../framework/Block";
-import connect from "../../framework/HOC";
 
 interface AvatarChatParticipantProps extends BlockProps {
   className?: string;
   src?: string;
   onClick?: (e: Event) => void;
 }
-class AvatarChatParticipant extends Block {
+export class AvatarChatParticipant extends Block {
   constructor(props: AvatarChatParticipantProps) {
     super({
       ...props,
-      src: props.src,
+      src: props.src || ".../../../public/svg/small-avatar-default.svg",
       events: {
         click: (e: Event) => {
           if (props.onClick) {
@@ -26,7 +25,3 @@ class AvatarChatParticipant extends Block {
           <img class="{{className}}" src="{{src}}"  alt="Аватар">`;
   }
 }
-
-const mapStateToProps = (state: BlockProps): AvatarChatParticipantProps => {};
-
-export default connect(AvatarChatParticipant, mapStateToProps);

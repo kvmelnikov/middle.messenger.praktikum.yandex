@@ -79,6 +79,21 @@ export class ChatService {
       });
   }
 
+  public deleteChat(chatId: number) {
+    this.http
+      .delete(`${baseUrl}/chats/`, {
+        data: JSON.stringify({ chatId }),
+        credentials: true,
+        headers: { "Content-Type": "application/json" },
+      })
+      .then(() => {
+        this.getChats();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
   public async GetChatUserToken(id: number): Promise<{ token: string }> {
     try {
       const response = await this.http.post(`${baseUrl}chats/token/${id}`, {
