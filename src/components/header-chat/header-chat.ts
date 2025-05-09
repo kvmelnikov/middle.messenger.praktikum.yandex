@@ -1,34 +1,74 @@
-import Block from "../../framework/Block";
-import { Avatar } from "../avatar/avatar";
+import Block, { BlockProps } from "../../framework/Block";
+import connect from "../../framework/HOC";
+import { AuthService } from "../../store/services/auth.service";
+import { ChatService } from "../../store/services/chat.service";
+import Avatar from "../avatar/avatar";
+import { DropDown } from "../drop-down/drop-down";
 import { SvgIcon } from "../svg-icon/svg-icon";
+import TooltipUser from "../tooltip-user/tooltip-user";
 interface HeaderChatProps {
-  avatarClass: string;
-  avatarSrc: string;
-  name: string;
+  name?: string;
 }
-export class HeaderChat extends Block {
+class HeaderChat extends Block {
+  isUserActions: false;
+
+  chatService: ChatService;
+
+  authService: AuthService;
+
   constructor(props: HeaderChatProps) {
     super({
+      ...props,
       Avatar: new Avatar({
-        className: props.avatarClass,
-        src: props.avatarSrc,
+        className: "avatar",
       }),
       SvgIcon: new SvgIcon({
         path: "../../../public/svg/more-svg.svg",
         height: "15px",
+        width: "15px",
         alt: "управление профилем",
+        onClick: () => {
+          this.toogleDropDown();
+        },
       }),
-      name: props.name,
+      DropDown: new DropDown({
+        dialog: new TooltipUser({}),
+        className: "modal-tooltip-user",
+      }),
     });
+
+    this.chatService = new ChatService();
+    this.authService = new AuthService();
+    this.authService.getUser();
+  }
+
+  toogleDropDown() {
+    const dropDown = this.getChildren("DropDown");
+
+    if (dropDown.isShow) {
+      dropDown.hide();
+    } else {
+      dropDown.show();
+    }
   }
 
   override render(): string {
     return `<header class="header-chat">
+              <section class="header-chat__user">
                 {{{Avatar}}}
                 <div class="header-chat__name-block">
-                    <p class="header-chat__name">{{name}}</p>
+                <p class="header-chat__name">{{name}}</p>
                 </div>
+              </section>
                 {{{ SvgIcon }}}
-                </header>`;
+                {{{ DropDown }}}
+            </header>`;
   }
 }
+
+const mapStateToProps = (state: BlockProps): HeaderChatProps => {
+  const name = state.user ? state.user.display_name : "";
+  return { name };
+};
+
+export default connect(HeaderChat, mapStateToProps);

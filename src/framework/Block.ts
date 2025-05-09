@@ -1,4 +1,3 @@
-import { IInput } from "../shared/input.interface";
 import {
   VALIDATION_ERRORS,
   VALIDATION_RULES,
@@ -6,17 +5,9 @@ import {
 import EventBus, { EventCallback } from "./EventBus";
 import Handlebars from "handlebars";
 
-type TBlockProps =
-  | EventCallback
-  | Block
-  | Block[]
-  | IInput
-  | string
-  | number
-  | BlokEvents
-  | boolean;
+type TBlockProps = any; // здесь  можеть быть любое значение не знаю как обойти any
 
-interface BlockProps {
+export interface BlockProps {
   [key: string]: TBlockProps;
 }
 
@@ -54,6 +45,8 @@ export default class Block {
 
   protected eventBus: () => EventBus;
 
+  public isShow: boolean;
+
   constructor(propsWithChildren: BlockProps = {}) {
     const eventBus = new EventBus();
     const { props, children, lists } =
@@ -65,6 +58,16 @@ export default class Block {
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
+  }
+
+  public setState(newState: BlockProps) {
+    const { props, lists } = this._getChildrenPropsAndProps(newState);
+    this.setProps(props);
+    this.setLists(lists);
+  }
+
+  public setEvent(eventName: string, callback: EventCallback): void {
+    this.eventBus().on(eventName, callback);
   }
 
   private _removeEvents(): void {
@@ -188,6 +191,14 @@ export default class Block {
     Object.assign(this.props, nextProps);
   };
 
+  public setLists = (nextList: BlockLists): void => {
+    if (!nextList) {
+      return;
+    }
+
+    Object.assign(this.lists, nextList);
+  };
+
   public getProps = (prop: string): TBlockProps => {
     return this.props[prop];
   };
@@ -196,12 +207,8 @@ export default class Block {
     return this.children[child];
   };
 
-  public setLists = (nextList: BlockLists): void => {
-    if (!nextList) {
-      return;
-    }
-
-    Object.assign(this.lists, nextList);
+  public getLists = (list: string): Block[] => {
+    return this.lists[list];
   };
 
   get element(): HTMLElement | null {
@@ -294,6 +301,7 @@ export default class Block {
     const content = this.getContent();
     if (content) {
       content.style.display = "block";
+      this.isShow = true;
     }
   }
 
@@ -301,42 +309,66 @@ export default class Block {
     const content = this.getContent();
     if (content) {
       content.style.display = "none";
+      this.isShow = false;
     }
   }
 
-  public onBlur(e: Event): void {
+  public onBlur(e: Event): string {
     const input = e.target as HTMLInputElement;
-    this.lists.Inputs.forEach((el) => {
-      const childInput = el;
-      if (childInput.getProps("name") === input.name) {
-        console.log(`Blur ${input.name}:`, input.pattern, input.validity);
-        if (!input.validity.valid) {
-          console.log(`Error ${input.name}:`, input.validationMessage);
+    let error: string = "";
+    if (this.lists.Inputs) {
+      this.lists.Inputs.forEach((el) => {
+        const childInput = el;
+        if (childInput.getProps("name") === input.name) {
+          console.log(`Blur ${input.name}:`, input.pattern, input.validity);
+          if (!input.validity.valid) {
+            // childInput.setProps({
+            //   error: input.validationMessage,
+            // });
+            console.log(`Blur ${input.name}:`, input.pattern, input.validity);
+            error = `Error ${input.name}: ${input.validationMessage}`;
+          }
+          if (!VALIDATION_RULES[input.name].test(input.value)) {
+            console.log(
+              `Error ${input.name}: поле должно быть`,
+              VALIDATION_ERRORS[input.name]
+            );
+          }
         }
-        if (!VALIDATION_RULES[input.name].test(input.value)) {
-          console.log(
-            `Error ${input.name}: поле должно быть`,
-            VALIDATION_ERRORS[input.name]
-          );
-        }
+      });
+    } else {
+      if (!VALIDATION_RULES[input.name].test(input.value)) {
+        error = `Error ${input.name}: ${input.validationMessage}`;
       }
-    });
+    }
+    return error;
   }
 
-  onSubmit(e: Event): void {
+  onSubmit(e: Event): Record<string, string> {
     e.preventDefault();
     const dataForm: Record<string, string> = {};
-    this.lists.Inputs.forEach((el) => {
-      const childInput = el;
-      if (
-        (childInput.getChildren("Input").getContent() as HTMLInputElement)
-          .validity.valid
-      ) {
-        dataForm[childInput.getProps("name") as string] = (
-          childInput.getChildren("Input").getContent() as HTMLInputElement
-        ).value;
+    if (this.lists.Inputs) {
+      this.lists.Inputs.forEach((el) => {
+        const childInput = el;
+        if (
+          (childInput.getChildren("Input").getContent() as HTMLInputElement)
+            .validity.valid
+        ) {
+          dataForm[childInput.getProps("name") as string] = (
+            childInput.getChildren("Input").getContent() as HTMLInputElement
+          ).value;
+        }
+      });
+    } else {
+      const fieldset = this.getChildren(
+        "Input"
+      ).getContent() as HTMLFieldSetElement;
+      const input = fieldset.querySelector("input") as HTMLInputElement;
+      if (input.validity.valid) {
+        dataForm[input.name] = input.value;
       }
-    });
-    console.log(dataForm);
+    }
+
+    return dataForm;
   }
 }
