@@ -13,6 +13,7 @@ export function prepareInputsToForm(
       class: "profile__info-line",
       name: form.name,
       label: form.label,
+
       input: new Input({
         class: "input-profile",
         placeholder: form.placeholder,

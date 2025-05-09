@@ -313,16 +313,20 @@ export default class Block {
     }
   }
 
-  public onBlur(e: Event): void {
+  public onBlur(e: Event): string {
     const input = e.target as HTMLInputElement;
+    let error: string = "";
     if (this.lists.Inputs) {
       this.lists.Inputs.forEach((el) => {
         const childInput = el;
         if (childInput.getProps("name") === input.name) {
           console.log(`Blur ${input.name}:`, input.pattern, input.validity);
           if (!input.validity.valid) {
+            // childInput.setProps({
+            //   error: input.validationMessage,
+            // });
             console.log(`Blur ${input.name}:`, input.pattern, input.validity);
-            console.log(`Error ${input.name}:`, input.validationMessage);
+            error = `Error ${input.name}: ${input.validationMessage}`;
           }
           if (!VALIDATION_RULES[input.name].test(input.value)) {
             console.log(
@@ -333,14 +337,11 @@ export default class Block {
         }
       });
     } else {
-      if (input.validity.valid) {
-        console.log(`Blur ${input.name}:`, input.pattern, input.validity);
-        console.log(`Error ${input.name}:`, input.validationMessage);
-      }
       if (!VALIDATION_RULES[input.name].test(input.value)) {
-        console.log(`Error ${input.name}:`, input.validationMessage);
+        error = `Error ${input.name}: ${input.validationMessage}`;
       }
     }
+    return error;
   }
 
   onSubmit(e: Event): Record<string, string> {

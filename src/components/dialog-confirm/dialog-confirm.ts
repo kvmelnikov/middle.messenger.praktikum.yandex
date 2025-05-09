@@ -18,6 +18,7 @@ export class DialogConfirm extends Block {
       ButtonYes: new Button({
         text: "Да",
         type: "button",
+        class: "button__apperance",
         onClick: () => {
           props.onDelete();
         },
@@ -25,6 +26,7 @@ export class DialogConfirm extends Block {
       ButtonNo: new Button({
         text: "Нет",
         type: "button",
+        class: "button__apperance",
         onClick: () => {
           props.onCancel();
         },
@@ -37,8 +39,10 @@ export class DialogConfirm extends Block {
             <div class="dialog-window">
                 <h5 class="dialog-window__heading">{{heading}}</h5>
                     Вы уверены что хотите удалить?
-                    {{{ButtonYes}}}
-                    {{{ButtonNo}}}
+                    <div class="dialog-window__buttons">
+                      {{{ButtonYes}}}
+                      {{{ButtonNo}}}
+                    </div>
             </div>
             
      `;

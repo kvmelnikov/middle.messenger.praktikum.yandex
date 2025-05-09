@@ -1,10 +1,12 @@
 import Block from "../../framework/Block";
 interface ButtonProps {
-  text: string;
+  text?: string;
+  dataAction?: string;
+  dataPage?: string;
   class?: string;
   className?: string;
-  type: string;
-  onClick: (e: Event) => void;
+  type?: string;
+  onClick?: (e: Event) => void;
 }
 
 export class Button extends Block {
@@ -23,6 +25,6 @@ export class Button extends Block {
   }
 
   protected render(): string {
-    return `<button  type="{{type}}" class=" {{class}}">{{text}}</button>`;
+    return `<button data-action="{{dataAction}}" data-page="{{dataPage}}" type="{{type}}" class="button {{class}}">{{text}}</button>`;
   }
 }

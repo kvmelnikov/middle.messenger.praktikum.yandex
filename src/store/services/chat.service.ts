@@ -71,7 +71,7 @@ export class ChatService {
         data,
         credentials: true,
       })
-      .then((res) => {
+      .then(() => {
         this.getChats();
       })
       .catch((err) => {

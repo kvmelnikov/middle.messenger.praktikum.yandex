@@ -21,7 +21,9 @@ interface ChatParticipantProps {
 }
 export class ChatParticipant extends Block {
   messagesController: MessagesController;
+
   chatService: ChatService;
+
   constructor(props: ChatParticipantProps) {
     super({
       ...props,
@@ -124,13 +126,15 @@ export class ChatParticipant extends Block {
                         <p class="chat-participant__text-message">{{title}}</p>
                     </div> 
                 <div class="chat-participant__time">
-                {{{ Time }}}
-                
-                {{{ CounterMessage }}}
-                {{{ DeleteChat }}}
+                  {{{ Time }}}
+                  {{{ CounterMessage }}}
+                </div> 
+                <div class="chat-participant__delete">
+                  {{{ DeleteChat }}}
+                </div>
                 {{{ Modal }}}
                 {{{ ModalConfirm }}}
-                </div>  
+                
             </article>`;
   }
 }

@@ -31,6 +31,9 @@ class FormProfile extends Block {
   constructor(props: FormProfileProps) {
     super({
       ...props,
+      Inputs: props.Inputs?.map((fieldset) => {
+        return fieldset;
+      }),
       Avatar: new Avatar({
         className: "avatar avatar_big",
         onClick: () => {

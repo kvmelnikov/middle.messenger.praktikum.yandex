@@ -297,11 +297,12 @@
 }
 
 .chat-participant {
+  align-items: center;
   border-top: var(--border-panel);
   cursor: pointer;
   display: grid;
   gap: 10px;
-  grid-template-columns: 47px 193px 24px;
+  grid-template-columns: 47px 169px 24px 24px;
   margin: 0;
   padding: 12px 10px;
 
@@ -623,6 +624,13 @@
     font-size: 15px;
     font-weight: 500;
     line-height: 20px;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    width: 50%;
   }
 
   &__info-line {
