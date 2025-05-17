@@ -10,7 +10,7 @@ export enum WSEvents {
 export default class WSTransport extends EventBus {
   private socket: WebSocket | null = null;
 
-  private ping: number;
+  private ping: NodeJS.Timeout | number;
 
   constructor(private websocketUrl: string) {
     super();
@@ -21,7 +21,7 @@ export default class WSTransport extends EventBus {
       throw new Error("Socket is not connected");
     }
 
-    (this.socket).send(JSON.stringify(data));
+    this.socket.send(JSON.stringify(data));
   }
 
   public connect(): Promise<void> {
