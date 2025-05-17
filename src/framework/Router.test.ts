@@ -35,7 +35,7 @@ describe("Router", () => {
   describe("use()", () => {
     test("should add route", () => {
       router.use("/test", MockBlock);
-      expect(router["routes"]).toHaveLength(1);
+      expect(router.routes).toHaveLength(1);
     });
 
     test("should return router instance for chaining", () => {
@@ -54,7 +54,7 @@ describe("Router", () => {
 
     test("should call _onRoute with current pathname", () => {
       const mockOnRoute = jest.fn();
-      router["_onRoute"] = mockOnRoute;
+      router._onRoute = mockOnRoute;
       router.start();
       expect(mockOnRoute).toHaveBeenCalledWith(window.location.pathname);
     });
@@ -64,7 +64,7 @@ describe("Router", () => {
     test("should change history and call _onRoute", () => {
       const pushStateSpy = jest.spyOn(window.history, "pushState");
       const mockOnRoute = jest.fn();
-      router["_onRoute"] = mockOnRoute;
+      router._onRoute = mockOnRoute;
 
       router.go("/test");
       expect(pushStateSpy).toHaveBeenCalledWith({}, "", "/test");
@@ -96,8 +96,8 @@ describe("Router", () => {
         render: mockRender,
         leave: jest.fn(),
       };
-      router["routes"] = [mockRoute as unknown as Route];
-      router["_onRoute"]("/test");
+      router.routes = [mockRoute as unknown as Route];
+      router._onRoute("/test");
       expect(mockRender).toHaveBeenCalled();
     });
 
@@ -108,8 +108,8 @@ describe("Router", () => {
         render: mockRender,
         leave: jest.fn(),
       };
-      router["routes"] = [mockRoute as unknown as Route];
-      router["_onRoute"]("/nonexistent");
+      router.routes = [mockRoute as unknown as Route];
+      router._onRoute("/nonexistent");
       expect(mockRender).not.toHaveBeenCalled();
     });
   });
@@ -119,8 +119,8 @@ describe("Router", () => {
       const mockRoute = {
         match: jest.fn().mockReturnValue(true),
       };
-      router["routes"] = [mockRoute as unknown as Route];
-      const result = router["getRoute"]("/test");
+      router.routes = [mockRoute as unknown as Route];
+      const result = router.getRoute("/test");
       expect(result).toBe(mockRoute);
     });
 
@@ -128,8 +128,8 @@ describe("Router", () => {
       const mockRoute = {
         match: jest.fn().mockReturnValue(false),
       };
-      router["routes"] = [mockRoute as unknown as Route];
-      const result = router["getRoute"]("/nonexistent");
+      router.routes = [mockRoute as unknown as Route];
+      const result = router.getRoute("/nonexistent");
       expect(result).toBeUndefined();
     });
   });
@@ -148,7 +148,7 @@ describe("Route", () => {
     const mockRender = jest.fn();
     route.render = mockRender;
     route.navigate("/test");
-    expect(route["_pathname"]).toBe("/test");
+    expect(route._pathname).toBe("/test");
     expect(mockRender).toHaveBeenCalled();
   });
 
@@ -161,14 +161,14 @@ describe("Route", () => {
 
   test("leave() should hide and clear block", () => {
     const mockHide = jest.fn();
-    route["_block"] = { hide: mockHide } as unknown as Block;
+    route._block = { hide: mockHide } as unknown as Block;
     route.leave();
     expect(mockHide).toHaveBeenCalled();
-    expect(route["_block"]).toBeNull();
+    expect(route._block).toBeNull();
   });
 
   test("leave() should do nothing when no block", () => {
-    route["_block"] = null;
+    route._block = null;
     expect(() => route.leave()).not.toThrow();
   });
 

@@ -6,7 +6,6 @@ import Block from "./Block";
 describe("Block", () => {
   let block: Block;
   const initialProps = { testProp: "initial" };
-  const mockChildBlock = new (class extends Block {})();
 
   beforeEach(() => {
     block = new (class extends Block {
