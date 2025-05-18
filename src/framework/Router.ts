@@ -18,7 +18,7 @@ interface RouteProps {
   rootQuery: string;
 }
 
-class Route {
+export class Route {
   private _pathname: string;
 
   private _blockClass: typeof Block;

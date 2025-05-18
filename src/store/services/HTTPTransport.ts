@@ -1,4 +1,4 @@
-enum Methods {
+export enum Methods {
   GET = "GET",
   POST = "POST",
   PUT = "PUT",
@@ -38,7 +38,7 @@ export class HTTPTransport {
 
   patch = this.createMethod(Methods.PATCH);
 
-  private request<R>(
+  request<R>(
     url: string,
     options: RequestOptions<QueryParams>
   ): Promise<R | void> {
